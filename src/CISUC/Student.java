@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Student extends Investigator {
     private String thesisName;
-    private Date thesisDate;
+    private String thesisDate;
     private String professor;
 
-    public Student(String name, String email, InvestigationTeam investigationGroup, String thesisName, Date thesisDate, String professor) {
+    public Student(String name, String email, String investigationGroup, String thesisName, String thesisDate, String professor) {
         super(name, email, investigationGroup);
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
@@ -22,11 +22,11 @@ public class Student extends Investigator {
         this.thesisName = thesisName;
     }
 
-    public Date getThesisDate() {
+    public String getThesisDate() {
         return thesisDate;
     }
 
-    public void setThesisDate(Date thesisDate) {
+    public void setThesisDate(String thesisDate) {
         this.thesisDate = thesisDate;
     }
 
@@ -36,5 +36,14 @@ public class Student extends Investigator {
 
     public void setProfessor(String professor) {
         this.professor = professor;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "thesisName='" + thesisName + '\'' +
+                ", thesisDate='" + thesisDate + '\'' +
+                ", professor='" + professor + '\'' +
+                '}';
     }
 }

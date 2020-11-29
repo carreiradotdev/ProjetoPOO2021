@@ -25,4 +25,12 @@ public class Book extends Work {
     public void setIsbn(int isbn) {
         this.isbn = isbn;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "editor='" + editor + '\'' +
+                ", isbn=" + isbn +
+                '}';
+    }
 }

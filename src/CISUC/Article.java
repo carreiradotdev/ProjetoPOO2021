@@ -35,4 +35,13 @@ public class Article extends Work {
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "journalName='" + journalName + '\'' +
+                ", issueNum=" + issueNum +
+                ", issueDate='" + issueDate + '\'' +
+                '}';
+    }
 }

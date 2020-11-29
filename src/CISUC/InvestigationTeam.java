@@ -34,4 +34,13 @@ public class InvestigationTeam {
     public void setHeadLeader(Investigator headLeader) {
         this.headLeader = headLeader;
     }
+
+    @Override
+    public String toString() {
+        return "InvestigationTeam{" +
+                "group='" + group + '\'' +
+                ", acronym='" + acronym + '\'' +
+                ", headLeader=" + headLeader +
+                '}';
+    }
 }

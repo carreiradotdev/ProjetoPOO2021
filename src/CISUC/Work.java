@@ -66,4 +66,16 @@ public class Work {
     public void setAudience(int audience) {
         this.audience = audience;
     }
+
+    @Override
+    public String toString() {
+        return "Work{" +
+                "author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", yearPublished=" + yearPublished +
+                ", type='" + type + '\'' +
+                ", audience=" + audience +
+                '}';
+    }
 }

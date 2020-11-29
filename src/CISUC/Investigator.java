@@ -3,9 +3,9 @@ package CISUC;
 public class Investigator {
     private String name;
     private String email;
-    private InvestigationTeam investigationGroup;
+    private String investigationGroup;
 
-    public Investigator(String name, String email, InvestigationTeam investigationGroup) {
+    public Investigator(String name, String email, String investigationGroup) {
         this.name = name;
         this.email = email;
         this.investigationGroup = investigationGroup;
@@ -27,11 +27,20 @@ public class Investigator {
         this.email = email;
     }
 
-    public InvestigationTeam getInvestigationGroup() {
+    public String getInvestigationGroup() {
         return investigationGroup;
     }
 
-    public void setInvestigationGroup(InvestigationTeam investigationGroup) {
+    public void setInvestigationGroup(String investigationGroup) {
         this.investigationGroup = investigationGroup;
+    }
+
+    @Override
+    public String toString() {
+        return "Investigator{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", investigationGroup='" + investigationGroup + '\'' +
+                '}';
     }
 }

@@ -25,4 +25,12 @@ public class Conference extends Work {
     public void setArticleNum(int articleNum) {
         this.articleNum = articleNum;
     }
+
+    @Override
+    public String toString() {
+        return "Conference{" +
+                "conference='" + conference + '\'' +
+                ", articleNum=" + articleNum +
+                '}';
+    }
 }

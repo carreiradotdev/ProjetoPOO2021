@@ -35,4 +35,13 @@ public class Chapter extends Book{
     public void setEndingPage(int endingPage) {
         this.endingPage = endingPage;
     }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "chapterName='" + chapterName + '\'' +
+                ", startingPage=" + startingPage +
+                ", endingPage=" + endingPage +
+                '}';
+    }
 }
