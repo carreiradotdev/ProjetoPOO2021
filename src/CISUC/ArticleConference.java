@@ -1,13 +1,18 @@
 package CISUC;
 
-public class Conference extends Work {
+public class ArticleConference extends Work {
     private String conference;
     private int articleNum;
+    private String location;
 
-    public Conference(String author, String title, String keywords, int yearPublished, String type, int audience, String conference, int articleNum) {
+    public ArticleConference(String author, String title, String keywords, int yearPublished, String type, int audience, String conference, int articleNum, String location) {
         super(author, title, keywords, yearPublished, type, audience);
         this.conference = conference;
         this.articleNum = articleNum;
+        this.location = location;
+        if (audience >= 500) setImpactValue('A');
+        if (audience < 500 && audience >= 200) setImpactValue('B');
+        else setImpactValue('C');
     }
 
     public String getConference() {
@@ -30,7 +35,7 @@ public class Conference extends Work {
     public String toString() {
         return "Conference{" +
                 "conference='" + conference + '\'' +
-                ", articleNum=" + articleNum +
+                ", articleNum=" + articleNum + ", impact=" + super.getImpactValue() +
                 '}';
     }
 }

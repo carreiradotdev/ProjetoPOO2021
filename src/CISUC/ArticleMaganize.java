@@ -1,15 +1,18 @@
 package CISUC;
 
-public class Article extends Work {
+public class ArticleMaganize extends Work {
     private String journalName;
     private int issueNum;
     private String issueDate;
 
-    public Article(String author, String title, String keywords, int yearPublished, String type, int audience, String journalName, int issueNum, String issueDate) {
+    public ArticleMaganize(String author, String title, String keywords, int yearPublished, String type, int audience, String journalName, int issueNum, String issueDate) {
         super(author, title, keywords, yearPublished, type, audience);
         this.journalName = journalName;
         this.issueNum = issueNum;
         this.issueDate = issueDate;
+        if (audience >= 1000) setImpactValue('A');
+        if (audience < 1000 && audience >= 500) setImpactValue('B');
+        else setImpactValue('C');
     }
 
     public String getJournalName() {
@@ -38,10 +41,10 @@ public class Article extends Work {
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "ArticleMagazine{" +
                 "journalName='" + journalName + '\'' +
                 ", issueNum=" + issueNum +
-                ", issueDate='" + issueDate + '\'' +
+                ", issueDate='" + issueDate + '\'' + ", impact=" + super.getImpactValue() +
                 '}';
     }
 }

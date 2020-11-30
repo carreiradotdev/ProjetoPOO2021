@@ -9,6 +9,7 @@ public class Work {
     private int yearPublished;
     private String type;
     private int audience;
+    private char impactValue;
 
     public Work(String author, String title, String keywords, int yearPublished, String type, int audience) {
         this.author = author;
@@ -17,6 +18,7 @@ public class Work {
         this.yearPublished = yearPublished;
         this.type = type;
         this.audience = audience;
+        this.impactValue = ' ';
     }
 
     public String getAuthor() {
@@ -65,6 +67,14 @@ public class Work {
 
     public void setAudience(int audience) {
         this.audience = audience;
+    }
+
+    public char getImpactValue() {
+        return impactValue;
+    }
+
+    public void setImpactValue(char impactValue) {
+        this.impactValue = impactValue;
     }
 
     @Override

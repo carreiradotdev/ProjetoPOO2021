@@ -19,33 +19,61 @@ public class CISUC implements Serializable{
     }
 
     public void firstRun() {
-        readFromFile("efetive.csv", "publicacoes.csv", "pessoas.csv");
+        readFromFile("EfetiveMemberList.csv", "ArticleConferenceList.csv", "BookChapterList.csv", "BookConferenceList.csv", "StudentList.csv", "ArticleMaganizeList.csv");
         System.out.println(investigators);
         System.out.println(works);
+        totalMem();
     }
 
-    public void readFromFile(String efetive, String publicacoes, String pessoas) {
+    public void readFromFile(String efetiveFile, String maganizeFile, String chapterFile, String conferenceFile, String studentFile, String articleMaganizeFile ) {
         String line;
         try {
-            BufferedReader br1 = new BufferedReader(new FileReader(efetive));
-            BufferedReader br2 = new BufferedReader(new FileReader(publicacoes));
-            BufferedReader br3 = new BufferedReader(new FileReader(pessoas));
+            BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
+            BufferedReader br2 = new BufferedReader(new FileReader(maganizeFile));
+            BufferedReader br3 = new BufferedReader(new FileReader(chapterFile));
+            BufferedReader br4 = new BufferedReader(new FileReader(conferenceFile));
+            BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
+            BufferedReader br6 = new BufferedReader(new FileReader(articleMaganizeFile));
             while((line = br1.readLine()) != null) {
                 String[] split = line.split(",");
                 investigators.add(new EfetiveMember(split[0],split[1],split[2],split[3],Long.parseLong(split[4])));
             }
+            System.out.println("Leitura bem-sucedida");
             while((line = br2.readLine()) != null) {
                 String[] split = line.split(",");
-                works.add(new Chapter(split[0],split[1],split[2],Integer.parseInt(split[3]),split[4],Integer.parseInt(split[5]),split[6],Integer.parseInt(split[7]),split[8],Integer.parseInt(split[9]),Integer.parseInt(split[10])));
+                works.add(new ArticleMaganize(split[0],split[1],split[2],Integer.parseInt(split[3]),split[4],Integer.parseInt(split[5]),split[6],Integer.parseInt(split[7]),split[8]));
             }
+            System.out.println("Leitura bem-sucedida");
             while((line = br3.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new BookChapter(split[0],split[1],split[2],Integer.parseInt(split[3]),split[4],Integer.parseInt(split[5]),split[6],Integer.parseInt(split[7]),split[8],Integer.parseInt(split[9]),Integer.parseInt(split[10])));
+            }
+            System.out.println("Leitura bem-sucedida");
+            while((line = br4.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new ArticleConference(split[0], split[1], split[2], Integer.parseInt(split[3]), split[4], Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
+            }
+            System.out.println("Leitura bem-sucedida");
+            while((line = br5.readLine()) != null) {
                 String[] split = line.split(",");
                 investigators.add(new Student(split[0], split[1], split[2], split[3], split[4], split[5]));
             }
+            System.out.println("Leitura bem-sucedida");
+            while((line = br6.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new ArticleMaganize(split[0], split[1], split[2], Integer.parseInt(split[3]), split[4], Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
+            }
+            System.out.println("Leitura bem-sucedida");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void totalMem() {
+        int total = investigators.size();
+        System.out.println(total);
+    }
+
 }

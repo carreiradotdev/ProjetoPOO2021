@@ -8,6 +8,9 @@ public class Book extends Work {
         super(author, title, keywords, yearPublished, type, audience);
         this.editor = editor;
         this.isbn = isbn;
+        if (audience >= 10000) setImpactValue('A');
+        if (audience < 10000 && audience >= 5000) setImpactValue('B');
+        else setImpactValue('C');
     }
 
     public String getEditor() {
