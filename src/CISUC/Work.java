@@ -1,23 +1,26 @@
 package CISUC;
 
-import java.util.ArrayList;
-
 public class Work {
     private String author;
     private String title;
     private String keywords;
     private int yearPublished;
-    private String type;
+    private int type;
     private int audience;
     private char impactValue;
     private String publicationName;
 
-    public Work(String author, String title, String keywords, int yearPublished, String type, int audience) {
+    public static int TYPE_ARTICLE_CONFERENCE = 0;
+    public static int TYPE_ARTICLE_MAGAZINE = 1;
+    public static int TYPE_BOOK_ARTICLE_CONFERENCE = 2;
+    public static int TYPE_BOOK_CHAPTER = 3;
+    public static int TYPE_BOOK = 4;
+
+    public Work(String author, String title, String keywords, int yearPublished, int audience) {
         this.author = author;
         this.title = title;
         this.keywords = keywords;
         this.yearPublished = yearPublished;
-        this.type = type;
         this.audience = audience;
         this.impactValue = ' ';
     }
@@ -54,11 +57,11 @@ public class Work {
         this.yearPublished = yearPublished;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -78,6 +81,14 @@ public class Work {
         this.impactValue = impactValue;
     }
 
+    public String getPublicationName() {
+        return publicationName;
+    }
+
+    public void setPublicationName(String publicationName) {
+        this.publicationName = publicationName;
+    }
+
     @Override
     public String toString() {
         return "Work{" +
@@ -86,7 +97,7 @@ public class Work {
                 ", keywords='" + keywords + '\'' +
                 ", yearPublished=" + yearPublished +
                 ", type='" + type + '\'' +
-                ", audience=" + audience + ", publication=" + publicationName +
+                ", audience=" + audience +
                 '}';
     }
 }

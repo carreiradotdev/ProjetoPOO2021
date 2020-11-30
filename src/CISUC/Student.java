@@ -40,9 +40,8 @@ public class Student extends Investigator {
 
     public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
-        return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
+        return nameSplit[0].charAt(0) + ". " + nameSplit[nameSplit.length - 1];
     }
-
 
  @Override
     public String toString() {

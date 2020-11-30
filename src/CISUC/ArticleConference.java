@@ -5,14 +5,15 @@ public class ArticleConference extends Work {
     private int articleNum;
     private String location;
 
-    public ArticleConference(String author, String title, String keywords, int yearPublished, String type, int audience, String conference, int articleNum, String location) {
-        super(author, title, keywords, yearPublished, type, audience);
+    public ArticleConference(String author, String title, String keywords, int yearPublished, int audience, String conference, int articleNum, String location) {
+        super(author, title, keywords, yearPublished, audience);
         this.conference = conference;
         this.articleNum = articleNum;
         this.location = location;
         if (audience >= 500) setImpactValue('A');
         if (audience < 500 && audience >= 200) setImpactValue('B');
         else setImpactValue('C');
+        setType(0);
     }
 
     public String getConference() {

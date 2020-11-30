@@ -5,14 +5,14 @@ public class BookArticleConference extends Book {
     private int articleNum;
     private int count;
 
-    public BookArticleConference(String author, String title, String keywords, int yearPublished, String type, int audience, String editor, int isbn, String conferenceName, int articleNum) {
-        super(author, title, keywords, yearPublished, type, audience, editor, isbn);
+    public BookArticleConference(String author, String title, String keywords, int yearPublished, int audience, String editor, int isbn, String conferenceName, int articleNum) {
+        super(author, title, keywords, yearPublished, audience, editor, isbn);
         this.conferenceName = conferenceName;
         this.articleNum = articleNum;
         if (audience >= 7500) setImpactValue('A');
         if (audience < 75000 && audience >= 2500) setImpactValue('B');
         else setImpactValue('C');
-        count++;
+        setType(2);
     }
 
     public String getConferenceName() {

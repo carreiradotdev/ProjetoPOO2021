@@ -4,13 +4,14 @@ public class Book extends Work {
     private String editor;
     private int isbn;
 
-    public Book(String author, String title, String keywords, int yearPublished, String type, int audience, String editor, int isbn) {
-        super(author, title, keywords, yearPublished, type, audience);
+    public Book(String author, String title, String keywords, int yearPublished, int audience, String editor, int isbn) {
+        super(author, title, keywords, yearPublished, audience);
         this.editor = editor;
         this.isbn = isbn;
         if (audience >= 10000) setImpactValue('A');
         if (audience < 10000 && audience >= 5000) setImpactValue('B');
         else setImpactValue('C');
+        setType(4);
     }
 
     public String getEditor() {

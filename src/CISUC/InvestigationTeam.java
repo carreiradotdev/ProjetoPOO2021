@@ -38,8 +38,7 @@ public class InvestigationTeam{
     @Override
     public String toString() {
         return "InvestigationTeam{" +
-                "group='" + group + '\'' +
-                ", acronym='" + acronym + '\'' +
-                ", headLeader=" + headLeader + '}';
+                "group='" + group + '\'' + ", acronym='" + acronym + '\'' +
+                ", headLeader=" + headLeader.getName() + '}';
     }
 }

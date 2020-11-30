@@ -62,7 +62,7 @@ public class Investigator {
         return "Investigator{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", investigationGroup='" + investigationGroup + '\'' + ", publication='" + publicationName + '\'' +
+                ", investigationGroup='" + investigationGroup + '\'' +
                 '}';
     }
 }
