@@ -8,9 +8,6 @@ public class CISUC implements Serializable {
     private ArrayList<InvestigationTeam> investigationTeams;
     private ArrayList<Work> works;
 
-    private static int TYPE_STUDENT = 0;
-    private static int TYPE_EFETIVE = 1;
-
     private CISUC() {
         investigators = new ArrayList<>();
         investigationTeams = new ArrayList<>();
@@ -99,7 +96,7 @@ public class CISUC implements Serializable {
             System.out.println("There are no investigators.");
         }
         for (Investigator investigator : investigators) {
-            if (investigator.getType() == TYPE_STUDENT) {
+            if (investigator.getType() == (EfetiveMember.TYPE_STUDENT)) {
                 System.out.printf("Student: %s, \"%s\", %s\n", investigator.getName(), investigator.getEmail(), investigator.getInvestigationGroup());
             } else {
                 System.out.printf("Efetive Member: %s, \"%s\", %s\n", investigator.getName(), investigator.getEmail(), investigator.getInvestigationGroup());
@@ -125,6 +122,7 @@ public class CISUC implements Serializable {
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
         }
+        System.out.println("artigos a partir de 2015");
         for (Work work : works) {
             if (work.getYearPublished() >= 2015) {
                 System.out.println(work);

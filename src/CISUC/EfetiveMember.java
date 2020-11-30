@@ -35,7 +35,7 @@ public class EfetiveMember extends Investigator{
 
     @Override
     public String toString() {
-        return "EfetiveMember{" +
+        return "EfetiveMember{" + "name" + getName() + '\'' +
                 "room='" + room + '\'' +
                 ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() +
                 '}';
