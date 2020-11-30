@@ -2,11 +2,14 @@ package CISUC;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CISUC implements Serializable {
     private ArrayList<Investigator> investigators;
     private ArrayList<InvestigationTeam> investigationTeams;
     private ArrayList<Work> works;
+
+    public static final Scanner sc = new Scanner(System.in);
 
     private CISUC() {
         investigators = new ArrayList<>();
@@ -16,7 +19,7 @@ public class CISUC implements Serializable {
 
     public static void main(String[] args) {
         CISUC cisuc = new CISUC();
-        cisuc.firstRun();
+        cisuc.run();
     }
 
     public void firstRun() {
@@ -25,6 +28,38 @@ public class CISUC implements Serializable {
         printInvestigators();
         print5years();
         listTeamWork();
+        countMembers();
+        countWorks();
+        return;
+    }
+
+    public void run() {
+        do {
+            System.out.println("1: Inicial Run.");
+            System.out.println("2: Shows CISUC indicators.");
+
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    firstRun();
+                    break;
+                case 2:
+                    option2();
+                    break;
+                case 3:
+                    choice = sc.nextInt();
+                    switch (choice) {
+                        case 1:
+
+                    }
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
+        } while (true) ;
+    }
+
+    private void option2() {
         countMembers();
         countWorks();
     }
