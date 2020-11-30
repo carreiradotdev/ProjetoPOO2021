@@ -5,6 +5,10 @@ public class Investigator {
     private String email;
     private String investigationGroup;
     private String publicationName;
+    private int type;
+
+    public static int TYPE_STUDENT = 0;
+    public static int TYPE_EFETIVE = 1;
 
     public Investigator(String name, String email, String investigationGroup) {
         this.name = name;
@@ -43,6 +47,14 @@ public class Investigator {
 
     public void setPublicationName(String publicationName) {
         this.publicationName = publicationName;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override

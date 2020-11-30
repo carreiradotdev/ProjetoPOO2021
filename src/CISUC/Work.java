@@ -78,14 +78,6 @@ public class Work {
         this.impactValue = impactValue;
     }
 
-    public void setPubName(Investigator investigator) {
-        this.publicationName = investigator.getPublicationName();
-    }
-
-    public String getPublicationName() {
-        return publicationName;
-    }
-
     @Override
     public String toString() {
         return "Work{" +

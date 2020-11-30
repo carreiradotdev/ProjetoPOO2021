@@ -9,6 +9,7 @@ public class EfetiveMember extends Investigator{
         this.room = room;
         this.cellphone = cellphone;
         setPublicationName(createPublicationName(name));
+        setType(TYPE_EFETIVE);
     }
 
     public String getRoom() {

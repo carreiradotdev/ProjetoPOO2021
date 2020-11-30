@@ -39,12 +39,12 @@ public class ArticleMaganize extends Work {
         this.issueDate = issueDate;
     }
 
-/*    @Override
+    @Override
     public String toString() {
         return "ArticleMagazine{" +
                 "journalName='" + journalName + '\'' +
                 ", issueNum=" + issueNum +
-                ", issueDate='" + issueDate + '\'' + ", impact=" + super.getImpactValue() +
+                ", issueDate='" + issueDate + '\'' + ", impact=" + super.getImpactValue() + ", publication=" +
                 '}';
-    }*/
+    }
 }

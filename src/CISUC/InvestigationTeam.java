@@ -40,7 +40,6 @@ public class InvestigationTeam{
         return "InvestigationTeam{" +
                 "group='" + group + '\'' +
                 ", acronym='" + acronym + '\'' +
-                ", headLeader=" + headLeader.getName() +
-                '}';
+                ", headLeader=" + headLeader + '}';
     }
 }

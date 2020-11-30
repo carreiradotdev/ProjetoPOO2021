@@ -11,6 +11,7 @@ public class Student extends Investigator {
         this.thesisDate = thesisDate;
         this.professor = professor;
         setPublicationName(createPublicationName(name));
+        setType(TYPE_STUDENT);
     }
 
     public String getThesisName() {
@@ -39,10 +40,11 @@ public class Student extends Investigator {
 
     public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
-        return nameSplit[0].charAt(0) + ". " + nameSplit[nameSplit.length - 1];
+        return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
     }
 
-    @Override
+
+ @Override
     public String toString() {
         return "Student{" +
                 "thesisName='" + thesisName + '\'' +
