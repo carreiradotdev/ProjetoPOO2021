@@ -47,10 +47,32 @@ public class CISUC implements Serializable {
                     option2();
                     break;
                 case 3:
+                    System.out.println("1: Adaptive Computation\n" +
+                            "2: Cognitive and Media Systems\n" +
+                            "3: Evolutionary and Complex Systems\n" +
+                            "4: Information Systems\n" +
+                            "5: Communications and Telematics\n" +
+                            "6: Software and Systems Engineering\n");
                     choice = sc.nextInt();
                     switch (choice) {
                         case 1:
-
+                            for (Work work: works) {
+                                if (work.getYearPublished() >= 2015 && work.)
+                            }
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        default:
+                            System.out.println("Invalid choice!");
+                            break;
                     }
                 default:
                     System.out.println("Invalid choice!");
