@@ -4,7 +4,7 @@ public class EfetiveMember extends Investigator{
     private String room;
     private long cellphone;
 
-    public EfetiveMember(String name, String email, String investigationGroup, String room, long cellphone) {
+    public EfetiveMember(String name, String email, InvestigationTeam investigationGroup, String room, long cellphone) {
         super(name, email, investigationGroup);
         this.room = room;
         this.cellphone = cellphone;
@@ -37,7 +37,6 @@ public class EfetiveMember extends Investigator{
     public String toString() {
         return "EfetiveMember{" + "name" + getName() + '\'' +
                 "room='" + room + '\'' +
-                ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() +
-                '}';
+                ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() + ", investigationGroup=" + getInvestigationGroup() +"}\n";
     }
 }

@@ -39,9 +39,26 @@ public class CISUC implements Serializable {
             BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
             BufferedReader br6 = new BufferedReader(new FileReader(articleConferenceFile));
             BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
+            while ((line = br7.readLine()) != null) {
+                String[] split = line.split(",");
+                boolean found = false;
+                for (Investigator i: investigators) {
+                    if (i.getName().equalsIgnoreCase(split[2])) {
+                        found = true;
+                        }
+                    investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
+                    }
+                if (!found) {
+                    EfetiveMember temp = new EfetiveMember(split[2],null,null,null,0);
+                    investigators.add(temp);
+                    investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
+                    investigators.remove(temp);
+                }
+            }
+            System.out.println("Leitura bem-sucedida");
             while ((line = br1.readLine()) != null) {
                 String[] split = line.split(",");
-                investigators.add(new EfetiveMember(split[0], split[1], split[2], split[3], Long.parseLong(split[4])));
+                investigators.add(new EfetiveMember(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
             }
             System.out.println("Leitura bem-sucedida");
             while ((line = br2.readLine()) != null) {
@@ -61,17 +78,12 @@ public class CISUC implements Serializable {
             System.out.println("Leitura bem-sucedida");
             while ((line = br5.readLine()) != null) {
                 String[] split = line.split(",");
-                investigators.add(new Student(split[0], split[1], split[2], split[3], split[4], split[5]));
+                investigators.add(new Student(split[0], split[1], getTeam(split[2]), split[3], split[4], split[5]));
             }
             System.out.println("Leitura bem-sucedida");
             while ((line = br6.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new ArticleConference(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], Integer.parseInt(split[6]), split[7]));
-            }
-            System.out.println("Leitura bem-sucedida");
-            while ((line = br7.readLine()) != null) {
-                String[] split = line.split(",");
-                investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
             }
             System.out.println("Leitura bem-sucedida");
             System.err.println("LEITURA CONCLUÍDA.");
@@ -111,15 +123,18 @@ public class CISUC implements Serializable {
 
     private void printInvestigators() {
         if (investigators.isEmpty()) {
-            System.out.println("There are no investigators.");
+            System.out.println("There are no works in record.");
         }
-        for (Investigator investigator : investigators) {
-            if (investigator.getType() == (Investigator.TYPE_STUDENT)) {
-                System.out.printf("Student: %s, \"%s\", %s\n", investigator.getName(), investigator.getEmail(), investigator.getInvestigationGroup());
-            } else {
-                System.out.printf("Efetive Member: %s, \"%s\", %s\n", investigator.getName(), investigator.getEmail(), investigator.getInvestigationGroup());
+        System.err.println("LISTING INVESTIGATORS IN RECORD:");
+        for (Investigator investigator: investigators) {
+            try {
+                InvestigationTeam i = getTeam(investigator);
+                System.out.printf("| %s | %s | %s |\n", investigator.getName(), investigator.getEmail(), i.getAcronym());
+            } catch (NullPointerException e) {
+                System.out.println("ERROR.");  //TODO: acabar esta função.
             }
         }
+        System.err.println("DONE LISTING.");
     }
 
     private void printWorks() {
@@ -166,6 +181,24 @@ public class CISUC implements Serializable {
         for (Investigator investigator : investigators) {
             if (investigator.getName().equalsIgnoreCase(work.getAuthor())) {
                 return investigator;
+            }
+        }
+        return null;
+    }
+
+    private InvestigationTeam getTeam(String group) {
+        for(InvestigationTeam team : investigationTeams) {
+            if (team.getAcronym().equalsIgnoreCase(group)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    private InvestigationTeam getTeam(Investigator investigator) {
+        for(InvestigationTeam team : investigationTeams) {
+            if (team == investigator.getInvestigationGroup()) {
+                return team;
             }
         }
         return null;

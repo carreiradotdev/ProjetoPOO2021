@@ -3,14 +3,14 @@ package CISUC;
 public class Investigator {
     private String name;
     private String email;
-    private String investigationGroup;
+    private InvestigationTeam investigationGroup;
     private String publicationName;
     private int type;
 
     public static int TYPE_STUDENT = 0;
     public static int TYPE_EFETIVE = 1;
 
-    public Investigator(String name, String email, String investigationGroup) {
+    public Investigator(String name, String email, InvestigationTeam investigationGroup) {
         this.name = name;
         this.email = email;
         this.investigationGroup = investigationGroup;
@@ -33,11 +33,11 @@ public class Investigator {
         this.email = email;
     }
 
-    public String getInvestigationGroup() {
+    public InvestigationTeam getInvestigationGroup() {
         return investigationGroup;
     }
 
-    public void setInvestigationGroup(String investigationGroup) {
+    public void setInvestigationGroup(InvestigationTeam investigationGroup) {
         this.investigationGroup = investigationGroup;
     }
 

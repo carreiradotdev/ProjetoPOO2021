@@ -5,7 +5,7 @@ public class Student extends Investigator {
     private String thesisDate;
     private String professor;
 
-    public Student(String name, String email, String investigationGroup, String thesisName, String thesisDate, String professor) {
+    public Student(String name, String email, InvestigationTeam investigationGroup, String thesisName, String thesisDate, String professor) {
         super(name, email, investigationGroup);
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
@@ -48,7 +48,7 @@ public class Student extends Investigator {
         return "Student{" +
                 "thesisName='" + thesisName + '\'' +
                 ", thesisDate='" + thesisDate + '\'' +
-                ", professor='" + professor + '\'' +  ", publicationName=" + getPublicationName() +
+                ", professor='" + professor + '\'' +  ", publicationName=" + getPublicationName() + ", merda=" + getInvestigationGroup().getAcronym() +
                 '}';
     }
 }

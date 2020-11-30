@@ -39,6 +39,6 @@ public class InvestigationTeam{
     public String toString() {
         return "InvestigationTeam{" +
                 "group='" + group + '\'' + ", acronym='" + acronym + '\'' +
-                ", headLeader=" + headLeader.getName() + '}';
+                ", headLeader="  + '}';
     }
 }
