@@ -19,16 +19,17 @@ public class CISUC implements Serializable{
     }
 
     public void firstRun() {
-        readFromFile("EfetiveMemberList.csv", "ArticleConferenceList.csv", "BookChapterList.csv", "BookConferenceList.csv", "StudentList.csv", "ArticleMaganizeList.csv");
+        readFromFile("EfetiveMemberList.csv", "ArticleConferenceList.csv", "BookChapterList.csv", "BookConferenceList.csv", "StudentList.csv", "ArticleMaganizeList.csv", "InvestigationTeamList.csv");
         System.out.println(works);
         System.out.println(investigators);
         printWorks();
         printInvestigators();
         totalMem();
         print5years();
+        listTeamWork();
     }
 
-    public void readFromFile(String efetiveFile, String maganizeFile, String chapterFile, String conferenceFile, String studentFile, String articleMaganizeFile ) {
+    public void readFromFile(String efetiveFile, String maganizeFile, String chapterFile, String conferenceFile, String studentFile, String articleMaganizeFile, String InvestigationTeamFile) {
         String line;
         try {
             BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
@@ -37,6 +38,7 @@ public class CISUC implements Serializable{
             BufferedReader br4 = new BufferedReader(new FileReader(conferenceFile));
             BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
             BufferedReader br6 = new BufferedReader(new FileReader(articleMaganizeFile));
+            BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
             while((line = br1.readLine()) != null) {
                 String[] split = line.split(",");
                 investigators.add(new EfetiveMember(split[0],split[1],split[2],split[3],Long.parseLong(split[4])));
@@ -65,6 +67,11 @@ public class CISUC implements Serializable{
             while((line = br6.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new ArticleMaganize(split[0], split[1], split[2], Integer.parseInt(split[3]), split[4], Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
+            }
+            System.out.println("Leitura bem-sucedida");
+            while((line = br7.readLine()) != null) {
+                String[] split = line.split(",");
+                investigationTeams.add(new InvestigationTeam(split[0], split[1], split[2]));
             }
             System.out.println("Leitura bem-sucedida");
         } catch (FileNotFoundException e) {
@@ -101,7 +108,7 @@ public class CISUC implements Serializable{
             try {
                 System.out.printf("%s\n", investigator.getPublicationName());
             } catch (NullPointerException e) {
-                System.out.println("Investigador não existe");
+                System.out.println("Investigador não existe");  //TODO: acabar esta função.
             }
         }
     }
@@ -126,6 +133,12 @@ public class CISUC implements Serializable{
             }
         }
         return null;
+    }
+
+    private void listTeamWork() {
+        for (InvestigationTeam investigationTeam: investigationTeams) {
+            System.out.println(investigationTeam);
+        }
     }
 
 }

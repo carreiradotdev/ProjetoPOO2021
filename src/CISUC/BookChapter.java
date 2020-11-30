@@ -39,12 +39,12 @@ public class BookChapter extends Book{
         this.endingPage = endingPage;
     }
 
-/*    @Override
+    @Override
     public String toString() {
         return "BookChapter{" +
                 "chapterName='" + chapterName + '\'' +
                 ", startingPage=" + startingPage +
                 ", endingPage=" + endingPage + ", impact=" + super.getImpactValue() +
                 '}';
-    }*/
+    }
 }

@@ -32,11 +32,11 @@ public class EfetiveMember extends Investigator{
         return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
     }
 
-/*    @Override
+    @Override
     public String toString() {
         return "EfetiveMember{" +
                 "room='" + room + '\'' +
                 ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() +
                 '}';
-    }*/
+    }
 }

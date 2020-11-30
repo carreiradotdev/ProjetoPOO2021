@@ -42,12 +42,12 @@ public class Student extends Investigator {
         return nameSplit[0].charAt(0) + ". " + nameSplit[nameSplit.length - 1];
     }
 
-/*    @Override
+    @Override
     public String toString() {
         return "Student{" +
                 "thesisName='" + thesisName + '\'' +
                 ", thesisDate='" + thesisDate + '\'' +
                 ", professor='" + professor + '\'' +  ", publicationName=" + getPublicationName() +
                 '}';
-    }*/
+    }
 }

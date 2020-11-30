@@ -3,9 +3,9 @@ package CISUC;
 public class InvestigationTeam {
     private String group;
     private String acronym;
-    private Investigator headLeader;
+    private String headLeader;
 
-    public InvestigationTeam(String group, String acronym, Investigator headLeader) {
+    public InvestigationTeam(String group, String acronym, String headLeader) {
         this.group = group;
         this.acronym = acronym;
         this.headLeader = headLeader;
@@ -27,11 +27,11 @@ public class InvestigationTeam {
         this.acronym = acronym;
     }
 
-    public Investigator getHeadLeader() {
+    public String getHeadLeader() {
         return headLeader;
     }
 
-    public void setHeadLeader(Investigator headLeader) {
+    public void setHeadLeader(String headLeader) {
         this.headLeader = headLeader;
     }
 
