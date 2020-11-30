@@ -1,7 +1,5 @@
 package CISUC;
 
-import org.jetbrains.annotations.NotNull;
-
 public class EfetiveMember extends Investigator{
     private String room;
     private long cellphone;
@@ -10,6 +8,7 @@ public class EfetiveMember extends Investigator{
         super(name, email, investigationGroup);
         this.room = room;
         this.cellphone = cellphone;
+        setPublicationName(createPublicationName(name));
     }
 
     public String getRoom() {
@@ -28,17 +27,16 @@ public class EfetiveMember extends Investigator{
         this.cellphone = cellphone;
     }
 
-    public String getPublicationName(@NotNull String name) {
+    public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
-        String publicationName = "Professor " + nameSplit[0] + " " + nameSplit[-1];
-        return publicationName;
+        return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
     }
 
-    @Override
+/*    @Override
     public String toString() {
         return "EfetiveMember{" +
                 "room='" + room + '\'' +
-                ", cellphone=" + cellphone +
+                ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() +
                 '}';
-    }
+    }*/
 }

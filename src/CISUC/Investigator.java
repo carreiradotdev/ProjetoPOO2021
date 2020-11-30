@@ -4,11 +4,13 @@ public class Investigator {
     private String name;
     private String email;
     private String investigationGroup;
+    private String publicationName;
 
     public Investigator(String name, String email, String investigationGroup) {
         this.name = name;
         this.email = email;
         this.investigationGroup = investigationGroup;
+        this.publicationName = "";
     }
 
     public String getName() {
@@ -35,12 +37,20 @@ public class Investigator {
         this.investigationGroup = investigationGroup;
     }
 
+    public String getPublicationName() {
+        return publicationName;
+    }
+
+    public void setPublicationName(String publicationName) {
+        this.publicationName = publicationName;
+    }
+
     @Override
     public String toString() {
         return "Investigator{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", investigationGroup='" + investigationGroup + '\'' +
+                ", investigationGroup='" + investigationGroup + '\'' + ", publication='" + publicationName + '\'' +
                 '}';
     }
 }

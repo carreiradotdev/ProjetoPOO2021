@@ -20,9 +20,12 @@ public class CISUC implements Serializable{
 
     public void firstRun() {
         readFromFile("EfetiveMemberList.csv", "ArticleConferenceList.csv", "BookChapterList.csv", "BookConferenceList.csv", "StudentList.csv", "ArticleMaganizeList.csv");
-        System.out.println(investigators);
         System.out.println(works);
+        System.out.println(investigators);
+        printWorks();
+        printInvestigators();
         totalMem();
+        print5years();
     }
 
     public void readFromFile(String efetiveFile, String maganizeFile, String chapterFile, String conferenceFile, String studentFile, String articleMaganizeFile ) {
@@ -74,6 +77,55 @@ public class CISUC implements Serializable{
     public void totalMem() {
         int total = investigators.size();
         System.out.println(total);
+    }
+/*    public void countMem() {
+        for (Student student: )
+
+    }*/
+
+    private void printInvestigators() {
+        if (investigators.isEmpty()) {
+            System.out.println("There are no investigators.");
+        }
+        for (Investigator investigator: investigators) {
+            System.out.printf("%s, \"%s\", %s\n" , investigator.getName(), investigator.getEmail(), investigator.getInvestigationGroup());
+        }
+    }
+
+    private void printWorks() {
+        if (works.isEmpty()) {
+            System.out.println("There are no works in record.");
+        }
+        for (Work work: works) {
+            Investigator investigator = getInvestigator(work);
+            try {
+                System.out.printf("%s\n", investigator.getPublicationName());
+            } catch (NullPointerException e) {
+                System.out.println("Investigador não existe");
+            }
+        }
+    }
+
+    private void print5years() {
+        if (works.isEmpty()) {
+            System.out.println("There are no works in record.");
+        }
+        for (Work work: works) {
+            if (work.getYearPublished() >= 2015) {
+                System.out.println(work);
+
+            }
+            return;
+        }
+    }
+
+    private Investigator getInvestigator(Work work) {
+        for (Investigator investigator: investigators) {
+            if (investigator.getName().equalsIgnoreCase(work.getAuthor())) {
+                return investigator;
+            }
+        }
+        return null;
     }
 
 }

@@ -3,13 +3,14 @@ package CISUC;
 import java.util.ArrayList;
 
 public class Work {
-    private String author; //TODO: vários autores.
+    private String author;
     private String title;
     private String keywords;
     private int yearPublished;
     private String type;
     private int audience;
     private char impactValue;
+    private String publicationName;
 
     public Work(String author, String title, String keywords, int yearPublished, String type, int audience) {
         this.author = author;
@@ -77,6 +78,14 @@ public class Work {
         this.impactValue = impactValue;
     }
 
+    public void setPubName(Investigator investigator) {
+        this.publicationName = investigator.getPublicationName();
+    }
+
+    public String getPublicationName() {
+        return publicationName;
+    }
+
     @Override
     public String toString() {
         return "Work{" +
@@ -85,7 +94,7 @@ public class Work {
                 ", keywords='" + keywords + '\'' +
                 ", yearPublished=" + yearPublished +
                 ", type='" + type + '\'' +
-                ", audience=" + audience +
+                ", audience=" + audience + ", publication=" + publicationName +
                 '}';
     }
 }

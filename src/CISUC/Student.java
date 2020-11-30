@@ -1,7 +1,5 @@
 package CISUC;
 
-import java.util.Date;
-
 public class Student extends Investigator {
     private String thesisName;
     private String thesisDate;
@@ -12,6 +10,7 @@ public class Student extends Investigator {
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
         this.professor = professor;
+        setPublicationName(createPublicationName(name));
     }
 
     public String getThesisName() {
@@ -38,12 +37,17 @@ public class Student extends Investigator {
         this.professor = professor;
     }
 
-    @Override
+    public String createPublicationName(String name) {
+        String[] nameSplit = name.split(" ");
+        return nameSplit[0].charAt(0) + ". " + nameSplit[nameSplit.length - 1];
+    }
+
+/*    @Override
     public String toString() {
         return "Student{" +
                 "thesisName='" + thesisName + '\'' +
                 ", thesisDate='" + thesisDate + '\'' +
-                ", professor='" + professor + '\'' +
+                ", professor='" + professor + '\'' +  ", publicationName=" + getPublicationName() +
                 '}';
-    }
+    }*/
 }
