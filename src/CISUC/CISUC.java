@@ -71,7 +71,7 @@ public class CISUC implements Serializable{
             System.out.println("Leitura bem-sucedida");
             while((line = br7.readLine()) != null) {
                 String[] split = line.split(",");
-                investigationTeams.add(new InvestigationTeam(split[0], split[1], split[2]));
+                investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
             }
             System.out.println("Leitura bem-sucedida");
         } catch (FileNotFoundException e) {
@@ -126,6 +126,15 @@ public class CISUC implements Serializable{
         }
     }
 
+    private Investigator getInvestigator(String name) {
+        for (Investigator investigator: investigators) {
+            if (investigator.getName().equalsIgnoreCase(name)) {
+                return investigator;
+            }
+        }
+        return null;
+    }
+
     private Investigator getInvestigator(Work work) {
         for (Investigator investigator: investigators) {
             if (investigator.getName().equalsIgnoreCase(work.getAuthor())) {
@@ -137,7 +146,11 @@ public class CISUC implements Serializable{
 
     private void listTeamWork() {
         for (InvestigationTeam investigationTeam: investigationTeams) {
-            System.out.println(investigationTeam);
+            try {
+                System.out.println(investigationTeam);
+            } catch (NullPointerException e) {
+                System.out.println("investigador não está na base de dados");
+            }
         }
     }
 

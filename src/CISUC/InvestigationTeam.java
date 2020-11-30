@@ -1,11 +1,11 @@
 package CISUC;
 
-public class InvestigationTeam {
+public class InvestigationTeam{
     private String group;
     private String acronym;
-    private String headLeader;
+    private Investigator headLeader;
 
-    public InvestigationTeam(String group, String acronym, String headLeader) {
+    public InvestigationTeam(String group, String acronym, Investigator headLeader) {
         this.group = group;
         this.acronym = acronym;
         this.headLeader = headLeader;
@@ -27,11 +27,11 @@ public class InvestigationTeam {
         this.acronym = acronym;
     }
 
-    public String getHeadLeader() {
+    public Investigator getHeadLeader() {
         return headLeader;
     }
 
-    public void setHeadLeader(String headLeader) {
+    public void setHeadLeader(Investigator headLeader) {
         this.headLeader = headLeader;
     }
 
@@ -40,7 +40,7 @@ public class InvestigationTeam {
         return "InvestigationTeam{" +
                 "group='" + group + '\'' +
                 ", acronym='" + acronym + '\'' +
-                ", headLeader=" + headLeader +
+                ", headLeader=" + headLeader.getName() +
                 '}';
     }
 }
