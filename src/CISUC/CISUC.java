@@ -32,9 +32,10 @@ public class CISUC implements Serializable {
             System.out.println("2: Shows CISUC indicators.");
             System.out.println("3: List Team Work.");
             System.out.println("4: List Team Members.");
-            System.out.println("5: Print works of the lastest 5 years.");
-            System.out.println("6: Print all researchers from CISUC.");
-            System.out.println("7. Print all works from CISUC.");
+            System.out.println("5: List Investigation Teams.");
+            System.out.println("6: Print works of the lastest 5 years.");
+            System.out.println("7: Print all researchers from CISUC.");
+            System.out.println("8. Print all works from CISUC.");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -77,16 +78,19 @@ public class CISUC implements Serializable {
                     option4();
                     break;
                 case 5:
+                    listTeamWork();
+                    break;
+                    case 6:
                     if (works.isEmpty()) {
                         System.out.println("There are no works in record.");
                         break;
                     }
                     print5years();
                     break;
-                case 6:
+                case 7:
                     printInvestigators();
                     break;
-                case 7:
+                case 8:
                     printWorks();
                     break;
                 default:
@@ -295,7 +299,7 @@ public class CISUC implements Serializable {
                     do {
                         if (work.getImpactValue() == ascii) {
                             Investigator investigator = getInvestigator(work);
-                            System.out.printf("| %d | %s | %s | %s |\n", work.getYearPublished(), work.getTitle(), investigator.getPublicationName(), work.getImpactValue());
+                            System.out.printf("| %d | | %d | %s | %s | %s |\n", work.getType(),work.getYearPublished(), work.getTitle(), investigator.getPublicationName(), work.getImpactValue());
                         }
                         ascii++;
                     } while(ascii != 68);
