@@ -9,6 +9,7 @@ public class Work {
     private int audience;
     private char impactValue;
     private String publicationName;
+    private InvestigationTeam team;
 
     public static int TYPE_ARTICLE_CONFERENCE = 0;
     public static int TYPE_ARTICLE_MAGAZINE = 1;
@@ -16,13 +17,14 @@ public class Work {
     public static int TYPE_BOOK_CHAPTER = 3;
     public static int TYPE_BOOK = 4;
 
-    public Work(String author, String title, String keywords, int yearPublished, int audience) {
+    public Work(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience) {
         this.author = author;
         this.title = title;
         this.keywords = keywords;
         this.yearPublished = yearPublished;
         this.audience = audience;
         this.impactValue = ' ';
+        this.team = team;
     }
 
     public String getAuthor() {
@@ -87,6 +89,14 @@ public class Work {
 
     public void setPublicationName(String publicationName) {
         this.publicationName = publicationName;
+    }
+
+    public InvestigationTeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(InvestigationTeam team) {
+        this.team = team;
     }
 
     @Override

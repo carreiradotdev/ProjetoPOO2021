@@ -5,8 +5,8 @@ public class ArticleConference extends Work {
     private int articleNum;
     private String location;
 
-    public ArticleConference(String author, String title, String keywords, int yearPublished, int audience, String conference, int articleNum, String location) {
-        super(author, title, keywords, yearPublished, audience);
+    public ArticleConference(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String conference, int articleNum, String location) {
+        super(author, title, keywords, team, yearPublished, audience);
         this.conference = conference;
         this.articleNum = articleNum;
         this.location = location;

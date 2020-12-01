@@ -5,8 +5,8 @@ public class ArticleMagazine extends Work {
     private int issueNum;
     private String issueDate;
 
-    public ArticleMagazine(String author, String title, String keywords, int yearPublished, int audience, String journalName, int issueNum, String issueDate) {
-        super(author, title, keywords, yearPublished, audience);
+    public ArticleMagazine(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String journalName, int issueNum, String issueDate) {
+        super(author, title, keywords, team, yearPublished, audience);
         this.journalName = journalName;
         this.issueNum = issueNum;
         this.issueDate = issueDate;
@@ -40,12 +40,8 @@ public class ArticleMagazine extends Work {
         this.issueDate = issueDate;
     }
 
-/*    @Override
+@Override
     public String toString() {
-        return "ArticleMagazine{" +
-                "journalName='" + journalName + '\'' +
-                ", issueNum=" + issueNum +
-                ", issueDate='" + issueDate + '\'' + ", impact=" + super.getImpactValue() +
-                '}';
-    }*/
+        return "| year | type | impact value | author | title |";
+    }
 }

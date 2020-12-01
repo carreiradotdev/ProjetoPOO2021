@@ -23,7 +23,7 @@ public class CISUC implements Serializable {
     }
 
     public void firstRun() {
-        readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "BookConferenceList.csv", "StudentList.csv", "ArticleConferenceList.csv", "InvestigationTeamList.csv");
+        readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
         printWorks();
         printInvestigators();
         print5years();
@@ -37,7 +37,8 @@ public class CISUC implements Serializable {
         do {
             System.out.println("1: Inicial Run.");
             System.out.println("2: Shows CISUC indicators.");
-
+            System.out.println("3: List Team Work.");
+            System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -52,15 +53,23 @@ public class CISUC implements Serializable {
                             "3: Evolutionary and Complex Systems\n" +
                             "4: Information Systems\n" +
                             "5: Communications and Telematics\n" +
-                            "6: Software and Systems Engineering\n");
-                    choice = sc.nextInt();
-                    switch (choice) {
+                            "6: Software and Systems Engineering");
+                    System.out.print("Enter your choice: ");
+                    int team = sc.nextInt();
+                    switch (team) {
                         case 1:
                             for (Work work: works) {
-                                if (work.getYearPublished() >= 2015 && work.)
+                                if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("AC")) {
+                                    System.out.println(work);
+                                }
                             }
                             break;
                         case 2:
+                            for (Work work: works) {
+                                if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("CMS")) {
+                                    System.out.println(work);
+                                }
+                            }
                             break;
                         case 3:
                             break;
@@ -86,7 +95,7 @@ public class CISUC implements Serializable {
         countWorks();
     }
 
-    public void readFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String articleConferenceFile, String InvestigationTeamFile) {
+    public void readFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
         String line;
         try {
             BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
@@ -94,7 +103,7 @@ public class CISUC implements Serializable {
             BufferedReader br3 = new BufferedReader(new FileReader(chapterFile));
             BufferedReader br4 = new BufferedReader(new FileReader(conferenceFile));
             BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
-            BufferedReader br6 = new BufferedReader(new FileReader(articleConferenceFile));
+            BufferedReader br6 = new BufferedReader(new FileReader(bookArticleConferenceFile));
             BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
             while ((line = br7.readLine()) != null) {
                 String[] split = line.split(",");
@@ -120,17 +129,17 @@ public class CISUC implements Serializable {
             System.out.println("Leitura bem-sucedida");
             while ((line = br2.readLine()) != null) {
                 String[] split = line.split(",");
-                works.add(new ArticleMagazine(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], Integer.parseInt(split[6]), split[7]));
+                works.add(new ArticleMagazine(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
             }
             System.out.println("Leitura bem-sucedida");
             while ((line = br3.readLine()) != null) {
                 String[] split = line.split(",");
-                works.add(new BookChapter(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), Integer.parseInt(split[9])));
+                works.add(new BookChapter(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9]), Integer.parseInt(split[10])));
             }
             System.out.println("Leitura bem-sucedida");
             while ((line = br4.readLine()) != null) {
                 String[] split = line.split(",");
-                works.add(new ArticleConference(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], Integer.parseInt(split[6]), split[7]));
+                works.add(new ArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
             }
             System.out.println("Leitura bem-sucedida");
             while ((line = br5.readLine()) != null) {
@@ -140,10 +149,10 @@ public class CISUC implements Serializable {
             System.out.println("Leitura bem-sucedida");
             while ((line = br6.readLine()) != null) {
                 String[] split = line.split(",");
-                works.add(new ArticleConference(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], Integer.parseInt(split[6]), split[7]));
+                works.add(new BookArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9])));
             }
             System.out.println("Leitura bem-sucedida");
-            System.err.println("LEITURA CONCLUÍDA.");
+            System.out.println("LEITURA CONCLUÍDA.");
         } catch (FileNotFoundException e) {
             System.out.println("Ficheiro não encontrado.");
         } catch (IOException e) {
@@ -173,7 +182,7 @@ public class CISUC implements Serializable {
             if(work.getType() == (Work.TYPE_ARTICLE_MAGAZINE)) { am++; }
             if(work.getType() == (Work.TYPE_BOOK_ARTICLE_CONFERENCE)) { bac++; }
             if(work.getType() == (Work.TYPE_BOOK_CHAPTER)) { bc++; }
-            else { b++; }
+            if(work.getType() == (Work.TYPE_BOOK)) { b++; }
         }
         System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",ac,am,bac,bc,b);
     }
@@ -191,7 +200,7 @@ public class CISUC implements Serializable {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
         }
-        System.err.println("DONE LISTING.");
+        System.out.println("DONE LISTING.");
     }
 
     private void printWorks() {
@@ -207,7 +216,7 @@ public class CISUC implements Serializable {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
         }
-        System.err.println("DONE LISTING.");
+        System.out.println("DONE LISTING.");
     }
 
     private void print5years() {

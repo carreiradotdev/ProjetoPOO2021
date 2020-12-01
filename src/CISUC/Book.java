@@ -4,8 +4,8 @@ public class Book extends Work {
     private String editor;
     private int isbn;
 
-    public Book(String author, String title, String keywords, int yearPublished, int audience, String editor, int isbn) {
-        super(author, title, keywords, yearPublished, audience);
+    public Book(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn) {
+        super(author, title, keywords, team, audience, yearPublished);
         this.editor = editor;
         this.isbn = isbn;
         if (audience >= 10000) setImpactValue('A');

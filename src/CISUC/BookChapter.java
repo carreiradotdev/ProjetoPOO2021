@@ -5,8 +5,8 @@ public class BookChapter extends Book{
     private int startingPage;
     private int endingPage;
 
-    public BookChapter(String author, String title, String keywords, int yearPublished, int audience, String editor, int isbn, String chapterName, int startingPage, int endingPage) {
-        super(author, title, keywords, yearPublished, audience, editor, isbn);
+    public BookChapter(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn, String chapterName, int startingPage, int endingPage) {
+        super(author, title, keywords, team, yearPublished, audience, editor, isbn);
         this.chapterName = chapterName;
         this.startingPage = startingPage;
         this.endingPage = endingPage;
