@@ -30,7 +30,6 @@ public class CISUC implements Serializable {
         listTeamWork();
         countMembers();
         countWorks();
-        return;
     }
 
     public void run() {
@@ -55,36 +54,8 @@ public class CISUC implements Serializable {
                             "5: Communications and Telematics\n" +
                             "6: Software and Systems Engineering");
                     System.out.print("Enter your choice: ");
-                    int team = sc.nextInt();
-                    switch (team) {
-                        case 1:
-                            for (Work work: works) {
-                                if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("AC")) {
-                                    System.out.println(work);
-                                }
-                            }
-                            break;
-                        case 2:
-                            for (Work work: works) {
-                                if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("CMS")) {
-                                    System.out.println(work);
-                                }
-                            }
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                            break;
-                        case 6:
-                            break;
-                        default:
-                            System.out.println("Invalid choice!");
-                            break;
-                    }
+                    option3();
                 default:
-                    System.out.println("Invalid choice!");
                     break;
             }
         } while (true) ;
@@ -93,6 +64,57 @@ public class CISUC implements Serializable {
     private void option2() {
         countMembers();
         countWorks();
+    }
+
+    private void option3() {
+        int team = sc.nextInt();
+        switch (team) {
+            case 1:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("AC")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            case 2:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("CMS")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            case 3:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("ECS")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            case 4:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("IS")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            case 5:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("LCT")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            case 6:
+                for (Work work : works) {
+                    if (work.getYearPublished() >= 2015 && work.getTeam().getAcronym().equalsIgnoreCase("SSE")) {
+                        System.out.println(work);
+                    }
+                }
+                break;
+            default:
+                System.out.println("Invalid choice!");
+                break;
+        }
     }
 
     public void readFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
@@ -105,6 +127,7 @@ public class CISUC implements Serializable {
             BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
             BufferedReader br6 = new BufferedReader(new FileReader(bookArticleConferenceFile));
             BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
+            br7.readLine();
             while ((line = br7.readLine()) != null) {
                 String[] split = line.split(",");
                 boolean found = false;
@@ -122,31 +145,37 @@ public class CISUC implements Serializable {
                 }
             }
             System.out.println("Leitura bem-sucedida");
+            br1.readLine();
             while ((line = br1.readLine()) != null) {
                 String[] split = line.split(",");
                 investigators.add(new EfetiveMember(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
             }
+            br2.readLine();
             System.out.println("Leitura bem-sucedida");
             while ((line = br2.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new ArticleMagazine(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
             }
             System.out.println("Leitura bem-sucedida");
+            br3.readLine();
             while ((line = br3.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new BookChapter(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9]), Integer.parseInt(split[10])));
             }
             System.out.println("Leitura bem-sucedida");
+            br4.readLine();
             while ((line = br4.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new ArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
             }
             System.out.println("Leitura bem-sucedida");
+            br5.readLine();
             while ((line = br5.readLine()) != null) {
                 String[] split = line.split(",");
                 investigators.add(new Student(split[0], split[1], getTeam(split[2]), split[3], split[4], split[5]));
             }
             System.out.println("Leitura bem-sucedida");
+            br6.readLine();
             while ((line = br6.readLine()) != null) {
                 String[] split = line.split(",");
                 works.add(new BookArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9])));
@@ -191,11 +220,11 @@ public class CISUC implements Serializable {
         if (investigators.isEmpty()) {
             System.out.println("There are no works in record.");
         }
-        System.err.println("LISTING INVESTIGATORS IN RECORD:");
+        System.out.println("LISTING INVESTIGATORS IN RECORD:");
         for (Investigator investigator: investigators) {
             try {
                 InvestigationTeam i = getTeam(investigator);
-                System.out.printf("| %s | %s | %s |\n", investigator.getName(), investigator.getEmail(), i.getAcronym());
+                System.out.printf("| %s | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), i.getAcronym());
             } catch (NullPointerException e) {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
@@ -207,7 +236,7 @@ public class CISUC implements Serializable {
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
         }
-        System.err.println("LISTING WORKS IN RECORD:");
+        System.out.println("LISTING WORKS IN RECORD:");
         for (Work work : works) {
             try {
                 Investigator investigator = getInvestigator(work);
@@ -224,14 +253,12 @@ public class CISUC implements Serializable {
             System.out.println("There are no works in record.");
         }
         System.out.println("Presenting Work after 2015...");
-        for (Work work : works) {
+        for (Work work : works)
             if (work.getYearPublished() >= 2015) {
                 Investigator investigator = getInvestigator(work);
-                System.out.printf("| %d | %s | %s |\n",work.getYearPublished(),work.getTitle(),investigator.getPublicationName());
+                System.out.printf("| %d | %s | %s |\n", work.getYearPublished(), work.getTitle(), investigator.getPublicationName());
 
             }
-            return;
-        }
     }
 
     private Investigator getInvestigator(String name) {
