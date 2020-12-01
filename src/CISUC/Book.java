@@ -10,7 +10,7 @@ public class Book extends Work {
         this.isbn = isbn;
         if (audience >= 10000) setImpactValue('A');
         if (audience < 10000 && audience >= 5000) setImpactValue('B');
-        else setImpactValue('C');
+        if (audience < 5000) setImpactValue('C');
         setType(4);
     }
 

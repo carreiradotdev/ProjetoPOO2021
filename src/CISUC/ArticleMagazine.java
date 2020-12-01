@@ -12,7 +12,7 @@ public class ArticleMagazine extends Work {
         this.issueDate = issueDate;
         if (audience >= 1000) setImpactValue('A');
         if (audience < 1000 && audience >= 500) setImpactValue('B');
-        else setImpactValue('C');
+        if (audience < 500) setImpactValue('C');
         setType(1);
     }
 

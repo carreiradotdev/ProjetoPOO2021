@@ -12,7 +12,7 @@ public class ArticleConference extends Work {
         this.location = location;
         if (audience >= 500) setImpactValue('A');
         if (audience < 500 && audience >= 200) setImpactValue('B');
-        else setImpactValue('C');
+        if (audience < 500) setImpactValue('C');
         setType(0);
     }
 

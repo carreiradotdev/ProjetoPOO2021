@@ -6,13 +6,13 @@ public class BookChapter extends Book{
     private int endingPage;
 
     public BookChapter(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn, String chapterName, int startingPage, int endingPage) {
-        super(author, title, keywords, team, yearPublished, audience, editor, isbn);
+        super(author, title, keywords, team, audience, yearPublished, editor, isbn);
         this.chapterName = chapterName;
         this.startingPage = startingPage;
         this.endingPage = endingPage;
         if (audience >= 10000) setImpactValue('A');
         if (audience < 10000 && audience >= 5000) setImpactValue('B');
-        else setImpactValue('C');
+        if (audience < 5000) setImpactValue('C');
         setType(3);
     }
 
