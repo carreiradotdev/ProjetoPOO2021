@@ -37,6 +37,7 @@ public class CISUC implements Serializable {
             System.out.println("1: Inicial Run.");
             System.out.println("2: Shows CISUC indicators.");
             System.out.println("3: List Team Work.");
+            System.out.println("4: List Team Members.");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -55,6 +56,18 @@ public class CISUC implements Serializable {
                             "6: Software and Systems Engineering");
                     System.out.print("Enter your choice: ");
                     option3();
+                    break;
+                case 4:
+                    System.out.print("What team? ");
+                    String team = sc.next();
+                    System.out.println("1: Adaptive Computation\n" +
+                            "2: Cognitive and Media Systems\n" +
+                            "3: Evolutionary and Complex Systems\n" +
+                            "4: Information Systems\n" +
+                            "5: Communications and Telematics\n" +
+                            "6: Software and Systems Engineering");
+                    listTeamMembers(getTeam(team));
+                    break;
                 default:
                     break;
             }
@@ -243,7 +256,7 @@ public class CISUC implements Serializable {
 
     private void print5years() {
         int year = 2020;
-        int ascii = 68;
+        int ascii = 65;
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
         }
@@ -256,11 +269,28 @@ public class CISUC implements Serializable {
                             Investigator investigator = getInvestigator(work);
                             System.out.printf("| %d | %s | %s | %s |\n", work.getYearPublished(), work.getTitle(), investigator.getPublicationName(), work.getImpactValue());
                         }
-                        ascii--;
-                    } while(ascii != 65);
+                        ascii++;
+                    } while(ascii != 68);
+                    ascii = 65;
                     }
             year--;
         } while (year != 2014);
+    }
+
+    private void listTeamMembers(InvestigationTeam investigationTeam) {
+        if (investigators.isEmpty()) {
+            System.out.println("There are no works in record.");
+        }
+        for (Investigator investigator: investigators) {
+            try {
+                if (investigator.getInvestigationGroup() == investigationTeam) {
+                    System.out.println(investigator);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("ERROR.");  //TODO: acabar esta função.
+            }
+        }
+            System.out.println("DONE LISTING.");
     }
 
     private Investigator getInvestigator(String name) {
