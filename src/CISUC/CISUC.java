@@ -22,22 +22,19 @@ public class CISUC implements Serializable {
         cisuc.run();
     }
 
-    public void firstRun() {
+    private void firstRun() {
         readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
-        printWorks();
-        printInvestigators();
-        print5years();
-        listTeamWork();
-        countMembers();
-        countWorks();
     }
 
-    public void run() {
+    private void run() {
         do {
             System.out.println("1: Inicial Run.");
             System.out.println("2: Shows CISUC indicators.");
             System.out.println("3: List Team Work.");
             System.out.println("4: List Team Members.");
+            System.out.println("5: Print works of the lastest 5 years.");
+            System.out.println("6: Print all researchers from CISUC.");
+            System.out.println("7. Print all works from CISUC.");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -45,9 +42,17 @@ public class CISUC implements Serializable {
                     firstRun();
                     break;
                 case 2:
+                    if (works.isEmpty()) {
+                        System.out.println("There are no works in record.");
+                        break;
+                    }
                     option2();
                     break;
                 case 3:
+                    if (works.isEmpty()) {
+                        System.out.println("There are no works in record.");
+                        break;
+                    }
                     System.out.println("1: Adaptive Computation\n" +
                             "2: Cognitive and Media Systems\n" +
                             "3: Evolutionary and Complex Systems\n" +
@@ -58,20 +63,51 @@ public class CISUC implements Serializable {
                     option3();
                     break;
                 case 4:
-                    System.out.print("What team? ");
-                    String team = sc.next();
+                    if (investigators.isEmpty()) {
+                        System.out.println("There are no researchers in our Database.");
+                        break;
+                    }
                     System.out.println("1: Adaptive Computation\n" +
                             "2: Cognitive and Media Systems\n" +
                             "3: Evolutionary and Complex Systems\n" +
                             "4: Information Systems\n" +
                             "5: Communications and Telematics\n" +
                             "6: Software and Systems Engineering");
-                    listTeamMembers(getTeam(team));
+                    System.out.print("What team? ");
+                    option4();
+                    break;
+                case 5:
+                    if (works.isEmpty()) {
+                        System.out.println("There are no works in record.");
+                        break;
+                    }
+                    print5years();
+                    break;
+                case 6:
+                    printInvestigators();
+                    break;
+                case 7:
+                    printWorks();
                     break;
                 default:
                     break;
             }
         } while (true) ;
+    }
+
+    private void option4() {
+        int team = sc.nextInt();
+        switch (team) {
+            case 1: listTeamMembers(getTeam("AC")); break;
+            case 2: listTeamMembers(getTeam("CMS")); break;
+            case 3: listTeamMembers(getTeam("ECOS")); break;
+            case 4: listTeamMembers(getTeam("IS")); break;
+            case 5: listTeamMembers(getTeam("LCT")); break;
+            case 6: listTeamMembers(getTeam("SSE")); break;
+            default:
+                System.out.println("Wrong input!");
+                break;
+        }
     }
 
     private void option2() {
@@ -224,9 +260,8 @@ public class CISUC implements Serializable {
 
     private void printInvestigators() {
         if (investigators.isEmpty()) {
-            System.out.println("There are no works in record.");
+            System.out.println("There are no researchers in record.");
         }
-        System.out.println("LISTING INVESTIGATORS IN RECORD:");
         for (Investigator investigator: investigators) {
             try {
                 InvestigationTeam i = getTeam(investigator);
@@ -235,14 +270,12 @@ public class CISUC implements Serializable {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
         }
-        System.out.println("DONE LISTING.");
     }
 
     private void printWorks() {
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
         }
-        System.out.println("LISTING WORKS IN RECORD:");
         for (Work work : works) {
             try {
                 Investigator investigator = getInvestigator(work);
@@ -251,16 +284,11 @@ public class CISUC implements Serializable {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
         }
-        System.out.println("DONE LISTING.");
     }
 
     private void print5years() {
         int year = 2020;
         int ascii = 65;
-        if (works.isEmpty()) {
-            System.out.println("There are no works in record.");
-        }
-        System.out.println("Presenting Work after 2015...");
         do {
             for (Work work : works)
                 if (work.getYearPublished() == year) {
