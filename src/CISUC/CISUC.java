@@ -26,7 +26,7 @@ public class CISUC implements Serializable {
             cisuc = cisucFromFile;
             readStream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Input file doesn't exist or is empty, no data in database.");
         }
         cisuc.run();
     }
@@ -46,7 +46,8 @@ public class CISUC implements Serializable {
             System.out.println("6: Print works of the lastest 5 years.");
             System.out.println("7: Print all researchers from CISUC.");
             System.out.println("8. Print all works from CISUC.");
-            System.out.println("9. test writer");
+            System.out.println("9. Exit and save.");
+            System.out.println("10. Exit w/o saving.");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -105,12 +106,14 @@ public class CISUC implements Serializable {
                     printWorks();
                     break;
                 case 9:
+                    sc.close();
                     writer();
+                    System.exit(0);
                     break;
                 case 10:
+                    sc.close();
+                    System.exit(0);
                     break;
-                case 11:
-                    System.out.println(investigators);
                 default:
                     break;
             }
@@ -298,7 +301,7 @@ public class CISUC implements Serializable {
         System.out.println("Leitura nova concluida");
     }
 
-    public void countMembers() {
+    private void countMembers() {
         int students = 0; int efetives = 0;
         for (Investigator investigator: investigators) {
             if(investigator.getType() == (Investigator.TYPE_STUDENT)) {
@@ -313,7 +316,7 @@ public class CISUC implements Serializable {
                           "TOTAL COUNT OF RESEARCHERS: %d\n", students, efetives, total);
     }
 
-    public void countWorks() {
+    private void countWorks() {
         int ac = 0; int am = 0; int bac = 0; int bc = 0; int b = 0;
         for (Work work: works) {
             if(work.getType() == (Work.TYPE_ARTICLE_CONFERENCE)) { ac++; }
