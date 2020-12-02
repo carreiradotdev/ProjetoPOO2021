@@ -13,6 +13,12 @@ public class InvestigationTeam implements Serializable {
         this.headLeader = headLeader;
     }
 
+    public InvestigationTeam(String group, String acronym) {
+        this.group = group;
+        this.acronym = acronym;
+        this.headLeader = null;
+    }
+
     public String getGroup() {
         return group;
     }
@@ -41,6 +47,6 @@ public class InvestigationTeam implements Serializable {
     public String toString() {
         return "InvestigationTeam{" +
                 "group='" + group + '\'' + ", acronym='" + acronym + '\'' +
-                ", headLeader="  + '}';
+                ", headLeader="  + headLeader + '}';
     }
 }

@@ -19,12 +19,21 @@ public class CISUC implements Serializable {
 
     public static void main(String[] args) {
         CISUC cisuc = new CISUC();
-        cisuc.reader();
+        try {
+            FileInputStream readData = new FileInputStream("CISUC.ser");
+            ObjectInputStream readStream = new ObjectInputStream(readData);
+            CISUC cisucFromFile = (CISUC) readStream.readObject();
+            cisuc = cisucFromFile;
+            readStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         cisuc.run();
     }
 
     private void firstRun() {
         readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
+        //newReadFromFile("input.csv");
     }
 
     private void run() {
@@ -99,7 +108,6 @@ public class CISUC implements Serializable {
                     writer();
                     break;
                 case 10:
-                    reader();
                     break;
                 case 11:
                     System.out.println(investigators);
@@ -192,25 +200,25 @@ public class CISUC implements Serializable {
             BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
             br7.readLine();
             while ((line = br7.readLine()) != null) {
-                String[] split = line.split(",");
+                String[] split7 = line.split(",");
                 boolean found = false;
                 for (Investigator i: investigators) {
-                    if (i.getName().equalsIgnoreCase(split[2])) {
+                    if (i.getName().equalsIgnoreCase(split7[2])) {
                         found = true;
                         }
-                    investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
+                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
                     }
                 if (!found) {
-                    EfetiveMember temp = new EfetiveMember(split[2],null,null,null,0);
+                    EfetiveMember temp = new EfetiveMember(split7[2],null,null,null,0);
                     investigators.add(temp);
-                    investigationTeams.add(new InvestigationTeam(split[0], split[1], getInvestigator(split[2])));
+                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
                     investigators.remove(temp);
                 }
             }
             br1.readLine();
             while ((line = br1.readLine()) != null) {
                 String[] split = line.split(",");
-                investigators.add(new EfetiveMember(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
+                    investigators.add(new EfetiveMember(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
             }
             br2.readLine();
             while ((line = br2.readLine()) != null) {
@@ -243,6 +251,51 @@ public class CISUC implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void newReadFromFile(String input) {
+        String line;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(input));
+            while ((line = br.readLine()) != null) {
+                String[] split = line.split(",");
+                switch (split[0]) {
+                    case "student":
+                        investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
+                    case "team":
+                        try {
+                            String line1;
+                            BufferedReader br1 = new BufferedReader(new FileReader(input));
+                            for (Investigator i : investigators) {
+                                if (i.getName().equalsIgnoreCase(split[3])) {
+                                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
+                                } else {
+                                    investigationTeams.add(new InvestigationTeam(split[1], split[2],new EfetiveMember(split[3],null,null,null,0)));
+                                }
+                            }
+                        } catch (FileNotFoundException e) {
+                            System.out.println("Ficheiro não encontrado.");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    case "bookchapter":
+                        works.add(new BookChapter(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
+                    case "efetivemember":
+                        investigators.add(new EfetiveMember(split[1],split[2],getTeam(split[3]),split[4],Long.parseLong(split[5])));
+                    case "articlemagazine":
+                        works.add(new ArticleMagazine(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                    case "articleconference":
+                        works.add(new ArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                    case "bookarticleconference":
+                        works.add(new BookArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10])));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Ficheiro não encontrado.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Leitura nova concluida");
     }
 
     public void countMembers() {
@@ -302,44 +355,12 @@ public class CISUC implements Serializable {
 
     private void writer() {
         try{
-            FileOutputStream writeData1 = new FileOutputStream("investigators.ser");
-            FileOutputStream writeData2 = new FileOutputStream("investigationTeams.ser");
-            FileOutputStream writeData3 = new FileOutputStream("works.ser");
-            ObjectOutputStream writeStream1 = new ObjectOutputStream(writeData1);
-            ObjectOutputStream writeStream2 = new ObjectOutputStream(writeData2);
-            ObjectOutputStream writeStream3 = new ObjectOutputStream(writeData3);
-            writeStream1.writeObject(investigators);
-            writeStream2.writeObject(investigationTeams);
-            writeStream3.writeObject(works);
-            writeStream1.flush();
-            writeStream2.flush();
-            writeStream3.flush();
-            writeStream1.close();
-            writeStream2.close();
-            writeStream3.close();
+            FileOutputStream writeData = new FileOutputStream("CISUC.ser");
+            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+            writeStream.writeObject(this);
+            writeStream.flush();
+            writeStream.close();
         }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void reader() {
-        try {
-            FileInputStream readData2 = new FileInputStream("investigationTeams.ser");
-            FileInputStream readData1 = new FileInputStream("investigators.ser");
-            FileInputStream readData3 = new FileInputStream("works.ser");
-            ObjectInputStream readStream2 = new ObjectInputStream(readData2);
-            ObjectInputStream readStream1 = new ObjectInputStream(readData1);
-            ObjectInputStream readStream3 = new ObjectInputStream(readData3);
-            ArrayList<Investigator> investigatorsFromFile = (ArrayList<Investigator>) readStream1.readObject();
-            ArrayList<InvestigationTeam> investigationTeamsFromFile = (ArrayList<InvestigationTeam>) readStream2.readObject();
-            ArrayList<Work> worksFromFile = (ArrayList<Work>) readStream3.readObject();
-            investigators = investigatorsFromFile;
-            investigationTeams = investigationTeamsFromFile;
-            works = worksFromFile;
-            readStream1.close();
-            readStream2.close();
-            readStream3.close();
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }
