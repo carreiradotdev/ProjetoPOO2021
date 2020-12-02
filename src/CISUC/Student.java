@@ -1,6 +1,8 @@
 package CISUC;
 
-public class Student extends Investigator {
+import java.io.Serializable;
+
+public class Student extends Investigator implements Serializable {
     private String thesisName;
     private String thesisDate;
     private String professor;

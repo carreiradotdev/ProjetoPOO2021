@@ -1,6 +1,8 @@
 package CISUC;
 
-public class Work {
+import java.io.Serializable;
+
+public class Work implements Serializable {
     private String author;
     private String title;
     private String keywords;

@@ -1,6 +1,8 @@
 package CISUC;
 
-public class Investigator {
+import java.io.Serializable;
+
+public class Investigator implements Serializable {
     private String name;
     private String email;
     private InvestigationTeam investigationGroup;

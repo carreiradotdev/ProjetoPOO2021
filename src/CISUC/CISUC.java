@@ -36,6 +36,7 @@ public class CISUC implements Serializable {
             System.out.println("6: Print works of the lastest 5 years.");
             System.out.println("7: Print all researchers from CISUC.");
             System.out.println("8. Print all works from CISUC.");
+            System.out.println("9. test writer");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -92,6 +93,14 @@ public class CISUC implements Serializable {
                     break;
                 case 8:
                     printWorks();
+                    break;
+                case 9:
+                    writer();
+                    break;
+                case 10:
+                    reader();
+                    break;
+                case 11:
                     break;
                 default:
                     break;
@@ -290,23 +299,58 @@ public class CISUC implements Serializable {
         }
     }
 
-    private void print5years() {
+    private void writer() {
+        try{
+            FileOutputStream writeData = new FileOutputStream("investigators.ser");
+            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+            writeStream.writeObject(investigators);
+            writeStream.flush();
+            writeStream.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void reader() {
+        try {
+            FileInputStream readData = new FileInputStream("investigators.ser");
+            ObjectInputStream readStream = new ObjectInputStream(readData);
+
+            ArrayList<Investigator> test = (ArrayList<Investigator>) readStream.readObject();
+            readStream.close();
+            System.out.println(test);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.print(investigators);
+    }
+
+
+    private void print5years() { //TODO: ver se esta merda está broken
         int year = 2020;
         int ascii = 65;
+        int type = 0;
         do {
-            for (Work work : works)
-                if (work.getYearPublished() == year) {
+            for (Work work : works) {
+                if (work.getType() == type) {
                     do {
                         if (work.getImpactValue() == ascii) {
-                            Investigator investigator = getInvestigator(work);
-                            System.out.printf("| %d | | %d | %s | %s | %s |\n", work.getType(),work.getYearPublished(), work.getTitle(), investigator.getPublicationName(), work.getImpactValue());
+                            do {
+                                if (work.getYearPublished() == year) {
+                                    Investigator investigator = getInvestigator(work);
+                                    System.out.printf("| %d | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), investigator.getPublicationName());
+                                }
+                                year--;
+                            } while (year != 2014);
+                            year = 2020;
                         }
                         ascii++;
-                    } while(ascii != 68);
+                    } while (ascii != 68);
                     ascii = 65;
-                    }
-            year--;
-        } while (year != 2014);
+                }
+            }
+            type++;
+        } while (type != 5);
     }
 
     private void listTeamMembers(InvestigationTeam investigationTeam) {

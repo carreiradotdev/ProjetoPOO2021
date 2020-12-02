@@ -1,6 +1,8 @@
 package CISUC;
 
-public class EfetiveMember extends Investigator{
+import java.io.Serializable;
+
+public class EfetiveMember extends Investigator implements Serializable {
     private String room;
     private long cellphone;
 
