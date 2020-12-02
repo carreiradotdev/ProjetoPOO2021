@@ -32,8 +32,8 @@ public class CISUC implements Serializable {
     }
 
     private void firstRun() {
-        readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
-        //newReadFromFile("input.csv");
+        //readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
+        readFromFile("input.csv");
     }
 
     private void run() {
@@ -191,7 +191,8 @@ public class CISUC implements Serializable {
         }
     }
 
-    public void readFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
+    public void oldReadFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
+        // NOT USED METHOD
         String line;
         try {
             BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
@@ -256,40 +257,44 @@ public class CISUC implements Serializable {
         }
     }
 
-    private void newReadFromFile(String input) {
+    private void readFromFile(String inputFile) {
         String line;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(input));
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(",");
-                switch (split[0]) {
-                    case "student":
-                        investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
-                    case "team":
-                        try {
-                            String line1;
-                            BufferedReader br1 = new BufferedReader(new FileReader(input));
-                            for (Investigator i : investigators) {
-                                if (i.getName().equalsIgnoreCase(split[3])) {
-                                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
-                                } else {
-                                    investigationTeams.add(new InvestigationTeam(split[1], split[2],new EfetiveMember(split[3],null,null,null,0)));
-                                }
-                            }
-                        } catch (FileNotFoundException e) {
-                            System.out.println("Ficheiro não encontrado.");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    case "bookchapter":
-                        works.add(new BookChapter(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
-                    case "efetivemember":
-                        investigators.add(new EfetiveMember(split[1],split[2],getTeam(split[3]),split[4],Long.parseLong(split[5])));
-                    case "articlemagazine":
-                        works.add(new ArticleMagazine(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
-                    case "articleconference":
-                        works.add(new ArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
-                    case "bookarticleconference":
+                String type = split[0];
+                if (type.equalsIgnoreCase("team")) {
+                    boolean found = false;
+                    for (Investigator i: investigators) {
+                        if (i.getName().equalsIgnoreCase(split[3])) {
+                        found = true;
+                    }
+                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
+                }
+                if (!found) {
+                    EfetiveMember temp = new EfetiveMember(split[3],null,null,null,0);
+                    investigators.add(temp);
+                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
+                    investigators.remove(temp);
+                    }
+                }
+                if (type.equalsIgnoreCase("student")) {
+                    investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
+                }
+                if (type.equalsIgnoreCase("bookchapter")) {
+                    works.add(new BookChapter(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
+                }
+                if (type.equalsIgnoreCase("efetivemember")) {
+                    investigators.add(new EfetiveMember(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
+                }
+                if (type.equalsIgnoreCase("articlemagazine")) {
+                    works.add(new ArticleMagazine(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                }
+                if (type.equalsIgnoreCase("articleconference")) {
+                    works.add(new ArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                }
+                if (type.equalsIgnoreCase("bookarticleconference")) {
                         works.add(new BookArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10])));
                 }
             }
