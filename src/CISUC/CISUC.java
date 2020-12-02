@@ -19,6 +19,7 @@ public class CISUC implements Serializable {
 
     public static void main(String[] args) {
         CISUC cisuc = new CISUC();
+        cisuc.reader();
         cisuc.run();
     }
 
@@ -101,7 +102,7 @@ public class CISUC implements Serializable {
                     reader();
                     break;
                 case 11:
-                    break;
+                    System.out.println(investigators);
                 default:
                     break;
             }
@@ -277,10 +278,10 @@ public class CISUC implements Serializable {
         }
         for (Investigator investigator: investigators) {
             try {
-                InvestigationTeam i = getTeam(investigator);
-                System.out.printf("| %s | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), i.getAcronym());
+                InvestigationTeam team = getTeam(investigator);
+                System.out.printf("| %d | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), team.getAcronym());
             } catch (NullPointerException e) {
-                System.out.println("ERROR.");  //TODO: acabar esta função.
+                System.out.println("erro.");  //TODO: acabar esta função.
             }
         }
     }
@@ -301,11 +302,21 @@ public class CISUC implements Serializable {
 
     private void writer() {
         try{
-            FileOutputStream writeData = new FileOutputStream("investigators.ser");
-            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
-            writeStream.writeObject(investigators);
-            writeStream.flush();
-            writeStream.close();
+            FileOutputStream writeData1 = new FileOutputStream("investigators.ser");
+            FileOutputStream writeData2 = new FileOutputStream("investigationTeams.ser");
+            FileOutputStream writeData3 = new FileOutputStream("works.ser");
+            ObjectOutputStream writeStream1 = new ObjectOutputStream(writeData1);
+            ObjectOutputStream writeStream2 = new ObjectOutputStream(writeData2);
+            ObjectOutputStream writeStream3 = new ObjectOutputStream(writeData3);
+            writeStream1.writeObject(investigators);
+            writeStream2.writeObject(investigationTeams);
+            writeStream3.writeObject(works);
+            writeStream1.flush();
+            writeStream2.flush();
+            writeStream3.flush();
+            writeStream1.close();
+            writeStream2.close();
+            writeStream3.close();
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -313,18 +324,25 @@ public class CISUC implements Serializable {
 
     private void reader() {
         try {
-            FileInputStream readData = new FileInputStream("investigators.ser");
-            ObjectInputStream readStream = new ObjectInputStream(readData);
-
-            ArrayList<Investigator> test = (ArrayList<Investigator>) readStream.readObject();
-            readStream.close();
-            System.out.println(test);
+            FileInputStream readData2 = new FileInputStream("investigationTeams.ser");
+            FileInputStream readData1 = new FileInputStream("investigators.ser");
+            FileInputStream readData3 = new FileInputStream("works.ser");
+            ObjectInputStream readStream2 = new ObjectInputStream(readData2);
+            ObjectInputStream readStream1 = new ObjectInputStream(readData1);
+            ObjectInputStream readStream3 = new ObjectInputStream(readData3);
+            ArrayList<Investigator> investigatorsFromFile = (ArrayList<Investigator>) readStream1.readObject();
+            ArrayList<InvestigationTeam> investigationTeamsFromFile = (ArrayList<InvestigationTeam>) readStream2.readObject();
+            ArrayList<Work> worksFromFile = (ArrayList<Work>) readStream3.readObject();
+            investigators = investigatorsFromFile;
+            investigationTeams = investigationTeamsFromFile;
+            works = worksFromFile;
+            readStream1.close();
+            readStream2.close();
+            readStream3.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.print(investigators);
     }
-
 
     private void print5years() { //TODO: ver se esta merda está broken
         int year = 2020;
@@ -398,7 +416,7 @@ public class CISUC implements Serializable {
 
     private InvestigationTeam getTeam(Investigator investigator) {
         for(InvestigationTeam team : investigationTeams) {
-            if (team == investigator.getInvestigationGroup()) {
+            if (team.getAcronym() == investigator.getInvestigationGroup().getAcronym()) {
                 return team;
             }
         }
