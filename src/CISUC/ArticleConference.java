@@ -1,12 +1,14 @@
 package CISUC;
 
+import java.util.ArrayList;
+
 public class ArticleConference extends Work {
     private String conference;
     private int articleNum;
     private String location;
 
-    public ArticleConference(String author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String conference, int articleNum, String location) {
-        super(author, title, keywords, team, yearPublished, audience);
+    public ArticleConference(ArrayList<Investigator> authors, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String conference, int articleNum, String location) {
+        super(authors, title, keywords, team, yearPublished, audience);
         this.conference = conference;
         this.articleNum = articleNum;
         this.location = location;
@@ -36,7 +38,7 @@ public class ArticleConference extends Work {
     public String toString() {
         return "Conference{" +
                 "conference='" + conference + '\'' +
-                ", articleNum=" + articleNum + ", impact=" + super.getImpactValue() +
+                ", articleNum=" + articleNum + ", impact=" + super.getImpactValue() + super.toString() +
                 '}';
     }
 }

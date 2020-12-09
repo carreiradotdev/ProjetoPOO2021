@@ -28,13 +28,24 @@ efetivemember,Edmundo Monteiro,edmundo@dei.uc.pt,LCT,sala do caralho,239790000
 efetivemember,Carlos Bento,bento@dei.uc.pt,CMS,sala do caralho,239790000
 efetivemember,Fernando Barros,barros@dei.uc.pt,SSE,sala do caralho,239790000
 efetivemember,João P. Vilela,jpvilela@dei.uc.pt,LCT,sala do caralho,239790000
-articleconference,Guilherme Junqueira,What The Dead Men Say,"world";"temperature",AC,2020,25000500,"CM",1,Coimbra
+student,Francisco Carreira,fmbcarreira@gmail.com,AC,cona master,2021,Luis Cordeiro
+student,Carlos Jordão,jordao@email.com,AC,"Fiding the location of Ganza",2023,Paulo Simões
+student,João Lourenço,lourenco@email.com,CMS,"Driving Home for Christmas",2023,Penousal Machado
+student,Rodrigo Machado, rodrigo@email.com,CMS,"State of The Art Compression",2021,Luis Cordeiro
+student,Inês Fonseca,fonseca@email.com,CMS,"Feliz Navidad",2022,Jorge Henriques
+student,João Marques,marques@email.com,ECOS,"Stop The World I Wanna Get Off With You",2023,Marilia Cordeiro
+student,Jonas Rua,rua@gmail.com,ECOS,"Happy Thesis",2020,Marilia Cordeiro
+student,João Vaz, vaz@email.com,ECOS,"Being Manco and Playing Basketball",2021,Licínio Roque
+student,Gonçalo Folhas, folhas@email.com,IS,"Hoops and saying yo",2022,Licínio Roque
+student,David Leitão,leitao@email.com,LCT,"Putas and White Wine",2073,Paulo Simões
+student,Guilherme Junqueira,guillos@email.com,SSE,"Being Black in Entroncamento",2021,Henrique Madeira
+articleconference,Guilherme Junqueira;Jorge Henriques,What The Dead Men Say,"world";"temperature",AC,2020,25000500,"CM",1,Coimbra
 articleconference,Jorge Henriques,The Ones We Leave Behind,"ones";"behind";,ECOS,2019,500,"IEEE",2,Entroncamento
 articleconference,Penousal Machado,What the Dead Men Say,"dead";"say",CMS,2018,1000,"CISUC",3,Faro
 articleconference,António Dourado,Catastrophist,"catastrophist",AC,2017,4000,"Cimeira do Ambiente",4,Luxemburgo
 articleconference,Rodrigo Machado,Amongst the Shadows & the Stones,"shadows";"stones",LCT,2016,5000000,"Entroncamento Talks",5,Entroncamento
-articleconference,João Vaz,Bleed Into Me,"blood",LCT,2015,12345,"Condeixa Talks",6,Condeixa
-articleconference,Inês Fonseca,The Defiant,"defiant",ECOS,2014,54321,"Conferencia",7,Ali ao Lado
+articleconference,João Vaz;Rodrigo Machado,Bleed Into Me,"blood",LCT,2015,12345,"Condeixa Talks",6,Condeixa
+articleconference,Inês Fonseca;Francisco Carreira,The Defiant,"defiant",ECOS,2014,54321,"Conferencia",7,Ali ao Lado
 articlemagazine,Francisco Carreira,I Don’t Trust Myself (With Loving You),keyword,AC,2020,500,Correio da Manhã,1,13-01-2001
 articlemagazine,Rodrigo Machado,Waiting On the World to Change,keyword,SSE,2020,1000,Jornal de Noticias,2,23-01-2001
 articlemagazine,Inês Fonseca,Slow Dancing In a Burning Room,keyword,LCT,2019,2000,Diário de Notícias,3,03-04-2002
@@ -59,14 +70,3 @@ bookchapter,João Vaz,Pink + White,keywords,ECOS,2018,5000,editor,0,chaptername,
 bookchapter,Guilherme Junqueira,Nights,keywords,IS,2017,2500,editor,0,chaptername,0,0
 bookchapter,Carlos Jordão,White Ferrari,keywords,CMS,2016,1250,editor,0,chaptername,0,0
 bookchapter,Luis Cordeiro,Self Control,keywords,LCT,2015,625,editor,0,chaptername,0,0
-student,Francisco Carreira,fmbcarreira@gmail.com,AC,cona master,2021,Luis Cordeiro
-student,Carlos Jordão,jordao@email.com,AC,"Fiding the location of Ganza",2023,Paulo Simões
-student,João Lourenço,lourenco@email.com,CMS,"Driving Home for Christmas",2023,Penousal Machado
-student,Rodrigo Machado, rodrigo@email.com,CMS,"State of The Art Compression",2021,Luis Cordeiro
-student,Inês Fonseca,fonseca@email.com,CMS,"Feliz Navidad",2022,Jorge Henriques
-student,João Marques,marques@email.com,ECOS,"Stop The World I Wanna Get Off With You",2023,Marilia Cordeiro
-student,Jonas Rua,rua@gmail.com,ECOS,"Happy Thesis",2020,Marilia Cordeiro
-student,João Vaz, vaz@email.com,ECOS,"Being Manco and Playing Basketball",2021,Licínio Roque
-student,Gonçalo Folhas, folhas@email.com,IS,"Hoops and saying yo",2022,Licínio Roque
-student,David Leitão,leitao@email.com,LCT,"Putas and White Wine",2073,Paulo Simões
-student,Guilherme Junqueira,guillos@email.com,SSE,"Being Black in Entroncamento",2021,Henrique Madeira

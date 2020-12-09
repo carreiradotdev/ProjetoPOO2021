@@ -4,11 +4,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The type Cisuc.
+ */
 public class CISUC implements Serializable {
     private ArrayList<Investigator> investigators;
     private ArrayList<InvestigationTeam> investigationTeams;
     private ArrayList<Work> works;
 
+    /**
+     * The constant sc.
+     */
     public static final Scanner sc = new Scanner(System.in);
 
     private CISUC() {
@@ -17,13 +23,17 @@ public class CISUC implements Serializable {
         works = new ArrayList<>();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         CISUC cisuc = new CISUC();
         try {
             FileInputStream readData = new FileInputStream("CISUC.ser");
             ObjectInputStream readStream = new ObjectInputStream(readData);
-            CISUC cisucFromFile = (CISUC) readStream.readObject();
-            cisuc = cisucFromFile;
+            cisuc = (CISUC) readStream.readObject();
             readStream.close();
         } catch (Exception e) {
             System.out.println("Input file doesn't exist or is empty, no data in database.");
@@ -31,11 +41,17 @@ public class CISUC implements Serializable {
         cisuc.run();
     }
 
+    /**
+     * Method that reads previously saved object file.
+     */
     private void firstRun() {
-        //readFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
+        //oldReadFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
         readFromFile("input.csv");
     }
 
+    /**
+     * Method that runs the menu.
+     */
     private void run() {
         do {
             System.out.println("1: Inicial Run.");
@@ -46,8 +62,9 @@ public class CISUC implements Serializable {
             System.out.println("6: Print works of the lastest 5 years.");
             System.out.println("7: Print all researchers from CISUC.");
             System.out.println("8. Print all works from CISUC.");
-            System.out.println("9. Exit and save.");
-            System.out.println("10. Exit w/o saving.");
+            System.out.println("9. Print works from said investigator.");
+            System.out.println("10. Exit and save.");
+            System.out.println("11. Exit w/o saving.");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -106,11 +123,15 @@ public class CISUC implements Serializable {
                     printWorks();
                     break;
                 case 9:
-                    sc.close();
-                    writer();
-                    System.exit(0);
+                    String name = sc.nextLine();
+                    listResearcherWork(name);
                     break;
                 case 10:
+                    sc.close();
+                    writer("CISUC.ser");
+                    System.exit(0);
+                    break;
+                case 11:
                     sc.close();
                     System.exit(0);
                     break;
@@ -120,6 +141,9 @@ public class CISUC implements Serializable {
         } while (true) ;
     }
 
+    /**
+     * Method that switches between cases in the fourth option.
+     */
     private void option4() {
         int team = sc.nextInt();
         switch (team) {
@@ -135,11 +159,17 @@ public class CISUC implements Serializable {
         }
     }
 
+    /**
+     * Method that switches between cases in the second option.
+     */
     private void option2() {
         countMembers();
         countWorks();
     }
 
+    /**
+     * Method that switches between cases in the third option.
+     */
     private void option3() {
         int team = sc.nextInt();
         switch (team) {
@@ -191,7 +221,18 @@ public class CISUC implements Serializable {
         }
     }
 
-    public void oldReadFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
+    /**
+     * Old method to read from file.
+     *
+     * @param efetiveFile               the efetive input file
+     * @param magazineFile              the magazine input file
+     * @param chapterFile               the chapter input file
+     * @param conferenceFile            the conference input file
+     * @param studentFile               the student input file
+     * @param bookArticleConferenceFile the book article conference input file
+     * @param InvestigationTeamFile     the investigation team input file
+     */
+    /*public void oldReadFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
         // NOT USED METHOD
         String line;
         try {
@@ -255,8 +296,13 @@ public class CISUC implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
+    /**
+     * Updated method to read from file.
+     *
+     * @param inputFile the input file
+     */
     private void readFromFile(String inputFile) {
         String line;
         try {
@@ -283,19 +329,19 @@ public class CISUC implements Serializable {
                     investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
                 }
                 if (type.equalsIgnoreCase("bookchapter")) {
-                    works.add(new BookChapter(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
+                    works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
                 }
                 if (type.equalsIgnoreCase("efetivemember")) {
                     investigators.add(new EfetiveMember(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
                 }
                 if (type.equalsIgnoreCase("articlemagazine")) {
-                    works.add(new ArticleMagazine(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                    works.add(new ArticleMagazine(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
                 }
                 if (type.equalsIgnoreCase("articleconference")) {
-                    works.add(new ArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
+                    works.add(new ArticleConference(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
                 }
                 if (type.equalsIgnoreCase("bookarticleconference")) {
-                        works.add(new BookArticleConference(split[1], split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10])));
+                    works.add(new BookArticleConference(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10])));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -306,21 +352,36 @@ public class CISUC implements Serializable {
         System.out.println("Leitura nova concluida");
     }
 
+    private ArrayList<Investigator> setAuthors(String array) {
+        String[] list = array.split(";");
+        ArrayList<Investigator> picalhudos = new ArrayList<>();
+        for (String author : list) {
+            picalhudos.add(getInvestigator(author));
+        }
+        return picalhudos;
+    }
+
+    /**
+     * Method to count members in database.
+     */
     private void countMembers() {
         int students = 0; int efetives = 0;
         for (Investigator investigator: investigators) {
-            if(investigator.getType() == (Investigator.TYPE_STUDENT)) {
+            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT)) {
                 students++;
             } else {
                 efetives++;
             }
         }
         int total = students + efetives;
-        System.out.printf("CURRENT COUNT OF STUDENTS: %d\n" +
-                          "CURRENT COUNT OF EFETIVE RESEARCHERS: %d\n" +
-                          "TOTAL COUNT OF RESEARCHERS: %d\n", students, efetives, total);
+        System.out.printf("Current count of Students members: %d\n" +
+                          "Current count of Efetive members: %d\n" +
+                          "Total count of staff: %d\n", students, efetives, total);
     }
 
+    /**
+     * Method to count work in database.
+     */
     private void countWorks() {
         int ac = 0; int am = 0; int bac = 0; int bc = 0; int b = 0;
         for (Work work: works) {
@@ -333,6 +394,9 @@ public class CISUC implements Serializable {
         System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",ac,am,bac,bc,b);
     }
 
+    /**
+     * Method to list investigators in database.
+     */
     private void printInvestigators() {
         if (investigators.isEmpty()) {
             System.out.println("There are no researchers in record.");
@@ -340,7 +404,7 @@ public class CISUC implements Serializable {
         for (Investigator investigator: investigators) {
             try {
                 InvestigationTeam team = getTeam(investigator);
-                System.out.printf("| %d | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), team.getAcronym());
+                System.out.printf("| %s | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), team.getAcronym());
             } catch (NullPointerException e) {
                 System.out.println("erro.");  //TODO: acabar esta função.
             }
@@ -348,22 +412,30 @@ public class CISUC implements Serializable {
     }
 
     private void printWorks() {
+        String authors = "";
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
         }
         for (Work work : works) {
             try {
-                Investigator investigator = getInvestigator(work);
-                System.out.println(work.getTitle() + ", written by " + investigator.getPublicationName() + " in " + work.getYearPublished() + ".");
+                for (Investigator author: work.getAuthors()) {
+                    authors += author.getPublicationName() + ", ";
+                }
+                System.out.println("===================");
+                System.out.println(work);
             } catch (NullPointerException e) {
                 System.out.println("ERROR.");  //TODO: acabar esta função.
             }
+            authors = "";
         }
     }
 
-    private void writer() {
+    /**
+     * Method to write CISUC object to object file.
+     */
+    private void writer(String outputFile) {
         try{
-            FileOutputStream writeData = new FileOutputStream("CISUC.ser");
+            FileOutputStream writeData = new FileOutputStream(outputFile);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
             writeStream.writeObject(this);
             writeStream.flush();
@@ -373,19 +445,25 @@ public class CISUC implements Serializable {
         }
     }
 
+    /**
+     * Method to list last 5 years work and sort by year, impact value and type.
+     */
     private void print5years() { //TODO: ver se esta merda está broken
         int year = 2020;
         int ascii = 65;
         int type = 0;
+        String authors = "";
         do {
             for (Work work : works) {
-                if (work.getType() == type) {
+                if (work.getType() == (type)) {
                     do {
                         if (work.getImpactValue() == ascii) {
                             do {
                                 if (work.getYearPublished() == year) {
-                                    Investigator investigator = getInvestigator(work);
-                                    System.out.printf("| %d | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), investigator.getPublicationName());
+                                    for (Investigator author: work.getAuthors()) {
+                                        authors += author.getPublicationName() + ", ";
+                                    }
+                                    System.out.printf("| %s | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), authors);
                                 }
                                 year--;
                             } while (year != 2014);
@@ -400,6 +478,11 @@ public class CISUC implements Serializable {
         } while (type != 5);
     }
 
+    /**
+     * Method to list team members from given InvestigationTeam object.
+     *
+     * @param investigationTeam InvestigationTeam object
+     */
     private void listTeamMembers(InvestigationTeam investigationTeam) {
         if (investigators.isEmpty()) {
             System.out.println("There are no works in record.");
@@ -416,6 +499,11 @@ public class CISUC implements Serializable {
             System.out.println("DONE LISTING.");
     }
 
+    /**
+     * Method to retrive Investigator object from given Investigator name.
+     *
+     * @param name investigator name
+     */
     private Investigator getInvestigator(String name) {
         for (Investigator investigator : investigators) {
             if (investigator.getName().equalsIgnoreCase(name)) {
@@ -425,14 +513,26 @@ public class CISUC implements Serializable {
         return null;
     }
 
-    private Investigator getInvestigator(Work work) {
-        for (Investigator investigator : investigators) {
-            if (investigator.getName().equalsIgnoreCase(work.getAuthor())) {
-                return investigator;
+    /**
+     * Method to retrive Investigator object from given Investigator object.
+     *
+     * @param work Work object
+     */
+    private ArrayList<Investigator> getInvestigator(Work work) {
+        for (Work workIn : works) {
+            if (work.equals(workIn)) {
+                return work.getAuthors();
             }
         }
         return null;
     }
+
+    /**
+     * Method to retrive Team object from given team name.
+     *
+     * @param group team name
+     */
+
 
     private InvestigationTeam getTeam(String group) {
         for(InvestigationTeam team : investigationTeams) {
@@ -443,6 +543,11 @@ public class CISUC implements Serializable {
         return null;
     }
 
+    /**
+     * Method to retrive Team from given researcher.
+     *
+     * @param investigator researcher object
+     */
     private InvestigationTeam getTeam(Investigator investigator) {
         for(InvestigationTeam team : investigationTeams) {
             if (team.getAcronym() == investigator.getInvestigationGroup().getAcronym()) {
@@ -452,6 +557,27 @@ public class CISUC implements Serializable {
         return null;
     }
 
+    /**
+     * Method to list works from given researcher.
+     *
+     * @param name researcher's name
+     */
+    private void listResearcherWork(String name) {
+        if (works.isEmpty()) {
+            System.out.println("There are no works in record.");
+        }
+        for (Work work:works) {
+            for (Investigator author: work.getAuthors()) {
+                if(author.getName().equalsIgnoreCase(name)){
+                    System.out.println(work);
+                }
+            }
+        }
+    }
+
+    /**
+     * Method to list works from given investigation Team.
+     */
     private void listTeamWork() {
         System.out.println("Equipas de Investigação");
         for (InvestigationTeam investigationTeam : investigationTeams) {
@@ -463,3 +589,4 @@ public class CISUC implements Serializable {
         }
     }
 }
+

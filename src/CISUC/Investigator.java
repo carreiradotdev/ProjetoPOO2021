@@ -2,16 +2,32 @@ package CISUC;
 
 import java.io.Serializable;
 
+/**
+ * The type Investigator.
+ */
 public class Investigator implements Serializable {
     private String name;
     private String email;
     private InvestigationTeam investigationGroup;
     private String publicationName;
-    private int type;
+    private String type;
 
-    public static int TYPE_STUDENT = 0;
-    public static int TYPE_EFETIVE = 1;
+    /**
+     * The constant TYPE_STUDENT.
+     */
+    public static String TYPE_STUDENT = "Student";
+    /**
+     * The constant TYPE_EFETIVE.
+     */
+    public static String TYPE_EFETIVE = "Efetive Member";
 
+    /**
+     * Instantiates a new Investigator.
+     *
+     * @param name               the name
+     * @param email              the email
+     * @param investigationGroup the investigation group
+     */
     public Investigator(String name, String email, InvestigationTeam investigationGroup) {
         this.name = name;
         this.email = email;
@@ -19,43 +35,93 @@ public class Investigator implements Serializable {
         this.publicationName = "";
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets investigation group.
+     *
+     * @return the investigation group
+     */
     public InvestigationTeam getInvestigationGroup() {
         return investigationGroup;
     }
 
+    /**
+     * Sets investigation group.
+     *
+     * @param investigationGroup the investigation group
+     */
     public void setInvestigationGroup(InvestigationTeam investigationGroup) {
         this.investigationGroup = investigationGroup;
     }
 
+    /**
+     * Gets publication name.
+     *
+     * @return the publication name
+     */
     public String getPublicationName() {
         return publicationName;
     }
 
+    /**
+     * Sets publication name.
+     *
+     * @param publicationName the publication name
+     */
     public void setPublicationName(String publicationName) {
         this.publicationName = publicationName;
     }
 
-    public int getType() {
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    /**
+     * Sets type.
+     *
+     * @param type the type
+     */
+    public void setType(String type) {
         this.type = type;
     }
 
