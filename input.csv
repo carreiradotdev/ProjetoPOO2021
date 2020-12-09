@@ -64,9 +64,9 @@ bookarticleconference,Artur Rebelo,The Star Room,keyword,ECOS,2017,4354,Raiz Edi
 bookarticleconference,Fernando Barros,I Am Who Am (Killin' Time),keyword,CMS,2016,6544,Oxford,987654321,conferenceName,4
 bookarticleconference,Penousal Machado,Birds Call,keyword,LCT,2015,342,Pfizer,987654321,conferenceName,5
 bookarticleconference,Licínio Roque,Watching Movies,keyword,CMS,2014,23424,Moderna,987654321,conferenceName,6
-bookchapter,Rodrigo Machado,Chanel,keywords,AC,2020,20000,editor,0,chaptername,0,0
-bookchapter,Francisco Carreira,In My Room,keywords,LCT,2019,10000,editor,0,chaptername,0,0
-bookchapter,João Vaz,Pink + White,keywords,ECOS,2018,5000,editor,0,chaptername,0,0
-bookchapter,Guilherme Junqueira,Nights,keywords,IS,2017,2500,editor,0,chaptername,0,0
-bookchapter,Carlos Jordão,White Ferrari,keywords,CMS,2016,1250,editor,0,chaptername,0,0
-bookchapter,Luis Cordeiro,Self Control,keywords,LCT,2015,625,editor,0,chaptername,0,0
+bookchapter,Rodrigo Machado,Chanel,keywords,AC,2020,20000,Pergaminho,0,Who Says,1,5
+bookchapter,Francisco Carreira,In My Room,keywords,LCT,2019,10000,Impresa,0,Clarity,2,8
+bookchapter,João Vaz,Pink + White,keywords,ECOS,2018,5000,Betrand Portugal,0,Half of My Heart,5,9
+bookchapter,Guilherme Junqueira,Nights,keywords,IS,2017,2500,Booktree,0,Thinking About You,23,54
+bookchapter,Carlos Jordão,White Ferrari,keywords,CMS,2016,1250,JBC,0,White Farrarri,234,765
+bookchapter,Luis Cordeiro,Self Control,keywords,LCT,2015,625,Planeta deAgostini,0,Summer,1,1
