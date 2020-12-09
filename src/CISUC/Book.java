@@ -69,9 +69,9 @@ public class Book extends Work {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "editor='" + editor + '\'' +
-                ", isbn=" + isbn +
-                '}';
+        return super.toString() +
+                "\nTYPE: Book" +
+                "\nEDITOR: " + editor +
+                "\nISBN: " + isbn;
     }
 }

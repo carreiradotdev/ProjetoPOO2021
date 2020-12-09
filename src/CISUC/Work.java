@@ -220,13 +220,26 @@ public class Work implements Serializable {
         this.team = team;
     }
 
+    public String printAuthors() {
+        String authorsList = "";
+        boolean isFirst = true;
+        for (Investigator author: authors) {
+            if (isFirst) {
+                authorsList = author.getPublicationName();
+                isFirst = false;
+            } else {
+                authorsList += ", " + author.getPublicationName();
+            }
+        }
+        return authorsList;
+    }
+
     @Override
     public String toString() {
-        return  "\nAUTHOR:" + authors + '\'' +
-                "\nNAME:" + title + '\'' +
-                "\nKEYWORDS:" + keywords + '\'' +
-                "\nPUBLISHED IN:" + yearPublished +
-                "\nTYPE:" + type + '\'' +
-                "\nIMPACT VALUE:" + impactValue;
+        return  "NAME: " + title +
+                "\nWRITTEN BY: " + printAuthors() +
+                "\nKEYWORDS: " + keywords +
+                "\nPUBLISHED IN: " + yearPublished +
+                "\nIMPACT VALUE: " + impactValue;
     }
 }

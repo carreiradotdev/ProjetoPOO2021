@@ -452,7 +452,6 @@ public class CISUC implements Serializable {
         int year = 2020;
         int ascii = 65;
         int type = 0;
-        String authors = "";
         do {
             for (Work work : works) {
                 if (work.getType() == (type)) {
@@ -461,9 +460,8 @@ public class CISUC implements Serializable {
                             do {
                                 if (work.getYearPublished() == year) {
                                     for (Investigator author: work.getAuthors()) {
-                                        authors += author.getPublicationName() + ", ";
+                                        System.out.printf("| %s | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), work.printAuthors());
                                     }
-                                    System.out.printf("| %s | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), authors);
                                 }
                                 year--;
                             } while (year != 2014);
@@ -550,7 +548,7 @@ public class CISUC implements Serializable {
      */
     private InvestigationTeam getTeam(Investigator investigator) {
         for(InvestigationTeam team : investigationTeams) {
-            if (team.getAcronym() == investigator.getInvestigationGroup().getAcronym()) {
+            if (team.getAcronym().equals(investigator.getInvestigationGroup().getAcronym())) {
                 return team;
             }
         }
@@ -565,6 +563,7 @@ public class CISUC implements Serializable {
     private void listResearcherWork(String name) {
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
+            return;
         }
         for (Work work:works) {
             for (Investigator author: work.getAuthors()) {
@@ -579,13 +578,17 @@ public class CISUC implements Serializable {
      * Method to list works from given investigation Team.
      */
     private void listTeamWork() {
-        System.out.println("Equipas de Investigação");
-        for (InvestigationTeam investigationTeam : investigationTeams) {
-            try {
+        if (investigationTeams.isEmpty()) {
+            System.out.println("No investigation teams in our database.");
+            return;
+        }
+        try {
+            System.out.println("Equipas de Investigação:");
+            for (InvestigationTeam investigationTeam : investigationTeams) {
                 System.out.printf("| %s | %s | %s |\n", investigationTeam.getAcronym(), investigationTeam.getGroup(), investigationTeam.getHeadLeader().getName());
-            } catch (NullPointerException e) {
-                System.out.println("Researcher doesn't exist in database.");
             }
+        } catch (NullPointerException e) {
+            System.out.println("Researching team doesn't exist in database.");
         }
     }
 }

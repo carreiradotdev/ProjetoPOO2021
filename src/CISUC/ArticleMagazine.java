@@ -88,8 +88,12 @@ public class ArticleMagazine extends Work {
         this.issueDate = issueDate;
     }
 
-@Override
+    @Override
     public String toString() {
-        return "| year | type | impact value | author | title |";
+        return super.toString() +
+                "\nTYPE: Magazine Article" +
+                "\nJOURNAL NAME: " + journalName +
+                "\nISSUE NO:" + issueNum +
+                "\nISSUE DATE: " + issueDate;
     }
 }

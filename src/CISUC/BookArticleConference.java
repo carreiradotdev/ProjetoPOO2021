@@ -90,9 +90,9 @@ public class BookArticleConference extends Book {
 
     @Override
     public String toString() {
-        return super.toString() + "ConferenceArticleBook" +
-                "conferenceName='" + conferenceName + '\'' +
-                ", articleNum=" + articleNum +
-                '}';
+        return super.toString() +
+                "\nTYPE: Conference Article Book" +
+                "\nCONFERENCE NAME: " + conferenceName +
+                "\nARTICLE NUMBER: " + articleNum;
     }
 }

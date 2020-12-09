@@ -1,8 +1,8 @@
 author,title,keywords,team,yearPublished,audience,editor,isbn,conferenceName,articleNum
-Carlos Jordão,Somebody Do Something,keyword,AC,2020,5000,Gradiva,987654321,conferenceName,0
-David Leitão,Kool Aid And Frozen Pizza,keyword,SSE,2019,1000,Porto Editora,987654321,conferenceName,1
-João Vaz,Best Day Ever,keyword,LCT,2018,5432,Areal,987654321,conferenceName,2
-Artur Rebelo,The Star Room,keyword,ECOS,2017,4354,Raiz Editora,987654321,conferenceName,3
-Fernando Barros,I Am Who Am (Killin' Time),keyword,CMS,2016,6544,Oxford,987654321,conferenceName,4
-Penousal Machado,Birds Call,keyword,LCT,2015,342,Pfizer,987654321,conferenceName,5
-Licínio Roque,Watching Movies,keyword,CMS,2014,23424,Moderna,987654321,conferenceName,6
+Carlos Jordão,Somebody Do Something,keyword,AC,2020,5000,Gradiva,987654321,Web Summit,0
+David Leitão,Kool Aid And Frozen Pizza,keyword,SSE,2019,1000,Porto Editora,987654321,G30,1
+João Vaz,Best Day Ever,keyword,LCT,2018,5432,Areal,987654321,G27,2
+Artur Rebelo,The Star Room,keyword,ECOS,2017,4354,Raiz Editora,987654321,G12,3
+Fernando Barros,I Am Who Am (Killin' Time),keyword,CMS,2016,6544,Oxford,987654321,G7,4
+Penousal Machado,Birds Call,keyword,LCT,2015,342,Pfizer,987654321,G3,5
+Licínio Roque,Watching Movies,keyword,CMS,2014,23424,Moderna,987654321,G1,6

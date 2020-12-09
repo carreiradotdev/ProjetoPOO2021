@@ -36,9 +36,10 @@ public class ArticleConference extends Work {
 
     @Override
     public String toString() {
-        return "Conference{" +
-                "conference='" + conference + '\'' +
-                ", articleNum=" + articleNum + ", impact=" + super.getImpactValue() + super.toString() +
-                '}';
+        return super.toString() +
+                "\nTYPE: Conference Article" +
+                "\nCONFERENCE: " + conference +
+                "\nARTICLE NUMBER: " + articleNum +
+                "\nIMPACT VALUE:" + super.getImpactValue();
     }
 }

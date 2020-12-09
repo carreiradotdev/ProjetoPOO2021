@@ -93,9 +93,9 @@ public class BookChapter extends Book {
     @Override
     public String toString() {
         return super.toString() +
-                "chapterName='" + chapterName + '\'' +
-                ", startingPage=" + startingPage +
-                ", endingPage=" + endingPage + ", impact=" + super.getImpactValue() +
-                '}';
+                "\nTYPE: Book Chapter" +
+                "\nCHAPTER NAME: " + chapterName + '\'' +
+                "\nPAGES: " + startingPage + " - " + endingPage +
+                "\nIMPACT: " + super.getImpactValue();
     }
 }
