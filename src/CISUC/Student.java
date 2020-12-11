@@ -96,10 +96,9 @@ public class Student extends Investigator implements Serializable {
 
  @Override
     public String toString() {
-        return "Student{" +
-                "thesisName='" + thesisName + '\'' +
-                ", thesisDate='" + thesisDate + '\'' +
-                ", professor='" + professor + '\'' +  ", publicationName=" + getPublicationName() + ", merda=" + getInvestigationGroup().getAcronym() +
-                '}';
+        return super.toString() + "\nTYPE: Student" +
+                "\nTHESIS NAME: " + thesisName +
+                "\nTHESIS DUE DATE: " + thesisDate +
+                "\nPROFESSOR IN CHARGE: " + professor;
     }
 }

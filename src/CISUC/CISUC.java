@@ -123,6 +123,8 @@ public class CISUC implements Serializable {
                     printWorks();
                     break;
                 case 9:
+                    sc.nextLine();
+                    System.out.print("Insert name: ");
                     String name = sc.nextLine();
                     listResearcherWork(name);
                     break;
@@ -345,11 +347,11 @@ public class CISUC implements Serializable {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Ficheiro não encontrado.");
+            System.out.println("File not found.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading line.");;
         }
-        System.out.println("Leitura nova concluida");
+        System.out.println("New reading method has completed.");
     }
 
     private ArrayList<Investigator> setAuthors(String array) {
@@ -400,34 +402,32 @@ public class CISUC implements Serializable {
     private void printInvestigators() {
         if (investigators.isEmpty()) {
             System.out.println("There are no researchers in record.");
+            return;
         }
         for (Investigator investigator: investigators) {
             try {
-                InvestigationTeam team = getTeam(investigator);
-                System.out.printf("| %s | %s | %s | %s |\n", investigator.getType(), investigator.getName(), investigator.getEmail(), team.getAcronym());
+                System.out.println("===================");
+                System.out.println(investigator);
             } catch (NullPointerException e) {
                 System.out.println("erro.");  //TODO: acabar esta função.
             }
         }
+        System.out.println("===================");
     }
 
+    /**
+     * Method to list works in database.
+     */
     private void printWorks() {
-        String authors = "";
         if (works.isEmpty()) {
             System.out.println("There are no works in record.");
+            return;
         }
         for (Work work : works) {
-            try {
-                for (Investigator author: work.getAuthors()) {
-                    authors += author.getPublicationName() + ", ";
-                }
-                System.out.println("===================");
-                System.out.println(work);
-            } catch (NullPointerException e) {
-                System.out.println("ERROR.");  //TODO: acabar esta função.
-            }
-            authors = "";
+            System.out.println("===================");
+            System.out.println(work);
         }
+        System.out.println("===================");
     }
 
     /**
@@ -437,10 +437,14 @@ public class CISUC implements Serializable {
         try{
             FileOutputStream writeData = new FileOutputStream(outputFile);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+            if (works.isEmpty() && investigators.isEmpty() && investigationTeams.isEmpty()) {
+                System.out.println("No data to save, program will exit.");
+                return;
+            }
             writeStream.writeObject(this);
             writeStream.flush();
             writeStream.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -530,8 +534,6 @@ public class CISUC implements Serializable {
      *
      * @param group team name
      */
-
-
     private InvestigationTeam getTeam(String group) {
         for(InvestigationTeam team : investigationTeams) {
             if (team.getAcronym().equalsIgnoreCase(group)) {
@@ -568,10 +570,12 @@ public class CISUC implements Serializable {
         for (Work work:works) {
             for (Investigator author: work.getAuthors()) {
                 if(author.getName().equalsIgnoreCase(name)){
+                    System.out.println("===================");
                     System.out.println(work);
                 }
             }
         }
+        System.out.println("===================");
     }
 
     /**

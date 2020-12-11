@@ -75,8 +75,8 @@ public class EfetiveMember extends Investigator implements Serializable {
 
     @Override
     public String toString() {
-        return "EfetiveMember{" + "name" + getName() + '\'' +
-                "room='" + room + '\'' +
-                ", cellphone=" + cellphone + ", publicationName=" + getPublicationName() + ", investigationGroup=" + getInvestigationGroup() +"}\n";
+        return super.toString() + "\nTYPE: Efetive Member" +
+                "\nROOM: " + room +
+                "\nCELLPHONE: " + cellphone;
     }
 }

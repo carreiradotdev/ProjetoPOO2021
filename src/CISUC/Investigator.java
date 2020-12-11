@@ -125,12 +125,10 @@ public class Investigator implements Serializable {
         this.type = type;
     }
 
+    //TODO: public abstract String createPublicationName(String name);
+
     @Override
     public String toString() {
-        return "Investigator{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", investigationGroup='" + investigationGroup + '\'' +
-                '}';
+        return "NAME: " + name + "\nEMAIL: " + email + "\nINVESTIGATION GROUP: " + investigationGroup.getGroup();
     }
 }
