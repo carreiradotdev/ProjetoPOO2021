@@ -32,6 +32,7 @@ public class ArticleMagazine extends Work {
         if (audience < 1000 && audience >= 500) setImpactValue('B');
         if (audience < 500) setImpactValue('C');
         setType(1);
+        articleMagazineCount++;
     }
 
     /**

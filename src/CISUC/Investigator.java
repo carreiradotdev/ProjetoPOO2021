@@ -19,7 +19,10 @@ public class Investigator implements Serializable {
     /**
      * The constant TYPE_EFETIVE.
      */
-    public static String TYPE_EFETIVE = "Efetive Member";
+    public static String TYPE_TEACHER= "Teacher";
+
+    public static int studentCount = 0;
+    public static int teacherCount = 0;
 
     /**
      * Instantiates a new Investigator.

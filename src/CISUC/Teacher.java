@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The type Efetive member.
  */
-public class EfetiveMember extends Investigator implements Serializable {
+public class Teacher extends Investigator implements Serializable {
     private String room;
     private long cellphone;
 
@@ -18,12 +18,13 @@ public class EfetiveMember extends Investigator implements Serializable {
      * @param room               the room
      * @param cellphone          the cellphone
      */
-    public EfetiveMember(String name, String email, InvestigationTeam investigationGroup, String room, long cellphone) {
+    public Teacher(String name, String email, InvestigationTeam investigationGroup, String room, long cellphone) {
         super(name, email, investigationGroup);
         this.room = room;
         this.cellphone = cellphone;
         setPublicationName(createPublicationName(name));
-        setType(TYPE_EFETIVE);
+        setType(TYPE_TEACHER);
+        teacherCount++;
     }
 
     /**
@@ -75,7 +76,7 @@ public class EfetiveMember extends Investigator implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "\nTYPE: Efetive Member" +
+        return super.toString() + "\nTYPE: Teacher" +
                 "\nROOM: " + room +
                 "\nCELLPHONE: " + cellphone;
     }

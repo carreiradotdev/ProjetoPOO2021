@@ -20,23 +20,23 @@ public class Work implements Serializable {
     /**
      * The constant TYPE_ARTICLE_CONFERENCE.
      */
-    public static int TYPE_ARTICLE_CONFERENCE = 0;
+    public static int articleConferenceCount = 0;
     /**
      * The constant TYPE_ARTICLE_MAGAZINE.
      */
-    public static int TYPE_ARTICLE_MAGAZINE = 1;
+    public static int articleMagazineCount = 0;
     /**
      * The constant TYPE_BOOK_ARTICLE_CONFERENCE.
      */
-    public static int TYPE_BOOK_ARTICLE_CONFERENCE = 2;
+    public static int bookArticleConferenceCount = 0;
     /**
      * The constant TYPE_BOOK_CHAPTER.
      */
-    public static int TYPE_BOOK_CHAPTER = 3;
+    public static int bookChapterCount = 0;
     /**
      * The constant TYPE_BOOK.
      */
-    public static int TYPE_BOOK = 4;
+    public static int bookCount = 0;
 
     /**
      * Instantiates a new Work.

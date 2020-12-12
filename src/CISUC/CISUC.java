@@ -224,83 +224,6 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Old method to read from file.
-     *
-     * @param efetiveFile               the efetive input file
-     * @param magazineFile              the magazine input file
-     * @param chapterFile               the chapter input file
-     * @param conferenceFile            the conference input file
-     * @param studentFile               the student input file
-     * @param bookArticleConferenceFile the book article conference input file
-     * @param InvestigationTeamFile     the investigation team input file
-     */
-    /*public void oldReadFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
-        // NOT USED METHOD
-        String line;
-        try {
-            BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
-            BufferedReader br2 = new BufferedReader(new FileReader(magazineFile));
-            BufferedReader br3 = new BufferedReader(new FileReader(chapterFile));
-            BufferedReader br4 = new BufferedReader(new FileReader(conferenceFile));
-            BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
-            BufferedReader br6 = new BufferedReader(new FileReader(bookArticleConferenceFile));
-            BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
-            br7.readLine();
-            while ((line = br7.readLine()) != null) {
-                String[] split7 = line.split(",");
-                boolean found = false;
-                for (Investigator i: investigators) {
-                    if (i.getName().equalsIgnoreCase(split7[2])) {
-                        found = true;
-                        }
-                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
-                    }
-                if (!found) {
-                    EfetiveMember temp = new EfetiveMember(split7[2],null,null,null,0);
-                    investigators.add(temp);
-                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
-                    investigators.remove(temp);
-                }
-            }
-            br1.readLine();
-            while ((line = br1.readLine()) != null) {
-                String[] split = line.split(",");
-                    investigators.add(new EfetiveMember(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
-            }
-            br2.readLine();
-            while ((line = br2.readLine()) != null) {
-                String[] split = line.split(",");
-                works.add(new ArticleMagazine(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
-            }
-            br3.readLine();
-            while ((line = br3.readLine()) != null) {
-                String[] split = line.split(",");
-                works.add(new BookChapter(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9]), Integer.parseInt(split[10])));
-            }
-            br4.readLine();
-            while ((line = br4.readLine()) != null) {
-                String[] split = line.split(",");
-                works.add(new ArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
-            }
-            br5.readLine();
-            while ((line = br5.readLine()) != null) {
-                String[] split = line.split(",");
-                investigators.add(new Student(split[0], split[1], getTeam(split[2]), split[3], split[4], split[5]));
-            }
-            br6.readLine();
-            while ((line = br6.readLine()) != null) {
-                String[] split = line.split(",");
-                works.add(new BookArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9])));
-            }
-            System.out.println("LEITURA CONCLUÍDA.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Ficheiro não encontrado.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    /**
      * Updated method to read from file.
      *
      * @param inputFile the input file
@@ -321,7 +244,7 @@ public class CISUC implements Serializable {
                     investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
                 }
                 if (!found) {
-                    EfetiveMember temp = new EfetiveMember(split[3],null,null,null,0);
+                    Teacher temp = new Teacher(split[3],null,null,null,0);
                     investigators.add(temp);
                     investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
                     investigators.remove(temp);
@@ -334,7 +257,7 @@ public class CISUC implements Serializable {
                     works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
                 }
                 if (type.equalsIgnoreCase("efetivemember")) {
-                    investigators.add(new EfetiveMember(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
+                    investigators.add(new Teacher(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
                 }
                 if (type.equalsIgnoreCase("articlemagazine")) {
                     works.add(new ArticleMagazine(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
@@ -367,33 +290,14 @@ public class CISUC implements Serializable {
      * Method to count members in database.
      */
     private void countMembers() {
-        int students = 0; int efetives = 0;
-        for (Investigator investigator: investigators) {
-            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT)) {
-                students++;
-            } else {
-                efetives++;
-            }
-        }
-        int total = students + efetives;
+        int total = Investigator.studentCount + Investigator.teacherCount;
         System.out.printf("Current count of Students members: %d\n" +
-                          "Current count of Efetive members: %d\n" +
-                          "Total count of staff: %d\n", students, efetives, total);
+                "Current count of Teacher members: %d\n" +
+                "Total count of staff: %d\n", Investigator.studentCount, Investigator.teacherCount, total);
     }
 
-    /**
-     * Method to count work in database.
-     */
     private void countWorks() {
-        int ac = 0; int am = 0; int bac = 0; int bc = 0; int b = 0;
-        for (Work work: works) {
-            if(work.getType() == (Work.TYPE_ARTICLE_CONFERENCE)) { ac++; }
-            if(work.getType() == (Work.TYPE_ARTICLE_MAGAZINE)) { am++; }
-            if(work.getType() == (Work.TYPE_BOOK_ARTICLE_CONFERENCE)) { bac++; }
-            if(work.getType() == (Work.TYPE_BOOK_CHAPTER)) { bc++; }
-            if(work.getType() == (Work.TYPE_BOOK)) { b++; }
-        }
-        System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",ac,am,bac,bc,b);
+        System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount);
     }
 
     /**
@@ -502,7 +406,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to retrive Investigator object from given Investigator name.
+     * Method to retrieve Investigator object from given Investigator name.
      *
      * @param name investigator name
      */
@@ -516,7 +420,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to retrive Investigator object from given Investigator object.
+     * Method to retrieve Investigator object from given Investigator object.
      *
      * @param work Work object
      */
@@ -596,4 +500,118 @@ public class CISUC implements Serializable {
         }
     }
 }
+
+// ======================= not used methods ========================== //
+
+/**
+ * Old method to count work in database.
+ */
+    /*
+    private void countWorks() {
+        int ac = 0; int am = 0; int bac = 0; int bc = 0; int b = 0;
+        for (Work work: works) {
+            if(work.getType() == (Work.TYPE_ARTICLE_CONFERENCE)) { ac++; }
+            if(work.getType() == (Work.TYPE_ARTICLE_MAGAZINE)) { am++; }
+            if(work.getType() == (Work.TYPE_BOOK_ARTICLE_CONFERENCE)) { bac++; }
+            if(work.getType() == (Work.TYPE_BOOK_CHAPTER)) { bc++; }
+            if(work.getType() == (Work.TYPE_BOOK)) { b++; }
+        }
+        System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",ac,am,bac,bc,b);
+    }
+    */
+
+/**
+ * Old method to read from file.
+ *
+ * @param efetiveFile               the efetive input file
+ * @param magazineFile              the magazine input file
+ * @param chapterFile               the chapter input file
+ * @param conferenceFile            the conference input file
+ * @param studentFile               the student input file
+ * @param bookArticleConferenceFile the book article conference input file
+ * @param InvestigationTeamFile     the investigation team input file
+ */
+    /*public void oldReadFromFile(String efetiveFile, String magazineFile, String chapterFile, String conferenceFile, String studentFile, String bookArticleConferenceFile, String InvestigationTeamFile) {
+        // NOT USED METHOD
+        String line;
+        try {
+            BufferedReader br1 = new BufferedReader(new FileReader(efetiveFile));
+            BufferedReader br2 = new BufferedReader(new FileReader(magazineFile));
+            BufferedReader br3 = new BufferedReader(new FileReader(chapterFile));
+            BufferedReader br4 = new BufferedReader(new FileReader(conferenceFile));
+            BufferedReader br5 = new BufferedReader(new FileReader(studentFile));
+            BufferedReader br6 = new BufferedReader(new FileReader(bookArticleConferenceFile));
+            BufferedReader br7 = new BufferedReader(new FileReader(InvestigationTeamFile));
+            br7.readLine();
+            while ((line = br7.readLine()) != null) {
+                String[] split7 = line.split(",");
+                boolean found = false;
+                for (Investigator i: investigators) {
+                    if (i.getName().equalsIgnoreCase(split7[2])) {
+                        found = true;
+                        }
+                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
+                    }
+                if (!found) {
+                    Teacher temp = new Teacher(split7[2],null,null,null,0);
+                    investigators.add(temp);
+                    investigationTeams.add(new InvestigationTeam(split7[0], split7[1], getInvestigator(split7[2])));
+                    investigators.remove(temp);
+                }
+            }
+            br1.readLine();
+            while ((line = br1.readLine()) != null) {
+                String[] split = line.split(",");
+                    investigators.add(new Teacher(split[0],split[1],getTeam(split[2]),split[3],Long.parseLong(split[4])));
+            }
+            br2.readLine();
+            while ((line = br2.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new ArticleMagazine(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
+            }
+            br3.readLine();
+            while ((line = br3.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new BookChapter(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9]), Integer.parseInt(split[10])));
+            }
+            br4.readLine();
+            while ((line = br4.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new ArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8]));
+            }
+            br5.readLine();
+            while ((line = br5.readLine()) != null) {
+                String[] split = line.split(",");
+                investigators.add(new Student(split[0], split[1], getTeam(split[2]), split[3], split[4], split[5]));
+            }
+            br6.readLine();
+            while ((line = br6.readLine()) != null) {
+                String[] split = line.split(",");
+                works.add(new BookArticleConference(split[0], split[1], split[2], getTeam(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), split[6], Integer.parseInt(split[7]), split[8], Integer.parseInt(split[9])));
+            }
+            System.out.println("LEITURA CONCLUÍDA.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Ficheiro não encontrado.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+/**
+     * Old method to count members in database.
+ */
+    /*private void countMembers() {
+        int students = 0; int efetives = 0;
+        for (Investigator investigator: investigators) {
+            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT)) {
+                students++;
+            } else {
+                efetives++;
+            }
+        }
+        int total = students + efetives;
+        System.out.printf("Current count of Students members: %d\n" +
+                "Current count of Efetive members: %d\n" +
+                "Total count of staff: %d\n", students, efetives, total);
+    }*/
 

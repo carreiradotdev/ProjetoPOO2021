@@ -15,7 +15,8 @@ public class ArticleConference extends Work {
         if (audience >= 500) setImpactValue('A');
         if (audience < 500 && audience >= 200) setImpactValue('B');
         if (audience < 500) setImpactValue('C');
-        setType(0);
+        setType(2);
+        articleConferenceCount++;
     }
 
     public String getConference() {

@@ -29,6 +29,7 @@ public class Book extends Work {
         if (audience < 10000 && audience >= 5000) setImpactValue('B');
         if (audience < 5000) setImpactValue('C');
         setType(4);
+        bookCount++;
     }
 
     /**
