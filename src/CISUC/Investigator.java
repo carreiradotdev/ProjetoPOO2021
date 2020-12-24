@@ -38,6 +38,13 @@ public class Investigator implements Serializable {
         this.publicationName = "";
     }
 
+    public Investigator(String name) {
+        this.name = name;
+        this.email = null;
+        this.investigationGroup = null;
+        this.publicationName = null;
+    }
+
     /**
      * Gets name.
      *

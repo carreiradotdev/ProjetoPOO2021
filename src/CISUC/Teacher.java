@@ -23,8 +23,13 @@ public class Teacher extends Investigator implements Serializable {
         this.room = room;
         this.cellphone = cellphone;
         setPublicationName(createPublicationName(name));
-        setType(TYPE_TEACHER);
         teacherCount++;
+    }
+
+    public Teacher(String name) {
+        super(name);
+        this.room = null;
+        this.cellphone = 0;
     }
 
     /**

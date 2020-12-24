@@ -35,12 +35,19 @@ public class ArticleConference extends Work {
         this.articleNum = articleNum;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return super.toString() +
                 "\nTYPE: Conference Article" +
                 "\nCONFERENCE: " + conference +
-                "\nARTICLE NUMBER: " + articleNum +
-                "\nIMPACT VALUE:" + super.getImpactValue();
+                "\nARTICLE NUMBER: " + articleNum;
     }
 }

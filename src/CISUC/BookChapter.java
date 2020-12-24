@@ -95,7 +95,6 @@ public class BookChapter extends Book {
         return super.toString() +
                 "\nTYPE: Book Chapter" +
                 "\nCHAPTER NAME: " + chapterName +
-                "\nPAGES: " + startingPage + " - " + endingPage +
-                "\nIMPACT: " + super.getImpactValue();
+                "\nPAGES: " + startingPage + " - " + endingPage;
     }
 }
