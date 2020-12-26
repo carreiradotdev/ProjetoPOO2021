@@ -25,6 +25,7 @@ public class Student extends Investigator implements Serializable {
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
         this.professor = professor;
+        setType(TYPE_STUDENT);
         setPublicationName(createPublicationName(name));
         studentCount++;
     }

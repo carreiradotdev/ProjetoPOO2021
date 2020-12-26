@@ -17,7 +17,7 @@ public class CISUC implements Serializable {
      */
     public static final Scanner sc = new Scanner(System.in);
 
-    public boolean hasntRun = true;
+    private boolean hasntRun = true;
 
     private CISUC() {
         investigators = new ArrayList<>();
@@ -49,10 +49,6 @@ public class CISUC implements Serializable {
     private void firstRun() {
         //oldReadFromFile("EfetiveMemberList.csv", "ArticleMagazineList.csv", "BookChapterList.csv", "ArticleConferenceList.csv", "StudentList.csv", "BookConferenceList.csv", "InvestigationTeamList.csv");
         readFromFile("input.csv");
-    }
-
-    private void countStudents() {
-        for (Student student: )
     }
 
     /**
@@ -254,36 +250,36 @@ public class CISUC implements Serializable {
                 String[] split = line.split(",");
                 String type = split[0];
                 if (type.equalsIgnoreCase("team")) {
-                    boolean found = false;
-                    for (Investigator i: investigators) {
-                        if (i.getName().equalsIgnoreCase(split[3])) {
-                            found = true;
-                        }
-                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
-                }
-                if (!found) {
                     Teacher temp = new Teacher(split[3]);
                     investigators.add(temp);
-                    investigationTeams.add(new InvestigationTeam(split[1], split[2], getInvestigator(split[3])));
-                    investigators.remove(temp);
-                    }
+                    investigationTeams.add(new InvestigationTeam(split[1], split[2], temp));
                 }
-                if (type.equalsIgnoreCase("student")) {
+                else if (type.equalsIgnoreCase("student")) {
                     investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
                 }
-                if (type.equalsIgnoreCase("bookchapter")) {
+                else if (type.equalsIgnoreCase("bookchapter")) {
                     works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
                 }
-                if (type.equalsIgnoreCase("efetivemember")) {
-                    investigators.add(new Teacher(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
+                else if (type.equalsIgnoreCase("efetivemember")) {
+                    Investigator investigator = getInvestigator(split[1]);
+                    try {
+                        Teacher teacher = (Teacher) investigator;  // the only way this down cast is possible is if we know the order on which the objects are added, which we know bc there is no user interaction.
+                        assert teacher != null; // cannot be null since only investigators added are only head leaders.
+                        teacher.setEmail(split[2]);
+                        teacher.setInvestigationGroup(getTeam(split[3]));
+                        teacher.setRoom(split[4]);
+                        teacher.setCellphone(Long.parseLong(split[5]));
+                    } catch (NullPointerException e) { // if getInvestigator returns null that means that object doesn't exist, therefore it needs to be created.
+                        investigators.add(new Teacher(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
+                    }
                 }
-                if (type.equalsIgnoreCase("articlemagazine")) {
+                else if (type.equalsIgnoreCase("articlemagazine")) {
                     works.add(new ArticleMagazine(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
                 }
-                if (type.equalsIgnoreCase("articleconference")) {
+                else if (type.equalsIgnoreCase("articleconference")) {
                     works.add(new ArticleConference(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
                 }
-                if (type.equalsIgnoreCase("bookarticleconference")) {
+                else if (type.equalsIgnoreCase("bookarticleconference")) {
                     works.add(new BookArticleConference(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10])));
                 }
             }
@@ -315,7 +311,13 @@ public class CISUC implements Serializable {
     }
 
     private void countWorks() {
-        System.out.printf("Article Conference Count: %d\n" + "Magazine Article Count: %d\n" + "Article Conference Books Count: %d\n" + "Chapter Book Count: %d\n" + "Book Count: %d\n",Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount);
+        System.out.printf("Article Conference Count: %d\n" +
+                "Magazine Article Count: %d\n" +
+                "Article Conference Books Count: %d\n" +
+                "Chapter Book Count: %d\n" +
+                "Book Count: %d\n" +
+                "Work Count in the last 5 years: %d\n",
+                Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount, count5years());
     }
 
     /**
@@ -387,7 +389,7 @@ public class CISUC implements Serializable {
                                 if (work.getYearPublished() == year) {
                                     for (Investigator author: work.getAuthors()) {
                                         System.out.println("===================");
-                                        System.out.printf("| %s | | %s | %d | %s | %s |\n", work.getType(), work.getImpactValue(), work.getYearPublished(), work.getTitle(), work.printAuthors());
+                                        System.out.println(work);
                                     }
                                 }
                                 year--;
@@ -402,6 +404,16 @@ public class CISUC implements Serializable {
             type++;
         } while (type != 5);
         System.out.println("===================");
+    }
+
+    private int count5years() {
+        int count = 0;
+        for (Work work: works) {
+            if (work.getYearPublished() <= 2015) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -514,11 +526,24 @@ public class CISUC implements Serializable {
         try {
             System.out.println("Equipas de Investigação:");
             for (InvestigationTeam investigationTeam : investigationTeams) {
-                System.out.printf("| %s | %s | %s |\n", investigationTeam.getAcronym(), investigationTeam.getGroup(), investigationTeam.getHeadLeader().getName());
+                System.out.printf("| %s | %s | %s | %s |\n", investigationTeam.getAcronym(), investigationTeam.getGroup(), investigationTeam.getHeadLeader().getName(), countTeamMembers(investigationTeam));
             }
         } catch (NullPointerException e) {
             System.out.println("Researching team doesn't exist in database.");
         }
+    }
+
+    private String countTeamMembers(InvestigationTeam team) {
+        int student = 0; int efetive = 0; int total;
+        for (Investigator investigator: investigators) {
+            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT) && investigator.getInvestigationGroup().equals(team)) {
+                student++;
+            } else if (investigator.getInvestigationGroup() == team && investigator.getType().equals(Investigator.TYPE_TEACHER)) {
+                efetive++;
+            }
+        }
+        total = student + efetive;
+        return "Total count of members: " + total + ", which " + student + " are students and " + efetive + " are efetive members.";
     }
 }
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The type Investigator.
  */
-public class Investigator implements Serializable {
+public abstract class Investigator implements Serializable {
     private String name;
     private String email;
     private InvestigationTeam investigationGroup;
@@ -135,7 +135,7 @@ public class Investigator implements Serializable {
         this.type = type;
     }
 
-    //TODO: public abstract String createPublicationName(String name);
+    public abstract String createPublicationName(String name);
 
     @Override
     public String toString() {

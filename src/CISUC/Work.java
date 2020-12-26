@@ -234,6 +234,46 @@ public class Work implements Serializable {
         return authorsList;
     }
 
+    public static int getArticleConferenceCount() {
+        return articleConferenceCount;
+    }
+
+    public static void setArticleConferenceCount(int articleConferenceCount) {
+        Work.articleConferenceCount = articleConferenceCount;
+    }
+
+    public static int getArticleMagazineCount() {
+        return articleMagazineCount;
+    }
+
+    public static void setArticleMagazineCount(int articleMagazineCount) {
+        Work.articleMagazineCount = articleMagazineCount;
+    }
+
+    public static int getBookArticleConferenceCount() {
+        return bookArticleConferenceCount;
+    }
+
+    public static void setBookArticleConferenceCount(int bookArticleConferenceCount) {
+        Work.bookArticleConferenceCount = bookArticleConferenceCount;
+    }
+
+    public static int getBookChapterCount() {
+        return bookChapterCount;
+    }
+
+    public static void setBookChapterCount(int bookChapterCount) {
+        Work.bookChapterCount = bookChapterCount;
+    }
+
+    public static int getBookCount() {
+        return bookCount;
+    }
+
+    public static void setBookCount(int bookCount) {
+        Work.bookCount = bookCount;
+    }
+
     @Override
     public String toString() {
         return  "NAME: " + title +
