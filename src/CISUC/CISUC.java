@@ -17,6 +17,9 @@ public class CISUC implements Serializable {
      */
     public static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Boolean value of the only one-time run menu feature.
+     */
     private boolean hasntRun = true;
 
     private CISUC() {
@@ -114,7 +117,7 @@ public class CISUC implements Serializable {
                     option4();
                     break;
                 case 5:
-                    listTeamWork();
+                    listTeams();
                     break;
                     case 6:
                     if (works.isEmpty()) {
@@ -151,7 +154,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method that switches between cases in the fourth option.
+     * Method that switches between cases in the fourth option apresented in the menu.
      */
     private void option4() {
         int team = sc.nextInt();
@@ -169,7 +172,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method that switches between cases in the second option.
+     * Method that switches between cases in the second option apresented in the menu.
      */
     private void option2() {
         countMembers();
@@ -177,7 +180,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method that switches between cases in the third option.
+     * Method that switches between cases in the third option apresented in the menu.
      */
     private void option3() {
         int team = sc.nextInt();
@@ -291,6 +294,11 @@ public class CISUC implements Serializable {
         System.out.println("New reading method has completed.");
     }
 
+    /**
+     * Method to set one or multiple authors in one publication
+     *
+     * @param array string of authors to be split.
+     */
     private ArrayList<Investigator> setAuthors(String array) {
         String[] list = array.split(";");
         ArrayList<Investigator> workAuthors = new ArrayList<>();
@@ -310,6 +318,9 @@ public class CISUC implements Serializable {
                 "Total count of staff: %d\n", Investigator.studentCount, Investigator.teacherCount, total);
     }
 
+    /**
+     * Method to count works in database.
+     */
     private void countWorks() {
         System.out.printf("Article Conference Count: %d\n" +
                 "Magazine Article Count: %d\n" +
@@ -356,6 +367,8 @@ public class CISUC implements Serializable {
 
     /**
      * Method to write CISUC object to object file.
+     *
+     * @param outputFile name of the output object file
      */
     private void writer(String outputFile) {
         try{
@@ -406,6 +419,9 @@ public class CISUC implements Serializable {
         System.out.println("===================");
     }
 
+    /**
+     * Method to count works from the last five years in database.
+     */
     private int count5years() {
         int count = 0;
         for (Work work: works) {
@@ -453,6 +469,25 @@ public class CISUC implements Serializable {
     }
 
     /**
+     * Method to count works in database from given Investigation team.
+     */
+    private String countWorks(InvestigationTeam team) {
+        int count = 0; int newest = 0;
+        for (Work work:works) {
+            if (work.getTeam().equals(team)) {
+                count++;
+            }
+            if (work.getTeam().equals(team) && work.getYearPublished() >= 2015) {
+                newest++;
+            }
+        }
+        if (count == newest) {
+            return count + " published papers, all in the last 5 years.";
+        }
+        return count + " published papers, " + newest + " in the last 5 years.";
+    }
+
+    /**
      * Method to retrieve Investigator object from given Investigator object.
      *
      * @param work Work object
@@ -481,7 +516,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to retrive Team from given researcher.
+     * Method to retrive Team from given researcher's object.
      *
      * @param investigator researcher object
      */
@@ -495,7 +530,7 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to list works from given researcher.
+     * Method to list works from given researcher's name.
      *
      * @param name researcher's name
      */
@@ -516,9 +551,9 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to list works from given investigation Team.
+     * Method to list teams and their information.
      */
-    private void listTeamWork() {
+    private void listTeams() {
         if (investigationTeams.isEmpty()) {
             System.out.println("No investigation teams in our database.");
             return;
@@ -526,15 +561,18 @@ public class CISUC implements Serializable {
         try {
             System.out.println("Equipas de Investigação:");
             for (InvestigationTeam investigationTeam : investigationTeams) {
-                System.out.printf("| %s | %s | %s | %s |\n", investigationTeam.getAcronym(), investigationTeam.getGroup(), investigationTeam.getHeadLeader().getName(), countTeamMembers(investigationTeam));
+                System.out.println(investigationTeam + countTeamMembers(investigationTeam) + countWorks(investigationTeam));
             }
         } catch (NullPointerException e) {
             System.out.println("Researching team doesn't exist in database.");
         }
     }
 
+    /**
+     * Method to count members from given investigation team.
+     */
     private String countTeamMembers(InvestigationTeam team) {
-        int student = 0; int efetive = 0; int total;
+        int student = 0; int efetive = 0;
         for (Investigator investigator: investigators) {
             if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT) && investigator.getInvestigationGroup().equals(team)) {
                 student++;
@@ -542,7 +580,7 @@ public class CISUC implements Serializable {
                 efetive++;
             }
         }
-        total = student + efetive;
+        int total = student + efetive;
         return "Total count of members: " + total + ", which " + student + " are students and " + efetive + " are efetive members.";
     }
 }

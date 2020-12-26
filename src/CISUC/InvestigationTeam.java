@@ -91,8 +91,6 @@ public class InvestigationTeam implements Serializable {
 
     @Override
     public String toString() {
-        return "InvestigationTeam{" +
-                "group='" + group + '\'' + ", acronym='" + acronym + '\'' +
-                ", headLeader="  + headLeader + '}';
+        return getAcronym() + " | " + getGroup() + " | " + getHeadLeader().getName() + " | ";
     }
 }
