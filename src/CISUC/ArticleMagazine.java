@@ -28,9 +28,6 @@ public class ArticleMagazine extends Work {
         this.journalName = journalName;
         this.issueNum = issueNum;
         this.issueDate = issueDate;
-        if (audience >= 1000) setImpactValue('A');
-        if (audience < 1000 && audience >= 500) setImpactValue('B');
-        if (audience < 500) setImpactValue('C');
         setType(1);
         articleMagazineCount++;
     }
@@ -87,6 +84,16 @@ public class ArticleMagazine extends Work {
      */
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
+    }
+
+    public char setImpactValue(int audience) {
+        if (audience >= 1000) {
+            return 'A';
+        } else if (audience < 500) {
+            return 'C';
+        } else {
+            return 'B';
+        }
     }
 
     @Override

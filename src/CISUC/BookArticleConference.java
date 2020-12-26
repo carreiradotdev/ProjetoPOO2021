@@ -28,9 +28,6 @@ public class BookArticleConference extends Book {
         super(author, title, keywords, team, audience,yearPublished, editor, isbn);
         this.conferenceName = conferenceName;
         this.articleNum = articleNum;
-        if (audience >= 7500) setImpactValue('A');
-        if (audience < 75000 && audience >= 2500) setImpactValue('B');
-        if (audience < 2500) setImpactValue('C');
         setType(2);
     }
 
@@ -86,6 +83,16 @@ public class BookArticleConference extends Book {
      */
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public char setImpactValue(int audience) {
+        if (audience >= 7500) {
+            return 'A';
+        } else if (audience < 2500) {
+            return 'C';
+        } else {
+            return 'B';
+        }
     }
 
     @Override

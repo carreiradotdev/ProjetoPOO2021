@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * The type Work.
  */
-public class Work implements Serializable {
+public abstract class Work implements Serializable {
     private ArrayList<Investigator> authors;
     private String title;
     private String keywords;
@@ -41,7 +41,7 @@ public class Work implements Serializable {
     /**
      * Instantiates a new Work.
      *
-     * @param authors        the author
+     * @param authors       the author
      * @param title         the title
      * @param keywords      the keywords
      * @param team          the team
@@ -54,7 +54,7 @@ public class Work implements Serializable {
         this.keywords = keywords;
         this.yearPublished = yearPublished;
         this.audience = audience;
-        this.impactValue = ' ';
+        this.impactValue = setImpactValue(audience);
         this.team = team;
     }
 
@@ -178,11 +178,9 @@ public class Work implements Serializable {
     /**
      * Sets impact value.
      *
-     * @param impactValue the impact value
+     * @param audience the audience value
      */
-    public void setImpactValue(char impactValue) {
-        this.impactValue = impactValue;
-    }
+    public abstract char setImpactValue(int audience);
 
     /**
      * Gets publication name.
@@ -223,7 +221,7 @@ public class Work implements Serializable {
     public String printAuthors() {
         String authorsList = "";
         boolean isFirst = true;
-        for (Investigator author: authors) {
+        for (Investigator author : authors) {
             if (isFirst) {
                 authorsList = author.getPublicationName();
                 isFirst = false;
@@ -234,49 +232,9 @@ public class Work implements Serializable {
         return authorsList;
     }
 
-    public static int getArticleConferenceCount() {
-        return articleConferenceCount;
-    }
-
-    public static void setArticleConferenceCount(int articleConferenceCount) {
-        Work.articleConferenceCount = articleConferenceCount;
-    }
-
-    public static int getArticleMagazineCount() {
-        return articleMagazineCount;
-    }
-
-    public static void setArticleMagazineCount(int articleMagazineCount) {
-        Work.articleMagazineCount = articleMagazineCount;
-    }
-
-    public static int getBookArticleConferenceCount() {
-        return bookArticleConferenceCount;
-    }
-
-    public static void setBookArticleConferenceCount(int bookArticleConferenceCount) {
-        Work.bookArticleConferenceCount = bookArticleConferenceCount;
-    }
-
-    public static int getBookChapterCount() {
-        return bookChapterCount;
-    }
-
-    public static void setBookChapterCount(int bookChapterCount) {
-        Work.bookChapterCount = bookChapterCount;
-    }
-
-    public static int getBookCount() {
-        return bookCount;
-    }
-
-    public static void setBookCount(int bookCount) {
-        Work.bookCount = bookCount;
-    }
-
     @Override
     public String toString() {
-        return  "NAME: " + title +
+        return "NAME: " + title +
                 "\nWRITTEN BY: " + printAuthors() +
                 "\nKEYWORDS: " + keywords +
                 "\nPUBLISHED IN: " + yearPublished +

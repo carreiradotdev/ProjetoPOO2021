@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The type Book.
  */
-public class Book extends Work {
+public abstract class Book extends Work {
     private String editor;
     private int isbn;
 
@@ -25,9 +25,6 @@ public class Book extends Work {
         super(authors, title, keywords, team, audience, yearPublished);
         this.editor = editor;
         this.isbn = isbn;
-        if (audience >= 10000) setImpactValue('A');
-        if (audience < 10000 && audience >= 5000) setImpactValue('B');
-        if (audience < 5000) setImpactValue('C');
         setType(4);
         bookCount++;
     }
@@ -66,6 +63,16 @@ public class Book extends Work {
      */
     public void setIsbn(int isbn) {
         this.isbn = isbn;
+    }
+
+    public char setImpactValue(int audience) {
+        if (audience >= 10000) {
+            return 'A';
+        } else if (audience < 5000) {
+            return 'C';
+        } else {
+            return 'B';
+        }
     }
 
     @Override

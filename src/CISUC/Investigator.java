@@ -35,7 +35,8 @@ public abstract class Investigator implements Serializable {
         this.name = name;
         this.email = email;
         this.investigationGroup = investigationGroup;
-        this.publicationName = "";
+        this.publicationName = createPublicationName(name);
+        this.type = getType();
     }
 
     public Investigator(String name) {
@@ -130,10 +131,9 @@ public abstract class Investigator implements Serializable {
      * Sets type.
      *
      * @param type the type
+     * @return
      */
-    public void setType(String type) {
-        this.type = type;
-    }
+    public abstract String setType(String type);
 
     public abstract String createPublicationName(String name);
 

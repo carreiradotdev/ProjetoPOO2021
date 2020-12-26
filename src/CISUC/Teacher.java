@@ -23,7 +23,6 @@ public class Teacher extends Investigator implements Serializable {
         this.room = room;
         this.cellphone = cellphone;
         setType(TYPE_TEACHER);
-        setPublicationName(createPublicationName(name));
         teacherCount++;
     }
 
@@ -32,6 +31,7 @@ public class Teacher extends Investigator implements Serializable {
         setType(TYPE_TEACHER);
         this.room = null;
         this.cellphone = 0;
+        teacherCount++;
     }
 
     /**
@@ -79,6 +79,10 @@ public class Teacher extends Investigator implements Serializable {
     public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
         return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
+    }
+
+    public String setType(String type) {
+        return Investigator.TYPE_TEACHER;
     }
 
     @Override

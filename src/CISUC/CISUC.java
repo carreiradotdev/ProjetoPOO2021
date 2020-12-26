@@ -44,7 +44,15 @@ public class CISUC implements Serializable {
             System.out.println("Input file doesn't exist or is empty, no data in database.");
         }
         cisuc.run();
+        //cisuc.debugMethod();
     }
+
+    private void debugMethod() {
+        for (Investigator investigator:investigators) {
+            System.out.println(investigator);
+        }
+    }
+
 
     /**
      * Method that reads previously saved object file.
@@ -312,10 +320,9 @@ public class CISUC implements Serializable {
      * Method to count members in database.
      */
     private void countMembers() {
-        int total = Investigator.studentCount + Investigator.teacherCount;
         System.out.printf("Current count of Students members: %d\n" +
                 "Current count of Teacher members: %d\n" +
-                "Total count of staff: %d\n", Investigator.studentCount, Investigator.teacherCount, total);
+                "Total count of staff: %d\n", Investigator.studentCount, Investigator.teacherCount, investigators.size());
     }
 
     /**
@@ -327,8 +334,9 @@ public class CISUC implements Serializable {
                 "Article Conference Books Count: %d\n" +
                 "Chapter Book Count: %d\n" +
                 "Book Count: %d\n" +
+                "Total Work Count: %d\n" +
                 "Work Count in the last 5 years: %d\n",
-                Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount, count5years());
+                Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount, works.size() ,count5years());
     }
 
     /**

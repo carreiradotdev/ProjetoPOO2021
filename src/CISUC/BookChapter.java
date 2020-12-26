@@ -30,9 +30,6 @@ public class BookChapter extends Book {
         this.chapterName = chapterName;
         this.startingPage = startingPage;
         this.endingPage = endingPage;
-        if (audience >= 10000) setImpactValue('A');
-        if (audience < 10000 && audience >= 5000) setImpactValue('B');
-        if (audience < 5000) setImpactValue('C');
         setType(3);
     }
 
@@ -88,6 +85,16 @@ public class BookChapter extends Book {
      */
     public void setEndingPage(int endingPage) {
         this.endingPage = endingPage;
+    }
+
+    public char setImpactValue(int audience) {
+        if (audience >= 10000) {
+            return 'A';
+        } else if (audience < 5000) {
+            return 'C';
+        } else {
+            return 'B';
+        }
     }
 
     @Override

@@ -12,9 +12,6 @@ public class ArticleConference extends Work {
         this.conference = conference;
         this.articleNum = articleNum;
         this.location = location;
-        if (audience >= 500) setImpactValue('A');
-        if (audience < 500 && audience >= 200) setImpactValue('B');
-        if (audience < 500) setImpactValue('C');
         setType(2);
         articleConferenceCount++;
     }
@@ -41,6 +38,16 @@ public class ArticleConference extends Work {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public char setImpactValue(int audience) {
+        if (audience >= 500) {
+            return 'A';
+        } else if (audience < 200) {
+            return 'C';
+        } else {
+            return 'B';
+        }
     }
 
     @Override
