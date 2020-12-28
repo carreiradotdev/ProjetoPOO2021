@@ -28,9 +28,9 @@ public class Teacher extends Investigator implements Serializable {
 
     public Teacher(String name) {
         super(name);
-        setType(TYPE_TEACHER);
         this.room = null;
         this.cellphone = 0;
+        setType(TYPE_TEACHER);
         teacherCount++;
     }
 

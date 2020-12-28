@@ -43,7 +43,8 @@ public abstract class Investigator implements Serializable {
         this.name = name;
         this.email = null;
         this.investigationGroup = null;
-        this.publicationName = null;
+        this.publicationName = createPublicationName(name);
+        this.type = getType();
     }
 
     /**
@@ -131,7 +132,6 @@ public abstract class Investigator implements Serializable {
      * Sets type.
      *
      * @param type the type
-     * @return
      */
     public abstract String setType(String type);
 

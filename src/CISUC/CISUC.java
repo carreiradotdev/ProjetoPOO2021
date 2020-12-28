@@ -548,13 +548,12 @@ public class CISUC implements Serializable {
             return;
         }
         for (Work work:works) {
-            for (Investigator author: work.getAuthors()) {
-                if(author.getName().equalsIgnoreCase(name)){
-                    System.out.println("===================");
-                    System.out.println(work);
+            Investigator author = getInvestigator(name);
+            if (work.getAuthors().contains(author)) {
+                System.out.println("===================");
+                System.out.println(work);
                 }
             }
-        }
         System.out.println("===================");
     }
 
