@@ -103,6 +103,6 @@ public class Student extends Investigator implements Serializable {
         return super.toString() + "\nTYPE: Student" +
                 "\nTHESIS NAME: " + thesisName +
                 "\nTHESIS DUE DATE: " + thesisDate +
-                "\nPROFESSOR IN CHARGE: " + professor;
+                "\nPROFESSOR IN CHARGE: " + professor.getName();
     }
 }

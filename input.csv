@@ -8,8 +8,8 @@ efetivemember,Luis Cordeiro,cordeiro@dei.uc.pt,AC,2.2.4,239790000
 efetivemember,Henrique Madeira,henrique@dei.uc.pt,SSE,sala do caralho,239790000
 efetivemember,Paulo Simões,psimoes@dei.uc.pt,LCT,sala do caralho,239790000
 efetivemember,Licínio Roque,lir@dei.uc.pt,IS,sala do caralho,239790000
-efetivemember,Nuno Lourenço,naml@dei.uc.pt,ECOS, sala do caralho,239790000
-efetivemember,Penousal Machado,machado@dei.uc.pt,CMS, sala do caralho,239790000
+efetivemember,Nuno Lourenço,naml@dei.uc.pt,ECOS,sala do caralho,239790000
+efetivemember,Penousal Machado,machado@dei.uc.pt,CMS,sala do caralho,239790000
 efetivemember,Jorge Henriques,jh@dei.uc.pt,AC,sala do caralho,239790000
 efetivemember,Alberto Cardoso,alberto@dei.uc.pt,AC,sala do caralho,239790000
 efetivemember,Ana Boavida,aboavida@dei.uc.pt,AC,sala do caralho,239790000
@@ -28,6 +28,7 @@ efetivemember,Edmundo Monteiro,edmundo@dei.uc.pt,LCT,sala do caralho,239790000
 efetivemember,Carlos Bento,bento@dei.uc.pt,CMS,sala do caralho,239790000
 efetivemember,Fernando Barros,barros@dei.uc.pt,SSE,sala do caralho,239790000
 efetivemember,João P. Vilela,jpvilela@dei.uc.pt,LCT,sala do caralho,239790000
+efetivemember,Marilia Cordeiro,marilia@dei.uc.pt,LCT,sala do caralho,239790000
 student,Francisco Carreira,fmbcarreira@gmail.com,AC,cona master,2021,Luis Cordeiro
 student,Carlos Jordão,jordao@email.com,AC,"Fiding the location of Ganza",2023,Paulo Simões
 student,João Lourenço,lourenco@email.com,CMS,"Driving Home for Christmas",2023,Penousal Machado
@@ -35,7 +36,7 @@ student,Rodrigo Machado, rodrigo@email.com,CMS,"State of The Art Compression",20
 student,Inês Fonseca,fonseca@email.com,CMS,"Feliz Navidad",2022,Jorge Henriques
 student,João Marques,marques@email.com,ECOS,"Stop The World I Wanna Get Off With You",2023,Marilia Cordeiro
 student,Jonas Rua,rua@gmail.com,ECOS,"Happy Thesis",2020,Marilia Cordeiro
-student,João Vaz, vaz@email.com,ECOS,"Being Manco and Playing Basketball",2021,Licínio Roque
+student,João Vaz,vaz@email.com,ECOS,"Being Manco and Playing Basketball",2021,Licínio Roque
 student,Gonçalo Folhas, folhas@email.com,IS,"Hoops and saying yo",2022,Licínio Roque
 student,David Leitão,leitao@email.com,LCT,"Putas and White Wine",2073,Paulo Simões
 student,Guilherme Junqueira,guillos@email.com,SSE,"Being Black in Entroncamento",2021,Henrique Madeira

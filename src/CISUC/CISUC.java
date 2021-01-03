@@ -46,14 +46,7 @@ public class CISUC implements Serializable {
         cisuc.run();
         //cisuc.debugMethod();
     }
-
-    private void debugMethod() {
-        for (Investigator investigator:investigators) {
-            System.out.println(investigator);
-        }
-    }
-
-
+    
     /**
      * Method that reads previously saved object file.
      */
@@ -81,6 +74,9 @@ public class CISUC implements Serializable {
             "Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
+                case 0:
+                    debugMethod();
+                    break;
                 case 1:
                     if (hasntRun) {
                         firstRun();
@@ -156,26 +152,46 @@ public class CISUC implements Serializable {
                     System.exit(0);
                     break;
                 default:
+                    System.out.println("Invalid choice!");
                     break;
             }
         } while (true) ;
+    }
+
+    private void debugMethod() {
     }
 
     /**
      * Method that switches between cases in the fourth option apresented in the menu.
      */
     private void option4() {
-        int team = sc.nextInt();
-        switch (team) {
-            case 1: listTeamMembers(getTeam("AC")); break;
-            case 2: listTeamMembers(getTeam("CMS")); break;
-            case 3: listTeamMembers(getTeam("ECOS")); break;
-            case 4: listTeamMembers(getTeam("IS")); break;
-            case 5: listTeamMembers(getTeam("LCT")); break;
-            case 6: listTeamMembers(getTeam("SSE")); break;
-            default:
-                System.out.println("Wrong input!");
-                break;
+        try {
+            int team = sc.nextInt();
+            switch (team) {
+                case 1:
+                    listTeamMembers(getTeam("AC"));
+                    break;
+                case 2:
+                    listTeamMembers(getTeam("CMS"));
+                    break;
+                case 3:
+                    listTeamMembers(getTeam("ECOS"));
+                    break;
+                case 4:
+                    listTeamMembers(getTeam("IS"));
+                    break;
+                case 5:
+                    listTeamMembers(getTeam("LCT"));
+                    break;
+                case 6:
+                    listTeamMembers(getTeam("SSE"));
+                    break;
+                default:
+                    System.out.println("Wrong input!");
+                    break;
+            }
+        } catch (NullPointerException e) {
+                System.out.println();
         }
     }
 
@@ -265,24 +281,35 @@ public class CISUC implements Serializable {
                     investigators.add(temp);
                     investigationTeams.add(new InvestigationTeam(split[1], split[2], temp));
                 }
-                else if (type.equalsIgnoreCase("student")) {
-                    investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], getInvestigator(split[6])));
-                }
-                else if (type.equalsIgnoreCase("bookchapter")) {
-                    works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
-                }
                 else if (type.equalsIgnoreCase("efetivemember")) {
                     Investigator investigator = getInvestigator(split[1]);
                     try {
                         Teacher teacher = (Teacher) investigator;  // the only way this down cast is possible is if we know the order on which the objects are added, which we know bc there is no user interaction.
                         assert teacher != null; // cannot be null since only investigators added are only head leaders.
+                        InvestigationTeam team = getTeam(split[3]);
                         teacher.setEmail(split[2]);
-                        teacher.setInvestigationGroup(getTeam(split[3]));
+                        teacher.setInvestigationGroup(team);
                         teacher.setRoom(split[4]);
                         teacher.setCellphone(Long.parseLong(split[5]));
+                        assert team != null;
+                        team.addMember(teacher);
                     } catch (NullPointerException e) { // if getInvestigator returns null that means that object doesn't exist, therefore it needs to be created.
-                        investigators.add(new Teacher(split[1], split[2], getTeam(split[3]), split[4], Long.parseLong(split[5])));
+                        InvestigationTeam team = getTeam(split[3]);
+                        Investigator teacher = new Teacher(split[1], split[2], team, split[4], Long.parseLong(split[5]));
+                        investigators.add(teacher);
+                        assert team != null;
+                        team.addMember(teacher);
                     }
+                }
+                else if (type.equalsIgnoreCase("student")) {
+                    InvestigationTeam team = getTeam(split[3]);
+                    Student student = new Student(split[1], split[2], team, split[4], split[5], getInvestigator(split[6]));
+                    investigators.add(student);
+                    assert team != null;
+                    team.addMember(student);
+                }
+                else if (type.equalsIgnoreCase("bookchapter")) {
+                    works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));
                 }
                 else if (type.equalsIgnoreCase("articlemagazine")) {
                     works.add(new ArticleMagazine(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9]));
@@ -443,24 +470,25 @@ public class CISUC implements Serializable {
     /**
      * Method to list team members from given InvestigationTeam object.
      *
-     * @param investigationTeam InvestigationTeam object
+     * @param team InvestigationTeam object
      */
-    private void listTeamMembers(InvestigationTeam investigationTeam) {
-        if (investigators.isEmpty()) {
-            System.out.println("There are no works in record.");
-        }
-        for (Investigator investigator: investigators) {
-            try {
-                if (investigator.getInvestigationGroup() == investigationTeam) {
-                    System.out.println("===================");
-                    System.out.println(investigator);
-                }
-            } catch (NullPointerException e) {
-                System.out.println("ERROR.");  //TODO: acabar esta função.
-            }
+    private void listTeamMembers(InvestigationTeam team) {
+        for (Investigator member: team.getMembers()) {
+            System.out.println("===================");
+            System.out.println(member);
         }
         System.out.println("===================");
     }
+
+    public void listTeamMembers() {
+        for (InvestigationTeam teams : investigationTeams) {
+            for (Investigator member : teams.getMembers()) {
+                System.out.println("===================");
+                System.out.println(member);
+            }
+        }
+        System.out.println("===================");
+    } // TODO: EXCEPTIONS
 
     /**
      * Method to retrieve Investigator object from given Investigator name.

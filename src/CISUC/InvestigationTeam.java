@@ -1,6 +1,7 @@
 package CISUC;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * The type Investigation team.
@@ -9,6 +10,7 @@ public class InvestigationTeam implements Serializable {
     private String group;
     private String acronym;
     private Investigator headLeader;
+    private ArrayList<Investigator> members;
 
     /**
      * Instantiates a new Investigation team.
@@ -21,6 +23,7 @@ public class InvestigationTeam implements Serializable {
         this.group = group;
         this.acronym = acronym;
         this.headLeader = headLeader;
+        this.members = new ArrayList<>();
     }
 
     /**
@@ -33,6 +36,7 @@ public class InvestigationTeam implements Serializable {
         this.group = group;
         this.acronym = acronym;
         this.headLeader = null;
+        this.members = new ArrayList<>();
     }
 
     /**
@@ -88,6 +92,38 @@ public class InvestigationTeam implements Serializable {
     public void setHeadLeader(Investigator headLeader) {
         this.headLeader = headLeader;
     }
+
+    public ArrayList<Investigator> getMembers() {
+        return members;
+    }
+
+    public void setMembers(ArrayList<Investigator> members) {
+        this.members = members;
+    }
+
+    public void addMember(Investigator investigator) {
+        members.add(investigator);
+    }
+
+    public void removeMember(Investigator investigator) {
+        members.remove(investigator);
+    }
+
+/*    public void listMembers() {
+        for (Investigator member: members) {
+            System.out.println("===================");
+            System.out.println(member);
+        }
+        System.out.println("===================");
+    }*/
+
+/*    public void listMembers(InvestigationTeam team) {
+        for (Investigator member: team.getMembers()) {
+            System.out.println("===================");
+            System.out.println(member);
+        }
+        System.out.println("===================");
+    }*/
 
     @Override
     public String toString() {
