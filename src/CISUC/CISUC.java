@@ -266,7 +266,7 @@ public class CISUC implements Serializable {
                     investigationTeams.add(new InvestigationTeam(split[1], split[2], temp));
                 }
                 else if (type.equalsIgnoreCase("student")) {
-                    investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], split[6]));
+                    investigators.add(new Student(split[1], split[2], getTeam(split[3]), split[4], split[5], getInvestigator(split[6])));
                 }
                 else if (type.equalsIgnoreCase("bookchapter")) {
                     works.add(new BookChapter(setAuthors(split[1]), split[2], split[3], getTeam(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7], Integer.parseInt(split[8]), split[9], Integer.parseInt(split[10]), Integer.parseInt(split[11])));

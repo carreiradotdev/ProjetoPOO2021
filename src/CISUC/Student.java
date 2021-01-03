@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Student extends Investigator implements Serializable {
     private String thesisName;
     private String thesisDate;
-    private String professor;
+    private Investigator professor;
 
     /**
      * Instantiates a new Student.
@@ -20,7 +20,7 @@ public class Student extends Investigator implements Serializable {
      * @param thesisDate         the thesis date
      * @param professor          the professor
      */
-    public Student(String name, String email, InvestigationTeam investigationGroup, String thesisName, String thesisDate, String professor) {
+    public Student(String name, String email, InvestigationTeam investigationGroup, String thesisName, String thesisDate, Investigator professor) {
         super(name, email, investigationGroup);
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
@@ -70,7 +70,7 @@ public class Student extends Investigator implements Serializable {
      *
      * @return the professor
      */
-    public String getProfessor() {
+    public Investigator getProfessor() {
         return professor;
     }
 
@@ -79,7 +79,7 @@ public class Student extends Investigator implements Serializable {
      *
      * @param professor the professor
      */
-    public void setProfessor(String professor) {
+    public void setProfessor(Investigator professor) {
         this.professor = professor;
     }
 
