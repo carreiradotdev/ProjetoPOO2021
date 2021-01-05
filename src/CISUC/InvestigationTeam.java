@@ -117,16 +117,21 @@ public class InvestigationTeam implements Serializable {
         System.out.println("===================");
     }*/
 
-/*    public void listMembers(InvestigationTeam team) {
-        for (Investigator member: team.getMembers()) {
-            System.out.println("===================");
-            System.out.println(member);
+    private String countMembers() {
+        int students = 0;
+        int efetives = 0;
+        for (Investigator investigator : getMembers()) {
+            if (investigator.getPublicationName().contains("Professor")) {
+                efetives++;
+            } else {
+                students++;
+            }
         }
-        System.out.println("===================");
-    }*/
+        return "Total count of members: " + getMembers().size() + ", which " + students + " are students and " + efetives + " are efetive members.";
+    }
 
     @Override
     public String toString() {
-        return getAcronym() + " | " + getGroup() + " | " + getHeadLeader().getName() + " | ";
+        return getAcronym() + " | " + getGroup() + " | " + getHeadLeader().getName() + " | " + countMembers();
     }
 }

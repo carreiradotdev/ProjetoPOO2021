@@ -25,8 +25,6 @@ public class Student extends Investigator implements Serializable {
         this.thesisName = thesisName;
         this.thesisDate = thesisDate;
         this.professor = professor;
-        setType(TYPE_STUDENT);
-        studentCount++;
     }
 
     /**
@@ -92,10 +90,6 @@ public class Student extends Investigator implements Serializable {
     public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
         return nameSplit[0].charAt(0) + ". " + nameSplit[nameSplit.length - 1];
-    }
-
-    public String setType(String type) {
-        return Investigator.TYPE_STUDENT;
     }
 
     @Override

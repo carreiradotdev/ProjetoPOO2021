@@ -10,19 +10,10 @@ public abstract class Investigator implements Serializable {
     private String email;
     private InvestigationTeam investigationGroup;
     private String publicationName;
-    private String type;
 
-    /**
-     * The constant TYPE_STUDENT.
-     */
-    public static String TYPE_STUDENT = "Student";
-    /**
-     * The constant TYPE_EFETIVE.
-     */
-    public static String TYPE_TEACHER= "Teacher";
+    //private int studentCount = 0;
 
-    public static int studentCount = 0;
-    public static int teacherCount = 0;
+    //public int teacherCount = 0;
 
     /**
      * Instantiates a new Investigator.
@@ -36,7 +27,6 @@ public abstract class Investigator implements Serializable {
         this.email = email;
         this.investigationGroup = investigationGroup;
         this.publicationName = createPublicationName(name);
-        this.type = getType();
     }
 
     public Investigator(String name) {
@@ -44,7 +34,6 @@ public abstract class Investigator implements Serializable {
         this.email = null;
         this.investigationGroup = null;
         this.publicationName = createPublicationName(name);
-        this.type = getType();
     }
 
     /**
@@ -124,16 +113,6 @@ public abstract class Investigator implements Serializable {
      *
      * @return the type
      */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Sets type.
-     *
-     * @param type the type
-     */
-    public abstract String setType(String type);
 
     public abstract String createPublicationName(String name);
 

@@ -1,8 +1,10 @@
 package CISUC;
 
 import java.io.*;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 /**
  * The type Cisuc.
@@ -161,45 +163,16 @@ public class CISUC implements Serializable {
     private void debugMethod() {
     }
 
-    /**
-     * Method that switches between cases in the fourth option apresented in the menu.
-     */
-    private void option4() {
-        try {
-            int team = sc.nextInt();
-            switch (team) {
-                case 1:
-                    listTeamMembers(getTeam("AC"));
-                    break;
-                case 2:
-                    listTeamMembers(getTeam("CMS"));
-                    break;
-                case 3:
-                    listTeamMembers(getTeam("ECOS"));
-                    break;
-                case 4:
-                    listTeamMembers(getTeam("IS"));
-                    break;
-                case 5:
-                    listTeamMembers(getTeam("LCT"));
-                    break;
-                case 6:
-                    listTeamMembers(getTeam("SSE"));
-                    break;
-                default:
-                    System.out.println("Wrong input!");
-                    break;
-            }
-        } catch (NullPointerException e) {
-                System.out.println();
-        }
-    }
+// Menu methods.
 
     /**
      * Method that switches between cases in the second option apresented in the menu.
      */
     private void option2() {
-        countMembers();
+        int[] count = countMembers(investigators);
+        System.out.printf("Current count of Students members: %d\n" +
+                "Current count of Teacher members: %d\n" +
+                "Total count of staff: %d\n", count[0], count[1], investigators.size());
         countWorks();
     }
 
@@ -263,6 +236,319 @@ public class CISUC implements Serializable {
         }
         System.out.println("===================");
     }
+
+    /**
+     * Method that switches between cases in the fourth option apresented in the menu.
+     */
+    private void option4() {
+        try {
+            int team = sc.nextInt();
+            switch (team) {
+                case 1:
+                    listTeamMembers(getTeam("AC"));
+                    break;
+                case 2:
+                    listTeamMembers(getTeam("CMS"));
+                    break;
+                case 3:
+                    listTeamMembers(getTeam("ECOS"));
+                    break;
+                case 4:
+                    listTeamMembers(getTeam("IS"));
+                    break;
+                case 5:
+                    listTeamMembers(getTeam("LCT"));
+                    break;
+                case 6:
+
+                    listTeamMembers(getTeam("SSE"));
+                    break;
+                default:
+                    System.out.println("Wrong input!");
+                    break;
+            }
+        } catch (NullPointerException e) {
+            System.out.println();
+        }
+    }
+
+// Getters and setters.
+
+    /**
+     * Method to set one or multiple authors in one publication
+     *
+     * @param array string of authors to be split.
+     */
+    private ArrayList<Investigator> setAuthors(String array) {
+        String[] list = array.split(";");
+        ArrayList<Investigator> workAuthors = new ArrayList<>();
+        for (String author : list) {
+            workAuthors.add(getInvestigator(author));
+        }
+        return workAuthors;
+    }
+
+    /**
+     * Method to retrieve Investigator object from given Investigator name.
+     *
+     * @param name investigator name
+     */
+    private Investigator getInvestigator(String name) {
+        for (Investigator investigator : investigators) {
+            if (investigator.getName().equalsIgnoreCase(name)) {
+                return investigator;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Method to retrieve Investigator object from given Investigator object.
+     *
+     * @param work Work object
+     */
+    private ArrayList<Investigator> getInvestigator(Work work) {
+        for (Work workIn : works) {
+            if (work.equals(workIn)) {
+                return work.getAuthors();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Method to retrive Team object from given team name.
+     *
+     * @param group team name
+     */
+    private InvestigationTeam getTeam(String group) {
+        for(InvestigationTeam team : investigationTeams) {
+            if (team.getAcronym().equalsIgnoreCase(group)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Method to retrive Team from given researcher's object.
+     *
+     * @param investigator researcher object
+     */
+    private InvestigationTeam getTeam(Investigator investigator) {
+        for(InvestigationTeam team : investigationTeams) {
+            if (team.equals(investigator.getInvestigationGroup())) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+// Counting methods.
+
+    /**
+     * Method to count works in database.
+     */
+    private void countWorks() {
+        System.out.printf("Article Conference Count: %d\n" +
+                "Magazine Article Count: %d\n" +
+                "Article Conference Books Count: %d\n" +
+                "Chapter Book Count: %d\n" +
+                "Book Count: %d\n" +
+                "Total Work Count: %d\n" +
+                "Work Count in the last 5 years: %d\n",
+                Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount, works.size() ,count5years());
+    }
+
+    /**
+     * Method to count works from the last five years in database.
+     */
+    private int count5years() {
+        int count = 0;
+        for (Work work: works) {
+            if (work.getYearPublished() <= (LocalDate.now().getYear() - 5)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int[] countMembers(ArrayList<Investigator> investigators) {
+        int students = 0;
+        int efetives = 0;
+        for (Investigator investigator : investigators) {
+            if (investigator.getPublicationName().contains("Professor")) {
+                efetives++;
+            } else {
+                students++;
+            }
+        }
+        return new int[] {students,efetives};
+    }
+
+    private int[] countMembers(InvestigationTeam team) {
+        int students = 0;
+        int efetives = 0;
+        for (Investigator investigator : team.getMembers()) {
+            if (investigator.getPublicationName().contains("Professor")) {
+                efetives++;
+            } else {
+                students++;
+            }
+        }
+        return new int[] {students,efetives};
+    }
+
+    /**
+     * Method to count works in database from given Investigation team.
+     */
+    private String countWorks(InvestigationTeam team) {
+        int count = 0; int newest = 0;
+        for (Work work:works) {
+            if (work.getTeam().equals(team)) {
+                count++;
+            }
+            if (work.getTeam().equals(team) && work.getYearPublished() >= 2015) {
+                newest++;
+            }
+        }
+        if (count == newest) {
+            return count + " published papers, all in the last 5 years.";
+        }
+        return count + " published papers, " + newest + " in the last 5 years.";
+    }
+
+// Printing methods.
+
+    /**
+     * Method to list investigators in database.
+     */
+    private void printInvestigators() {
+        if (investigators.isEmpty()) {
+            System.out.println("There are no researchers in record.");
+            return;
+        }
+        for (Investigator investigator: investigators) {
+            try {
+                System.out.println("===================");
+                System.out.println(investigator);
+            } catch (NullPointerException e) {
+                System.out.println("erro.");  //TODO: acabar esta função.
+            }
+        }
+        System.out.println("===================");
+    }
+
+    /**
+     * Method to list works in database.
+     */
+    private void printWorks() {
+        if (works.isEmpty()) {
+            System.out.println("There are no works in record.");
+            return;
+        }
+        for (Work work : works) {
+            System.out.println("===================");
+            System.out.println(work);
+        }
+        System.out.println("===================");
+    }
+
+    /**
+     * Method to list last 5 years work and sort by year, impact value and type.
+     */
+    private void print5years() { //TODO: ver se esta merda está broken
+        int year = 2020;
+        int ascii = 65;
+        int type = 0;
+        do {
+            for (Work work : works) {
+                if (work.getType() == (type)) {
+                    do {
+                        if (work.getImpactValue() == ascii) {
+                            do {
+                                if (work.getYearPublished() == year) {
+                                    for (Investigator author: work.getAuthors()) {
+                                        System.out.println("===================");
+                                        System.out.println(work);
+                                    }
+                                }
+                                year--;
+                            } while (year != 2014);
+                            year = 2020;
+                        }
+                        ascii++;
+                    } while (ascii != 68);
+                    ascii = 65;
+                }
+            }
+            type++;
+        } while (type != 5);
+        System.out.println("===================");
+    }
+
+    /**
+     * Method to list team members from given InvestigationTeam object.
+     *
+     * @param team InvestigationTeam object
+     */
+    private void listTeamMembers(InvestigationTeam team) {
+        for (Investigator member: team.getMembers()) {
+            System.out.println("===================");
+            System.out.println(member);
+        }
+        System.out.println("===================");
+    }
+
+    public void listTeamMembers() {
+        for (InvestigationTeam teams : investigationTeams) {
+            for (Investigator member : teams.getMembers()) {
+                System.out.println("===================");
+                System.out.println(member);
+            }
+        }
+        System.out.println("===================");
+    } // TODO: EXCEPTIONS
+
+    /**
+     * Method to list works from given researcher's name.
+     *
+     * @param name researcher's name
+     */
+    private void listResearcherWork(String name) {
+        if (works.isEmpty()) {
+            System.out.println("There are no works in record.");
+            return;
+        }
+        for (Work work:works) {
+            Investigator author = getInvestigator(name);
+            if (work.getAuthors().contains(author)) {
+                System.out.println("===================");
+                System.out.println(work);
+            }
+        }
+        System.out.println("===================");
+    }
+
+    /**
+     * Method to list teams and their information.
+     */
+    private void listTeams() {
+        if (investigationTeams.isEmpty()) {
+            System.out.println("No investigation teams in our database.");
+            return;
+        }
+        try {
+            System.out.println("Equipas de Investigação:");
+            for (InvestigationTeam investigationTeam : investigationTeams) {
+                System.out.println(investigationTeam + countWorks(investigationTeam));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Researching team doesn't exist in database.");
+        }
+    }
+
+// Reading and writing methods.
 
     /**
      * Updated method to read from file.
@@ -330,77 +616,6 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to set one or multiple authors in one publication
-     *
-     * @param array string of authors to be split.
-     */
-    private ArrayList<Investigator> setAuthors(String array) {
-        String[] list = array.split(";");
-        ArrayList<Investigator> workAuthors = new ArrayList<>();
-        for (String author : list) {
-            workAuthors.add(getInvestigator(author));
-        }
-        return workAuthors;
-    }
-
-    /**
-     * Method to count members in database.
-     */
-    private void countMembers() {
-        System.out.printf("Current count of Students members: %d\n" +
-                "Current count of Teacher members: %d\n" +
-                "Total count of staff: %d\n", Investigator.studentCount, Investigator.teacherCount, investigators.size());
-    }
-
-    /**
-     * Method to count works in database.
-     */
-    private void countWorks() {
-        System.out.printf("Article Conference Count: %d\n" +
-                "Magazine Article Count: %d\n" +
-                "Article Conference Books Count: %d\n" +
-                "Chapter Book Count: %d\n" +
-                "Book Count: %d\n" +
-                "Total Work Count: %d\n" +
-                "Work Count in the last 5 years: %d\n",
-                Work.articleConferenceCount,Work.articleMagazineCount,Work.bookArticleConferenceCount,Work.bookChapterCount,Work.bookCount, works.size() ,count5years());
-    }
-
-    /**
-     * Method to list investigators in database.
-     */
-    private void printInvestigators() {
-        if (investigators.isEmpty()) {
-            System.out.println("There are no researchers in record.");
-            return;
-        }
-        for (Investigator investigator: investigators) {
-            try {
-                System.out.println("===================");
-                System.out.println(investigator);
-            } catch (NullPointerException e) {
-                System.out.println("erro.");  //TODO: acabar esta função.
-            }
-        }
-        System.out.println("===================");
-    }
-
-    /**
-     * Method to list works in database.
-     */
-    private void printWorks() {
-        if (works.isEmpty()) {
-            System.out.println("There are no works in record.");
-            return;
-        }
-        for (Work work : works) {
-            System.out.println("===================");
-            System.out.println(work);
-        }
-        System.out.println("===================");
-    }
-
-    /**
      * Method to write CISUC object to object file.
      *
      * @param outputFile name of the output object file
@@ -421,203 +636,6 @@ public class CISUC implements Serializable {
         }
     }
 
-    /**
-     * Method to list last 5 years work and sort by year, impact value and type.
-     */
-    private void print5years() { //TODO: ver se esta merda está broken
-        int year = 2020;
-        int ascii = 65;
-        int type = 0;
-        do {
-            for (Work work : works) {
-                if (work.getType() == (type)) {
-                    do {
-                        if (work.getImpactValue() == ascii) {
-                            do {
-                                if (work.getYearPublished() == year) {
-                                    for (Investigator author: work.getAuthors()) {
-                                        System.out.println("===================");
-                                        System.out.println(work);
-                                    }
-                                }
-                                year--;
-                            } while (year != 2014);
-                            year = 2020;
-                        }
-                        ascii++;
-                    } while (ascii != 68);
-                    ascii = 65;
-                }
-            }
-            type++;
-        } while (type != 5);
-        System.out.println("===================");
-    }
-
-    /**
-     * Method to count works from the last five years in database.
-     */
-    private int count5years() {
-        int count = 0;
-        for (Work work: works) {
-            if (work.getYearPublished() <= 2015) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Method to list team members from given InvestigationTeam object.
-     *
-     * @param team InvestigationTeam object
-     */
-    private void listTeamMembers(InvestigationTeam team) {
-        for (Investigator member: team.getMembers()) {
-            System.out.println("===================");
-            System.out.println(member);
-        }
-        System.out.println("===================");
-    }
-
-    public void listTeamMembers() {
-        for (InvestigationTeam teams : investigationTeams) {
-            for (Investigator member : teams.getMembers()) {
-                System.out.println("===================");
-                System.out.println(member);
-            }
-        }
-        System.out.println("===================");
-    } // TODO: EXCEPTIONS
-
-    /**
-     * Method to retrieve Investigator object from given Investigator name.
-     *
-     * @param name investigator name
-     */
-    private Investigator getInvestigator(String name) {
-        for (Investigator investigator : investigators) {
-            if (investigator.getName().equalsIgnoreCase(name)) {
-                return investigator;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method to count works in database from given Investigation team.
-     */
-    private String countWorks(InvestigationTeam team) {
-        int count = 0; int newest = 0;
-        for (Work work:works) {
-            if (work.getTeam().equals(team)) {
-                count++;
-            }
-            if (work.getTeam().equals(team) && work.getYearPublished() >= 2015) {
-                newest++;
-            }
-        }
-        if (count == newest) {
-            return count + " published papers, all in the last 5 years.";
-        }
-        return count + " published papers, " + newest + " in the last 5 years.";
-    }
-
-    /**
-     * Method to retrieve Investigator object from given Investigator object.
-     *
-     * @param work Work object
-     */
-    private ArrayList<Investigator> getInvestigator(Work work) {
-        for (Work workIn : works) {
-            if (work.equals(workIn)) {
-                return work.getAuthors();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method to retrive Team object from given team name.
-     *
-     * @param group team name
-     */
-    private InvestigationTeam getTeam(String group) {
-        for(InvestigationTeam team : investigationTeams) {
-            if (team.getAcronym().equalsIgnoreCase(group)) {
-                return team;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method to retrive Team from given researcher's object.
-     *
-     * @param investigator researcher object
-     */
-    private InvestigationTeam getTeam(Investigator investigator) {
-        for(InvestigationTeam team : investigationTeams) {
-            if (team.equals(investigator.getInvestigationGroup())) {
-                return team;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method to list works from given researcher's name.
-     *
-     * @param name researcher's name
-     */
-    private void listResearcherWork(String name) {
-        if (works.isEmpty()) {
-            System.out.println("There are no works in record.");
-            return;
-        }
-        for (Work work:works) {
-            Investigator author = getInvestigator(name);
-            if (work.getAuthors().contains(author)) {
-                System.out.println("===================");
-                System.out.println(work);
-                }
-            }
-        System.out.println("===================");
-    }
-
-    /**
-     * Method to list teams and their information.
-     */
-    private void listTeams() {
-        if (investigationTeams.isEmpty()) {
-            System.out.println("No investigation teams in our database.");
-            return;
-        }
-        try {
-            System.out.println("Equipas de Investigação:");
-            for (InvestigationTeam investigationTeam : investigationTeams) {
-                System.out.println(investigationTeam + countTeamMembers(investigationTeam) + countWorks(investigationTeam));
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Researching team doesn't exist in database.");
-        }
-    }
-
-    /**
-     * Method to count members from given investigation team.
-     */
-    private String countTeamMembers(InvestigationTeam team) {
-        int student = 0; int efetive = 0;
-        for (Investigator investigator: investigators) {
-            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT) && investigator.getInvestigationGroup().equals(team)) {
-                student++;
-            } else if (investigator.getInvestigationGroup() == team && investigator.getType().equals(Investigator.TYPE_TEACHER)) {
-                efetive++;
-            }
-        }
-        int total = student + efetive;
-        return "Total count of members: " + total + ", which " + student + " are students and " + efetive + " are efetive members.";
-    }
 }
 
 // ======================= not used methods ========================== //
@@ -732,5 +750,22 @@ public class CISUC implements Serializable {
         System.out.printf("Current count of Students members: %d\n" +
                 "Current count of Efetive members: %d\n" +
                 "Total count of staff: %d\n", students, efetives, total);
+    }*/
+
+/*    *//**
+ * Method to count members from given investigation team.
+ * @return
+ *//*
+    private String countTeamMembers(InvestigationTeam team) {
+        int student = 0; int efetive = 0;
+        for (Investigator investigator: investigators) {
+            if (investigator.getType().equalsIgnoreCase(Investigator.TYPE_STUDENT) && investigator.getInvestigationGroup().equals(team)) {
+                student++;
+            } else if (investigator.getInvestigationGroup() == team && investigator.getType().equals(Investigator.TYPE_TEACHER)) {
+                efetive++;
+            }
+        }
+        int total = student + efetive;
+        return "Total count of members: " + total + ", which " + student + " are students and " + efetive + " are efetive members.";
     }*/
 

@@ -22,16 +22,12 @@ public class Teacher extends Investigator implements Serializable {
         super(name, email, investigationGroup);
         this.room = room;
         this.cellphone = cellphone;
-        setType(TYPE_TEACHER);
-        teacherCount++;
     }
 
     public Teacher(String name) {
         super(name);
         this.room = null;
         this.cellphone = 0;
-        setType(TYPE_TEACHER);
-        teacherCount++;
     }
 
     /**
@@ -79,10 +75,6 @@ public class Teacher extends Investigator implements Serializable {
     public String createPublicationName(String name) {
         String[] nameSplit = name.split(" ");
         return "Professor " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1];
-    }
-
-    public String setType(String type) {
-        return Investigator.TYPE_TEACHER;
     }
 
     @Override
