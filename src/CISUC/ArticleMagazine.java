@@ -1,6 +1,7 @@
 package CISUC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The type Article magazine.
@@ -13,23 +14,22 @@ public class ArticleMagazine extends Work {
     /**
      * Instantiates a new Article magazine.
      *
-     * @param author        the author
+     * @param authors        the author
      * @param title         the title
      * @param keywords      the keywords
-     * @param team          the team
      * @param yearPublished the year published
      * @param audience      the audience
      * @param journalName   the journal name
      * @param issueNum      the issue num
      * @param issueDate     the issue date
      */
-    public ArticleMagazine(ArrayList<Investigator> author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String journalName, int issueNum, String issueDate) {
-        super(author, title, keywords, team, yearPublished, audience);
+    public ArticleMagazine(ArrayList<Investigator> authors, String title, String[] keywords, int yearPublished, int audience, String journalName, int issueNum, String issueDate) {
+        super(authors, title, keywords, yearPublished, audience);
         this.journalName = journalName;
         this.issueNum = issueNum;
         this.issueDate = issueDate;
         setType(1);
-        articleMagazineCount++;
+        Collections.sort(authors);
     }
 
     /**
@@ -86,6 +86,11 @@ public class ArticleMagazine extends Work {
         this.issueDate = issueDate;
     }
 
+    /**
+     * Sets impact value char according to object type.
+     *
+     * @param audience the audience amount
+     */
     public char setImpactValue(int audience) {
         if (audience >= 1000) {
             return 'A';

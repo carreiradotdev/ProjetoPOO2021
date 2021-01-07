@@ -2,60 +2,35 @@ package CISUC;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The type Work.
  */
-public abstract class Work implements Serializable {
+public abstract class Work implements Serializable, Comparable<Work> {
     private ArrayList<Investigator> authors;
     private String title;
-    private String keywords;
+    private String[] keywords;
     private int yearPublished;
     private int type;
     private int audience;
     private char impactValue;
-    private String publicationName;
-    private InvestigationTeam team;
-
-    /**
-     * The constant TYPE_ARTICLE_CONFERENCE.
-     */
-    public static int articleConferenceCount = 0;
-    /**
-     * The constant TYPE_ARTICLE_MAGAZINE.
-     */
-    public static int articleMagazineCount = 0;
-    /**
-     * The constant TYPE_BOOK_ARTICLE_CONFERENCE.
-     */
-    public static int bookArticleConferenceCount = 0;
-    /**
-     * The constant TYPE_BOOK_CHAPTER.
-     */
-    public static int bookChapterCount = 0;
-    /**
-     * The constant TYPE_BOOK.
-     */
-    public static int bookCount = 0;
 
     /**
      * Instantiates a new Work.
-     *
-     * @param authors       the author
+     *  @param authors       the author
      * @param title         the title
      * @param keywords      the keywords
-     * @param team          the team
      * @param yearPublished the year published
      * @param audience      the audience
      */
-    public Work(ArrayList<Investigator> authors, String title, String keywords, InvestigationTeam team, int yearPublished, int audience) {
+    public Work(ArrayList<Investigator> authors, String title, String[] keywords, int yearPublished, int audience) {
         this.authors = authors;
         this.title = title;
         this.keywords = keywords;
         this.yearPublished = yearPublished;
         this.audience = audience;
         this.impactValue = setImpactValue(audience);
-        this.team = team;
     }
 
     /**
@@ -99,7 +74,7 @@ public abstract class Work implements Serializable {
      *
      * @return the keywords
      */
-    public String getKeywords() {
+    public String[] getKeywords() {
         return keywords;
     }
 
@@ -108,7 +83,7 @@ public abstract class Work implements Serializable {
      *
      * @param keywords the keywords
      */
-    public void setKeywords(String keywords) {
+    public void setKeywords(String[] keywords) {
         this.keywords = keywords;
     }
 
@@ -182,42 +157,6 @@ public abstract class Work implements Serializable {
      */
     public abstract char setImpactValue(int audience);
 
-    /**
-     * Gets publication name.
-     *
-     * @return the publication name
-     */
-    public String getPublicationName() {
-        return publicationName;
-    }
-
-    /**
-     * Sets publication name.
-     *
-     * @param publicationName the publication name
-     */
-    public void setPublicationName(String publicationName) {
-        this.publicationName = publicationName;
-    }
-
-    /**
-     * Gets team.
-     *
-     * @return the team
-     */
-    public InvestigationTeam getTeam() {
-        return team;
-    }
-
-    /**
-     * Sets team.
-     *
-     * @param team the team
-     */
-    public void setTeam(InvestigationTeam team) {
-        this.team = team;
-    }
-
     public String printAuthors() {
         String authorsList = "";
         boolean isFirst = true;
@@ -232,11 +171,32 @@ public abstract class Work implements Serializable {
         return authorsList;
     }
 
+    public int compareTo(Work work) {
+        if (this.getYearPublished() > work.getYearPublished()) {
+            return -1;
+        } else if (this.getYearPublished() < work.getYearPublished()) {
+            return 1;
+        } else {
+            if (this.getImpactValue() < work.getImpactValue()) {
+                return -1;
+            } else if (this.getImpactValue() > work.getImpactValue()) {
+                return 1;
+            } else {
+                if (this.getType() > work.getType()) {
+                    return -1;
+                } else if (this.getType() < work.getType()) {
+                    return 1;
+                }
+            }
+        }
+        return getTitle().compareTo(work.title);
+    }
+
     @Override
     public String toString() {
         return "NAME: " + title +
                 "\nWRITTEN BY: " + printAuthors() +
-                "\nKEYWORDS: " + keywords +
+                "\nKEYWORDS: " + Arrays.toString(keywords) +
                 "\nPUBLISHED IN: " + yearPublished +
                 "\nIMPACT VALUE: " + impactValue;
     }

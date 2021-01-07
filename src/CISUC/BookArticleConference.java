@@ -1,6 +1,10 @@
 package CISUC;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The type Book article conference.
@@ -12,11 +16,9 @@ public class BookArticleConference extends Book {
 
     /**
      * Instantiates a new Book article conference.
-     *
-     * @param author         the author
+     * @param authors         the author
      * @param title          the title
      * @param keywords       the keywords
-     * @param team           the team
      * @param yearPublished  the year published
      * @param audience       the audience
      * @param editor         the editor
@@ -24,11 +26,12 @@ public class BookArticleConference extends Book {
      * @param conferenceName the conference name
      * @param articleNum     the article num
      */
-    public BookArticleConference(ArrayList<Investigator> author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn, String conferenceName, int articleNum) {
-        super(author, title, keywords, team, audience,yearPublished, editor, isbn);
+    public BookArticleConference(ArrayList<Investigator> authors, String title, String[] keywords, int yearPublished, int audience, String editor, int isbn, String conferenceName, int articleNum) {
+        super(authors, title, keywords, audience,yearPublished, editor, isbn);
         this.conferenceName = conferenceName;
         this.articleNum = articleNum;
-        setType(2);
+        setType(4);
+        Collections.sort(authors);
     }
 
     /**
@@ -85,6 +88,11 @@ public class BookArticleConference extends Book {
         this.count = count;
     }
 
+    /**
+     * Sets impact value char according to object type.
+     *
+     * @param audience the audience amount
+     */
     public char setImpactValue(int audience) {
         if (audience >= 7500) {
             return 'A';
@@ -98,7 +106,7 @@ public class BookArticleConference extends Book {
     @Override
     public String toString() {
         return super.toString() +
-                "\nTYPE: Conference Article Book" +
+                "\nSUBTYPE: Conference Article Book" +
                 "\nCONFERENCE NAME: " + conferenceName +
                 "\nARTICLE NUMBER: " + articleNum;
     }

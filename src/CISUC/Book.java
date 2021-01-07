@@ -1,32 +1,32 @@
 package CISUC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The type Book.
  */
-public abstract class Book extends Work {
+public class Book extends Work {
     private String editor;
     private int isbn;
 
     /**
      * Instantiates a new Book.
      *
-     * @param authors        the author
+     * @param authors       the author
      * @param title         the title
      * @param keywords      the keywords
-     * @param team          the team
      * @param yearPublished the year published
      * @param audience      the audience
      * @param editor        the editor
      * @param isbn          the isbn
      */
-    public Book(ArrayList<Investigator> authors, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn) {
-        super(authors, title, keywords, team, audience, yearPublished);
+    public Book(ArrayList<Investigator> authors, String title, String[] keywords, int yearPublished, int audience, String editor, int isbn) {
+        super(authors, title, keywords, audience, yearPublished);
         this.editor = editor;
         this.isbn = isbn;
-        setType(4);
-        bookCount++;
+        setType(2);
+        Collections.sort(authors);
     }
 
     /**
@@ -65,6 +65,11 @@ public abstract class Book extends Work {
         this.isbn = isbn;
     }
 
+    /**
+     * Sets impact value char according to object type.
+     *
+     * @param audience the audience amount
+     */
     public char setImpactValue(int audience) {
         if (audience >= 10000) {
             return 'A';
@@ -78,8 +83,8 @@ public abstract class Book extends Work {
     @Override
     public String toString() {
         return super.toString() +
-                "\nTYPE: Book" +
                 "\nEDITOR: " + editor +
-                "\nISBN: " + isbn;
+                "\nISBN: " + isbn +
+                "\nTYPE: Book";
     }
 }

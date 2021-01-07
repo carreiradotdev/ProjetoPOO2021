@@ -1,0 +1,79 @@
+team,Adaptive Computation,AC,Jorge Henriques
+team,Cognitive and Media Systems,CMS,Penousal Machado
+team,Evolutionary and Complex Systems,ECOS,Nuno Lourenço
+team,Information Systems,IS,Licínio Roque
+team,Communications and Telematics,LCT,Paulo Simões
+team,Software and Systems Engineering,SSE,Henrique Madeira
+efetivemember,Luis Cordeiro,cordeiro@dei.uc.pt,AC,2.2.4,239790000
+efetivemember,Henrique Madeira,henrique@dei.uc.pt,SSE,2.1.3,239790000
+efetivemember,Paulo Simões,psimoes@dei.uc.pt,LCT,3.2.1,239790000
+efetivemember,Licínio Roque,lir@dei.uc.pt,IS,1.2.3,239790000
+efetivemember,Nuno Lourenço,naml@dei.uc.pt,ECOS,A6,239790000
+efetivemember,Penousal Machado,machado@dei.uc.pt,CMS,sala,239790000
+efetivemember,Jorge Henriques,jh@dei.uc.pt,AC,sala,239790000
+efetivemember,Alberto Cardoso,alberto@dei.uc.pt,AC,sala,239790000
+efetivemember,Ana Boavida,aboavida@dei.uc.pt,AC,sala,239790000
+efetivemember,Ana Cristina da Costa Oliveira Alves,ana@dei.uc.pt,CMS,sala,239790000
+efetivemember,Ana Maria Carvalho de Almeida,amaria@dei.uc.pt,CMS,sala,239790000
+efetivemember,Anabela Jesus Gomes,anabela@isec.pt,CMS,sala,239790000
+efetivemember,André Rodrigues,andre@iscac.pt,LCT,sala,239790000
+efetivemember,Antonio Dias de Figueiredo,adf@dei.uc.pt,IS,sala,239790000
+efetivemember,António Dourado,dourado@dei.uc.pt,AC,sala,239790000
+efetivemember,Antonio Jose Mendes,toze@dei.uc.pt,CMS,sala,239790000
+efetivemember,Artur Rebelo,arturr@dei.uc.pt,CMS,sala,239790000
+efetivemember,Bernardete Ribeiro,bribeiro@dei.uc.pt,AC,sala,239790000
+efetivemember,Bruno Cabral,bcabral@dei.uc.pt,SSE,sala,239790000
+efetivemember,Ernesto Costa,ernesto@dei.uc.pt,ECOS,sala,239790000
+efetivemember,Edmundo Monteiro,edmundo@dei.uc.pt,LCT,sala,239790000
+efetivemember,Carlos Bento,bento@dei.uc.pt,CMS,sala,239790000
+efetivemember,Fernando Barros,barros@dei.uc.pt,SSE,sala,239790000
+efetivemember,João P. Vilela,jpvilela@dei.uc.pt,LCT,sala,239790000
+efetivemember,Marilia Cordeiro,marilia@dei.uc.pt,LCT,sala,239790000
+student,Francisco Carreira,fmbcarreira@gmail.com,AC,sala,2021,Luis Cordeiro
+student,Carlos Jordão,jordao@email.com,AC,"Fiding the location of Ganza",2023,Paulo Simões
+student,João Lourenço,lourenco@email.com,CMS,"Driving Home for Christmas",2023,Penousal Machado
+student,Rodrigo Machado, rodrigo@email.com,CMS,"State of The Art Compression",2021,Luis Cordeiro
+student,Inês Fonseca,fonseca@email.com,CMS,"Feliz Navidad",2022,Jorge Henriques
+student,João Marques,marques@email.com,ECOS,"Stop The World I Wanna Get Off With You",2023,Marilia Cordeiro
+student,Jonas Rua,rua@gmail.com,ECOS,"Happy Thesis",2020,Marilia Cordeiro
+student,João Vaz,vaz@email.com,ECOS,"Being Manco and Playing Basketball",2021,Licínio Roque
+student,Gonçalo Folhas, folhas@email.com,IS,"Hoops and saying yo",2022,Licínio Roque
+student,David Leitão,leitao@email.com,LCT,"****** and White Wine",2073,Paulo Simões
+student,Guilherme Junqueira,guillos@email.com,SSE,"Being Black in Entroncamento",2021,Henrique Madeira
+articleconference,Guilherme Junqueira;Jorge Henriques,What The Dead Men Say,"world";"temperature",2020,25000500,"CM",1,Coimbra
+articleconference,Jorge Henriques,The Ones We Leave Behind,"ones";"behind";,2019,500,"IEEE",2,Entroncamento
+articleconference,Penousal Machado,What the Dead Men Say,"dead";"say",2018,1000,"CISUC",3,Faro
+articleconference,António Dourado,Catastrophist,"catastrophist",2017,4000,"Cimeira do Ambiente",4,Luxemburgo
+articleconference,Rodrigo Machado,Amongst the Shadows & the Stones,"shadows";"stones",2016,5000000,"Entroncamento Talks",5,Entroncamento
+articleconference,João Vaz;Rodrigo Machado,Bleed Into Me,"blood",2015,12345,"Condeixa Talks",6,Condeixa
+articleconference,Inês Fonseca;Francisco Carreira,The Defiant,"defiant",2014,54321,"Conferencia",7,Ali ao Lado
+articlemagazine,Francisco Carreira,I Don’t Trust Myself (With Loving You),keyword,2020,500,Correio da Manhã,1,13-01-2001
+articlemagazine,Rodrigo Machado,Waiting On the World to Change,keyword,2020,1000,Jornal de Noticias,2,23-01-2001
+articlemagazine,Inês Fonseca,Slow Dancing In a Burning Room,keyword,2019,2000,Diário de Notícias,3,03-04-2002
+articlemagazine,Jonas Rua,Vultures,keyword,2018,3000,Record,4,05-02-2003
+articlemagazine,João Marques;Gonçalo Folhas,Dreaming With a Broken Heart,keyword,2017,4000,Sapo,5,01-12-2001
+articlemagazine,Gonçalo Folhas,Stop This Train,keyword,2016,5000,Observador,6,14-01-2001
+articlemagazine,Ana Cristina da Costa Oliveira Alves,Good Love Is On the Way,keyword,2016,6000,O Mirante,7,09-11-2020
+articlemagazine,Antonio Dias de Figueiredo,In Repair,keyword,2015,7000,Jornal I,8,11-04-2016
+articlemagazine,Antonio Jose Mendes,The Heart of Life,keyword,2014,8000,Económico,9,05-04-2015
+articlemagazine,Bruno Cabral,I’m Gonna Find Another You,keyword,2013,9000,A Bola,10,06-06-2016
+articlemagazine,Fernando Barros,Gravity,keyword,2012,10000,Público,11,05-05-2015
+bookarticleconference,Carlos Jordão,Somebody Do Something,keyword,2020,5000,Gradiva,987654321,conferenceName,0
+bookarticleconference,David Leitão,Kool Aid And Frozen Pizza,keyword,2019,1000,Porto Editora,987654321,conferenceName,1
+bookarticleconference,João Vaz,Best Day Ever,keyword,2018,5432,Areal,987654321,conferenceName,2
+bookarticleconference,Artur Rebelo,The Star Room,keyword,2017,4354,Raiz Editora,987654321,conferenceName,3
+bookarticleconference,Fernando Barros;Ana Cristina da Costa Oliveira Alves,I Am Who Am (Killin' Time),keyword,2016,6544,Oxford,987654321,conferenceName,4
+bookarticleconference,Penousal Machado,Birds Call,keyword,2015,342,Pfizer,987654321,conferenceName,5
+bookarticleconference,Licínio Roque,Watching Movies,keyword,2014,23424,Moderna,987654321,conferenceName,6
+bookchapter,Rodrigo Machado,Chanel,keywords,2020,20000,Pergaminho,0,Who Says,1,5
+bookchapter,Francisco Carreira,In My Room,keywords,2019,10000,Impresa,0,Clarity,2,8
+bookchapter,João Vaz,Pink + White,keywords,2018,5000,Betrand Portugal,0,Half of My Heart,5,9
+bookchapter,Guilherme Junqueira,Nights,keywords,2017,2500,Booktree,0,Thinking About You,23,54
+bookchapter,Carlos Jordão,White Ferrari,keywords,2016,1250,JBC,0,White Farrarri,234,765
+bookchapter,Luis Cordeiro,Self Control,keywords,2015,625,Planeta deAgostini,0,Summer,1,1
+book,Francisco Carreira,Nightmare,keyword,23424,2020,Warner,987654321
+book,Rodrigo Machado,Welcome to the Family,keyword,765456,2016,Roadrunner,987654321
+book,Jonas Rua,Danger Line,keyword,23424,2010,Moderna,645654
+book,Luis Cordeiro,Buried Alive,keyword,2014,2014,Moderna,4324234
+book,Carlos Jordão,Natural Born Killer,keyword,20000,2019,Moderna,4343242
+book,João Vaz;Carlos Jordão;Rodrigo Machado,God Hates Us,keyword,23424,2020,Moderna,12341324

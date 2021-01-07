@@ -22,12 +22,14 @@ public class Teacher extends Investigator implements Serializable {
         super(name, email, investigationGroup);
         this.room = room;
         this.cellphone = cellphone;
+        setPriority(1);
     }
 
     public Teacher(String name) {
         super(name);
         this.room = null;
         this.cellphone = 0;
+        setPriority(1);
     }
 
     /**

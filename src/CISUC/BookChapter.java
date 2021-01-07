@@ -1,6 +1,7 @@
 package CISUC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The type Book chapter.
@@ -12,11 +13,9 @@ public class BookChapter extends Book {
 
     /**
      * Instantiates a new Book chapter.
-     *
-     * @param author        the author
+     * @param authors        the authors
      * @param title         the title
      * @param keywords      the keywords
-     * @param team          the team
      * @param yearPublished the year published
      * @param audience      the audience
      * @param editor        the editor
@@ -25,12 +24,13 @@ public class BookChapter extends Book {
      * @param startingPage  the starting page
      * @param endingPage    the ending page
      */
-    public BookChapter(ArrayList<Investigator> author, String title, String keywords, InvestigationTeam team, int yearPublished, int audience, String editor, int isbn, String chapterName, int startingPage, int endingPage) {
-        super(author, title, keywords, team, audience, yearPublished, editor, isbn);
+    public BookChapter(ArrayList<Investigator> authors, String title, String[] keywords, int yearPublished, int audience, String editor, int isbn, String chapterName, int startingPage, int endingPage) {
+        super(authors, title, keywords, audience, yearPublished, editor, isbn);
         this.chapterName = chapterName;
         this.startingPage = startingPage;
         this.endingPage = endingPage;
         setType(3);
+        Collections.sort(authors);
     }
 
     /**
@@ -87,6 +87,11 @@ public class BookChapter extends Book {
         this.endingPage = endingPage;
     }
 
+    /**
+     * Sets impact value char according to object type.
+     *
+     * @param audience the audience amount
+     */
     public char setImpactValue(int audience) {
         if (audience >= 10000) {
             return 'A';
@@ -100,7 +105,7 @@ public class BookChapter extends Book {
     @Override
     public String toString() {
         return super.toString() +
-                "\nTYPE: Book Chapter" +
+                "\nSUBTYPE: Book Chapter" +
                 "\nCHAPTER NAME: " + chapterName +
                 "\nPAGES: " + startingPage + " - " + endingPage;
     }

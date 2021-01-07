@@ -1,7 +1,9 @@
 package CISUC;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The type Investigation team.
@@ -11,6 +13,7 @@ public class InvestigationTeam implements Serializable {
     private String acronym;
     private Investigator headLeader;
     private ArrayList<Investigator> members;
+    private ArrayList<Work> works;
 
     /**
      * Instantiates a new Investigation team.
@@ -24,19 +27,7 @@ public class InvestigationTeam implements Serializable {
         this.acronym = acronym;
         this.headLeader = headLeader;
         this.members = new ArrayList<>();
-    }
-
-    /**
-     * Instantiates a new Investigation team.
-     *
-     * @param group   the group
-     * @param acronym the acronym
-     */
-    public InvestigationTeam(String group, String acronym) {
-        this.group = group;
-        this.acronym = acronym;
-        this.headLeader = null;
-        this.members = new ArrayList<>();
+        this.works = new ArrayList<>();
     }
 
     /**
@@ -93,30 +84,66 @@ public class InvestigationTeam implements Serializable {
         this.headLeader = headLeader;
     }
 
+    /**
+     * Gets members.
+     *
+     * @return the members
+     */
     public ArrayList<Investigator> getMembers() {
+        Collections.sort(members);
         return members;
     }
 
+    /**
+     * Sets members.
+     *
+     * @param members the members
+     */
     public void setMembers(ArrayList<Investigator> members) {
         this.members = members;
     }
 
+    /**
+     * Add member.
+     *
+     * @param investigator the investigator
+     */
     public void addMember(Investigator investigator) {
         members.add(investigator);
     }
 
+    /**
+     * Remove member.
+     *
+     * @param investigator the investigator
+     */
     public void removeMember(Investigator investigator) {
         members.remove(investigator);
     }
 
-/*    public void listMembers() {
-        for (Investigator member: members) {
-            System.out.println("===================");
-            System.out.println(member);
-        }
-        System.out.println("===================");
-    }*/
+    /**
+     * Add work.
+     *
+     * @param work the work
+     */
+    public void addWork(Work work) {
+        works.add(work);
+    }
 
+    /**
+     * Remove work.
+     *
+     * @param work the work
+     */
+    public void removeWork(Work work) {
+        works.remove(work);
+    }
+
+    /**
+     * Method to get amount of members and returning a string distinguishing between member type.
+     *
+     * @return String string containing the amount of members
+     */
     private String countMembers() {
         int students = 0;
         int efetives = 0;
@@ -127,11 +154,47 @@ public class InvestigationTeam implements Serializable {
                 students++;
             }
         }
-        return "Total count of members: " + getMembers().size() + ", which " + students + " are students and " + efetives + " are efetive members.";
+        return "Total count of members: " + members.size() + ", which " + students + " are students and " + efetives + " are efetive members.";
+    }
+
+    /**
+     * Gets works.
+     *
+     * @return the works
+     */
+    public ArrayList<Work> getWorks() {
+        Collections.sort(works);
+        return works;
+    }
+
+    /**
+     * Method to get amount of published papers and returning a string.
+     *
+     * @return String string containing the amount of published papers
+     */
+    private String countWorks() {
+        int count = works.size();
+        if (count == 0) {
+            return "No published papers.";
+        } else {
+            int newest = 0;
+            for (Work work : getWorks()) {
+                if (work.getYearPublished() >= (LocalDate.now().getYear() - 5)) {
+                    newest++;
+                }
+            }
+            if (newest == 0) {
+                return count + " published papers, none in the last 5 years.";
+            }
+            if (count == newest) {
+                return count + " published papers, all in the last 5 years.";
+            }
+            return count + " published papers, " + newest + " in the last 5 years.";
+        }
     }
 
     @Override
     public String toString() {
-        return getAcronym() + " | " + getGroup() + " | " + getHeadLeader().getName() + " | " + countMembers();
+        return getAcronym() + " | " + getGroup() + " | " + getHeadLeader().getName() + " | " + countMembers() + " | " + countWorks();
     }
 }

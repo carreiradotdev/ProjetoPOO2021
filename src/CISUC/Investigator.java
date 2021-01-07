@@ -5,15 +5,12 @@ import java.io.Serializable;
 /**
  * The type Investigator.
  */
-public abstract class Investigator implements Serializable {
+public abstract class Investigator implements Serializable, Comparable<Investigator> {
     private String name;
     private String email;
     private InvestigationTeam investigationGroup;
     private String publicationName;
-
-    //private int studentCount = 0;
-
-    //public int teacherCount = 0;
+    private int priority;
 
     /**
      * Instantiates a new Investigator.
@@ -35,6 +32,8 @@ public abstract class Investigator implements Serializable {
         this.investigationGroup = null;
         this.publicationName = createPublicationName(name);
     }
+
+    public abstract String createPublicationName(String name);
 
     /**
      * Gets name.
@@ -69,7 +68,7 @@ public abstract class Investigator implements Serializable {
      * @param email the email
      */
     public void setEmail(String email) {
-        this.email = email;
+        if (email.contains("@")) this.email = email;
     }
 
     /**
@@ -108,13 +107,28 @@ public abstract class Investigator implements Serializable {
         this.publicationName = publicationName;
     }
 
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
 
-    public abstract String createPublicationName(String name);
+    /**
+     * Gets priority.
+     *
+     * @return the priority
+     */
+    public int getPriority() {
+        return priority;
+    }
+
+    public int compareTo(Investigator investigator) {
+        if (this.getPriority() < investigator.getPriority()) {
+            return 1;
+        } else if (this.getPriority() > investigator.getPriority()) {
+            return -1;
+        } else {
+            return getName().compareTo(investigator.getName());
+        }
+    }
 
     @Override
     public String toString() {
