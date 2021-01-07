@@ -1,3 +1,8 @@
+/**
+ * Projeto Final - POO2021
+ * @author Francisco Carreira - 2019222462
+ */
+
 package CISUC;
 
 import java.io.Serializable;
@@ -138,7 +143,7 @@ public abstract class Work implements Serializable, Comparable<Work> {
      * @param audience the audience
      */
     public void setAudience(int audience) {
-        this.audience = audience;
+        if (audience > 0) this.audience = audience;
     }
 
     /**
@@ -154,15 +159,21 @@ public abstract class Work implements Serializable, Comparable<Work> {
      * Sets impact value.
      *
      * @param audience the audience value
+     * @return char with corresponding impactValue value
      */
     public abstract char setImpactValue(int audience);
 
+    /**
+     * Prints to set the to-be printed author list.
+     *
+     * @return Returns a String with publication names of the authors, separated by commas.
+     */
     public String printAuthors() {
         String authorsList = "";
         boolean isFirst = true;
         for (Investigator author : authors) {
             if (isFirst) {
-                authorsList = author.getPublicationName();
+                authorsList = author.getPublicationName(); // only adds a comma after the first member is inserted in the string
                 isFirst = false;
             } else {
                 authorsList += ", " + author.getPublicationName();
@@ -171,11 +182,16 @@ public abstract class Work implements Serializable, Comparable<Work> {
         return authorsList;
     }
 
+    /**
+     * Compares this object with the specified object for order.
+     *
+     * @return Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     */
     public int compareTo(Work work) {
         if (this.getYearPublished() > work.getYearPublished()) {
             return -1;
         } else if (this.getYearPublished() < work.getYearPublished()) {
-            return 1;
+            return 1; //
         } else {
             if (this.getImpactValue() < work.getImpactValue()) {
                 return -1;
@@ -189,7 +205,7 @@ public abstract class Work implements Serializable, Comparable<Work> {
                 }
             }
         }
-        return getTitle().compareTo(work.title);
+        return getTitle().compareTo(work.title); // if the year, impactvalue and type are all the same, it sorts based on the alfabetical order of the title
     }
 
     @Override

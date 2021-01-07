@@ -1,3 +1,8 @@
+/*
+ * Projeto Final - POO2021
+ * @author Francisco Carreira - 2019222462
+ */
+
 package CISUC;
 
 import java.io.*;
@@ -18,8 +23,13 @@ public class CISUC implements Serializable {
         investigationTeams = new ArrayList<>();
         works = new ArrayList<>();
     }
-
+    /**
+     * The object file (may not exist) that serves as input file as default.
+     */
     static File objectFile = new File("data/CISUC.ser");
+    /**
+     * The text file, that serves as input file when the object file doesn't exist.
+     */
     static File textFile = new File("data/input.csv");
 
     /**
@@ -28,7 +38,7 @@ public class CISUC implements Serializable {
     private int[] generalCount; // team, efetive, student, book chapter, article magazine, article conference, book article conference, book
 
     /**
-     * The constant sc.
+     * The constant scanner.
      */
     public static final Scanner sc = new Scanner(System.in);
 
@@ -49,7 +59,9 @@ public class CISUC implements Serializable {
             cisuc.hasntRun = false;
         } else {
             System.out.println("Object file doesn't exist! Reading from text files.");
-            cisuc.firstRun();
+            if (textFile.exists()) {
+                cisuc.firstRun();
+            }
         }
         cisuc.run();
     }
@@ -154,12 +166,12 @@ public class CISUC implements Serializable {
                     break;
                 case 11:
                     sc.close(); // closes scanner
-                    writer();
-                    System.exit(0);
+                    writer(); // writes CISUC object to the outputFile
+                    System.exit(0); // closes application
                     break;
                 case 12:
                     sc.close(); // closes scanner
-                    System.exit(0);
+                    System.exit(0); // closes application
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -170,6 +182,9 @@ public class CISUC implements Serializable {
 
     /**
      * Method to add work to authors' corresponding team list.
+     *
+     * @param work work object to add to team
+     * @param authors arraylist with authors get Team from and add work to corresponding team.
      */
     private void addWorkToTeam(Work work, ArrayList<Investigator> authors) {
         for (Investigator author: authors) {
@@ -314,6 +329,7 @@ public class CISUC implements Serializable {
      * Method to set one or multiple authors in one publication
      *
      * @param array string of authors to be split.
+     * @return arraylist with all investigator objects in the publication
      */
     private ArrayList<Investigator> setAuthors(String array) {
         String[] list = array.split(";");
@@ -328,6 +344,7 @@ public class CISUC implements Serializable {
      * Method to retrieve Investigator object from given Investigator name.
      *
      * @param name investigator name
+     * @return investigator object
      */
     private Investigator getInvestigator(String name) {
         for (Investigator investigator : investigators) {
@@ -339,13 +356,14 @@ public class CISUC implements Serializable {
     }
 
     /**
-     * Method to retrive Team object from given team name.
+     * Method to retrive Team object from given team acronym.
      *
-     * @param group team name
+     * @param acronym team acronym
+     * @return team object
      */
-    private InvestigationTeam getTeam(String group) {
+    private InvestigationTeam getTeam(String acronym) {
         for(InvestigationTeam team : investigationTeams) {
-            if (team.getAcronym().equalsIgnoreCase(group)) {
+            if (team.getAcronym().equalsIgnoreCase(acronym)) {
                 return team;
             }
         }
@@ -356,6 +374,7 @@ public class CISUC implements Serializable {
      * Method to retrive Team from given researcher's object.
      *
      * @param investigator researcher object
+     * @return team object from researcher object
      */
     private InvestigationTeam getTeam(Investigator investigator) {
         for(InvestigationTeam team : investigationTeams) {
@@ -370,11 +389,13 @@ public class CISUC implements Serializable {
 
     /**
      * Method to count work from less than 5 years ago in database.
+     *
+     * @return works from 5 years ago count
      */
     private int countLatestWorks() {
         int count = 0;
         for (Work work: works) {
-            if (work.getYearPublished() <= (LocalDate.now().getYear() - 5)) {
+            if (work.getYearPublished() >= (LocalDate.now().getYear() - 5)) {
                 count++;
             }
         }
@@ -509,11 +530,11 @@ public class CISUC implements Serializable {
                 for (Work work : worksInYear) {
                     if (work.getType() == type) {
                         if (work.getImpactValue() == 'A') {
-                            countA++;
+                            countA++; // impact value A type counter increases
                         } else if (work.getImpactValue() == 'B') {
-                            countB++;
+                            countB++; // impact value B type counter increases
                         } else {
-                            countC++;
+                            countC++; // impact value C type counter increases
                         }
                     }
                 }
@@ -523,19 +544,19 @@ public class CISUC implements Serializable {
                             System.out.printf("CONFERENCE ARTICLE\nIMPACT VALUE A: %d\nIMPACT VALUE B: %d\nIMPACT VALUE C: %d\n", countA, countB, countC);
                         break;
                     case 1:
-                        if ((countA + countB + countC) != 0)
+                        if ((countA + countB + countC) != 0) // if the sum equals 0, there is no need in printing.
                             System.out.printf("MAGAZINE ARTICLE\nIMPACT VALUE A: %d\nIMPACT VALUE B: %d\nIMPACT VALUE C: %d\n", countA, countB, countC);
                         break;
                     case 2:
-                        if ((countA + countB + countC) != 0)
+                        if ((countA + countB + countC) != 0) // if the sum equals 0, there is no need in printing.
                             System.out.printf("BOOK\nIMPACT VALUE A: %d\nIMPACT VALUE B: %d\nIMPACT VALUE C: %d\n", countA, countB, countC);
                         break;
                     case 3:
-                        if ((countA + countB + countC) != 0)
+                        if ((countA + countB + countC) != 0) // if the sum equals 0, there is no need in printing.
                             System.out.printf("BOOK CHAPTER\nIMPACT VALUE A: %d\nIMPACT VALUE B: %d\nIMPACT VALUE C: %d\n", countA, countB, countC);
                         break;
                     case 4:
-                        if ((countA + countB + countC) != 0)
+                        if ((countA + countB + countC) != 0) // if the sum equals 0, there is no need in printing.
                             System.out.printf("BOOK CONFERENCE\nIMPACT VALUE A: %d\nIMPACT VALUE B: %d\nIMPACT VALUE C: %d\n", countA, countB, countC);
                         break;
                 }
@@ -573,9 +594,9 @@ public class CISUC implements Serializable {
                 String[] split = line.split(",");
                 String type = split[0];
                 if (type.equalsIgnoreCase("team")) {
-                    Teacher temp = new Teacher(split[3]);
-                    investigators.add(temp);
-                    investigationTeams.add(new InvestigationTeam(split[1], split[2], temp));
+                    Teacher temp = new Teacher(split[3]); // creates a temporary teacher object that only has name, the other atributes will soon be updated.
+                    investigators.add(temp); // adds Teacher object to the investigators arraylist
+                    investigationTeams.add(new InvestigationTeam(split[1], split[2], temp)); // adds team to the investigationTeams list
                     generalCount[0]++; // increases investigation team count
                 }
                 else if (type.equalsIgnoreCase("efetivemember")) {
@@ -584,15 +605,15 @@ public class CISUC implements Serializable {
                         Teacher teacher = (Teacher) investigator;  // the only way this down cast is possible is if we know the order on which the objects are added, which we know bc there is no user interaction.
                         assert teacher != null; // cannot be null since only investigators added are only head leaders.
                         InvestigationTeam team = getTeam(split[3]); // gets team object so the teacher object can be added to the team member list.
-                        teacher.setEmail(split[2]);
-                        teacher.setInvestigationGroup(team);
-                        teacher.setRoom(split[4]);
+                        teacher.setEmail(split[2]); //updates email on temporary Teacher object
+                        teacher.setInvestigationGroup(team); //updates team on temporary Teacher object
+                        teacher.setRoom(split[4]); //updates room on temporary Teacher object
                         teacher.setCellphone(Long.parseLong(split[5])); // updates already existing teacher object
                         assert team != null;
-                        team.addMember(teacher);
+                        team.addMember(teacher); // adds member to the team member list
                         generalCount[1]++; // increases teacher count
                     } catch (NullPointerException e) { // if getInvestigator returns null that means that object doesn't exist, therefore it needs to be created.
-                        InvestigationTeam team = getTeam(split[3]);
+                        InvestigationTeam team = getTeam(split[3]); // gets team from team acronym
                         Investigator teacher = new Teacher(split[1], split[2], team, split[4], Long.parseLong(split[5]));
                         investigators.add(teacher);
                         assert team != null;
@@ -672,6 +693,8 @@ public class CISUC implements Serializable {
 
     /**
      * Method to read CISUC object from object file.
+     *
+     * @return the CISUC object
      */
     private CISUC reader() {
         CISUC cisuc = null;

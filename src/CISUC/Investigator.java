@@ -1,3 +1,8 @@
+/**
+ * Projeto Final - POO2021
+ * @author Francisco Carreira - 2019222462
+ */
+
 package CISUC;
 
 import java.io.Serializable;
@@ -120,6 +125,11 @@ public abstract class Investigator implements Serializable, Comparable<Investiga
         return priority;
     }
 
+    /**
+     * Compares this object with the specified object for order.
+     *
+     * @return Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     */
     public int compareTo(Investigator investigator) {
         if (this.getPriority() < investigator.getPriority()) {
             return 1;
