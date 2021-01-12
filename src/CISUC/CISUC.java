@@ -83,18 +83,16 @@ public class CISUC implements Serializable {
         Collections.sort(investigators); // sorts both work and investigators list
         int choice = -1;
         do {
-            System.out.print("1: Inicial Run.\n" +
-                    "2: Show CISUC indicators.\n" +
-                    "3: List yearly indicators, sorted by Team.\n" +
-                    "4: List Team work.\n" +
-                    "5: List Team members.\n" +
-                    "6: List Investigation Teams.\n" +
-                    "7: List works of the lastest five years.\n" +
-                    "8: List all researchers from CISUC.\n" +
-                    "9. List all works from CISUC.\n" +
-                    "10. List works from (to-be referenced) investigator.\n" +
-                    "11. Exit and save.\n" +
-                    "12. Exit w/o saving.\n" +
+            System.out.print("1: Show CISUC indicators.\n" +
+                    "2: Show team indicators, sorted by year.\n" +
+                    "3: List Team work.\n" +
+                    "4: List Team members.\n" +
+                    "5: List Investigation Teams.\n" +
+                    "6: List works of the lastest five years.\n" +
+                    "7: List all researchers from CISUC.\n" +
+                    "8. List all works from CISUC.\n" +
+                    "9. List works from (to-be referenced) investigator.\n" +
+                    "10. Exit and save.\n" +
                     "Enter your choice: ");
             try {
                 choice = sc.nextInt();
@@ -104,75 +102,67 @@ public class CISUC implements Serializable {
             sc.nextLine(); // makes sure that the newline character isn't in the scanner,
             switch (choice) {
                 case 1:
-                    if (hasntRun) {
-                        firstRun();
-                        hasntRun = false;
-                    } else {
-                        System.out.println("Inicial run has already run once, cannot run again or else objects will appear duplicated.");
-                    }
-                    break;
-                case 2:
                     if (works.isEmpty()) {
                         System.out.println("There are no works in record.");
                         break;
                     }
                     option2();
                     break;
-                case 3:
+                case 2:
                     if (works.isEmpty()) {
                         System.out.println("There are no works in record.");
                         break;
                     }
                     runIndicators();
                     break;
-                case 4:
+                case 3:
                     if (works.isEmpty()) {
                         System.out.println("There are no works in record.");
                         break;
                     }
                     option3();
                     break;
-                case 5:
+                case 4:
                     if (investigators.isEmpty()) {
                         System.out.println("There are no researchers in our Database.");
                         break;
                     }
                     option4();
                     break;
-                case 6:
+                case 5:
                     if (investigationTeams.isEmpty()) {
                         System.out.println("There are no investigation teams in record.");
                         break;
                     }
                     printTeams();
                     break;
-                case 7:
+                case 6:
                     if (works.isEmpty()) {
                         System.out.println("There are no works in record.");
                         break;
                     }
                     printLastestWork();
                     break;
-                case 8:
+                case 7:
                     printInvestigators();
                     break;
-                case 9:
+                case 8:
                     printWorks();
                     break;
-                case 10:
+                case 9:
                     System.out.print("Insert name: ");
                     String name = sc.nextLine();
                     listResearcherWork(name);
                     break;
-                case 11:
+                case 10:
                     sc.close(); // closes scanner
                     writer(); // writes CISUC object to the outputFile
                     System.exit(0); // closes application
                     break;
-                case 12:
+                /*case 12: // doesnt show in the menu, debug method only
                     sc.close(); // closes scanner
                     System.exit(0); // closes application
-                    break;
+                    break;*/
                 default:
                     System.out.println("Invalid input!");
                     break;
@@ -183,8 +173,8 @@ public class CISUC implements Serializable {
     /**
      * Method to add work to authors' corresponding team list.
      *
-     * @param work work object to add to team
-     * @param authors arraylist with authors get Team from and add work to corresponding team.
+     * @param work the work object to add to team
+     * @param authors the arraylist with authors get Team from and add work to corresponding team.
      */
     private void addWorkToTeam(Work work, ArrayList<Investigator> authors) {
         for (Investigator author: authors) {
@@ -390,7 +380,7 @@ public class CISUC implements Serializable {
     /**
      * Method to count work from less than 5 years ago in database.
      *
-     * @return works from 5 years ago count
+     * @return Returns an integer containing the count.
      */
     private int countLatestWorks() {
         int count = 0;
